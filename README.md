@@ -5,6 +5,10 @@ A little game engine for jamming on prototypes.
 __This is not yet intended for public use__
 
 
+## Overview
+
+
+
 ## Example
 
 ```js
@@ -27,12 +31,6 @@ const hero = {
 function update (delta) {
   const { mouse, keys } = input.getState()
 
-  // Hero should follow the player mouse position, centered
-  hero.position = {
-    x: mouse.x - hero.size.width / 2,
-    y: mouse.y - hero.size.height / 2
-  }
-
   // Make the hero larger and darker when the left mouse button is down
   if (mouse.pressed) {
     hero.color = '#232323'
@@ -42,6 +40,12 @@ function update (delta) {
     hero.color = '#ffffff'
     hero.size.width = 32
     hero.size.height = 32
+  }
+
+  // Hero should follow the player mouse position, centered
+  hero.position = {
+    x: mouse.x - hero.size.width / 2,
+    y: mouse.y - hero.size.height / 2
   }
 }
 
