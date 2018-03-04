@@ -1,8 +1,8 @@
-function load (path) {
+function load (path, type = 'text') {
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest()
 
-    request.responseType = "text"
+    request.responseType = type
 
     request.addEventListener('load', event => {
       resolve(event.target.responseText)
@@ -17,6 +17,15 @@ function load (path) {
   })
 }
 
+export function loadText (path) {
+  return load(path, 'text')
+}
+
+export function loadJson (path) {
+  return load(path, 'json')
+}
+
 export default {
-  load
+  loadText,
+  loadJson
 }
