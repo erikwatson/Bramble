@@ -7,4 +7,4 @@ __This is not intended for public use__
 
 ## Authors
 
-  + (Erik Watson)[http://erikwatson.me]
+  + [Erik Watson](http://erikwatson.me)
