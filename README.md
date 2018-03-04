@@ -5,10 +5,6 @@ A little game engine for jamming on prototypes.
 __This is not yet intended for public use__
 
 
-## Overview
-
-
-
 ## Example
 
 ```js
