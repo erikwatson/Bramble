@@ -18,5 +18,8 @@
     "rollup": "./node_modules/.bin/rollup",
     "build": "yarn rollup -c rollup.config.js",
     "watch": "yarn build -w"
+  },
+  "dependencies": {
+    "node-fetch": "^2.0.0"
   }
 }
