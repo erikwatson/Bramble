@@ -40,6 +40,12 @@ function sprite (sprite) {
   )
 }
 
+function text (x = 0, y = 0, text = '', color = '#000000', font = '16pt sans-serif') {
+  ctx.fillStyle = color
+  ctx.font = font
+  ctx.fillText(text, x, y)
+}
+
 export default {
   setContext,
   clear,
@@ -47,5 +53,6 @@ export default {
   circle,
   image,
   subImage,
-  sprite
+  sprite,
+  text
 }
