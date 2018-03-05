@@ -33,6 +33,11 @@ function step () {
 }
 
 function start () {
+  // disables the right-click menu
+  canvas.canvas.addEventListener('contextmenu', e => {
+    e.preventDefault()
+  })
+
   input.start()
   window.requestAnimationFrame(step)
 }
