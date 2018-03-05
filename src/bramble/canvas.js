@@ -14,7 +14,7 @@ function attachTo (element) {
 }
 
 export default {
-  canvas,
+  element: canvas,
   ctx,
   setSize,
   attachTo

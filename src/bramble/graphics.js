@@ -30,11 +30,22 @@ function subImage (x, y, w, h, sx, sy, sw, sh, image) {
   ctx.drawImage(image, sx, sy, sw, sh, x, y, w, h)
 }
 
+function sprite (sprite) {
+  drawImage(
+    sprite.x,
+    sprite.y,
+    sprite.width,
+    sprite.height,
+    sprite.texture
+  )
+}
+
 export default {
   setContext,
   clear,
   rect,
   circle,
   image,
-  subImage
+  subImage,
+  sprite
 }

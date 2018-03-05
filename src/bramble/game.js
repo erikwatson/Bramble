@@ -34,7 +34,7 @@ function step () {
 
 function start () {
   // disables the right-click menu
-  canvas.canvas.addEventListener('contextmenu', e => {
+  canvas.element.addEventListener('contextmenu', e => {
     e.preventDefault()
   })
 
