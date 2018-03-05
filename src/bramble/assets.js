@@ -25,7 +25,24 @@ export function loadJson (path) {
   return load(path, 'json')
 }
 
+export function loadImage (path) {
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+
+    img.addEventListener('load', e => {
+      resolve(img)
+    })
+
+    img.addEventListener('error', err => {
+      reject(err)
+    })
+
+    img.src = path
+  })
+}
+
 export default {
   loadText,
-  loadJson
+  loadJson,
+  loadImage
 }
