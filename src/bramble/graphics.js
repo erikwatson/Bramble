@@ -9,6 +9,10 @@ function clear (color) {
   ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 }
 
+function square (x, y, size, color) {
+  rect(x, y, size, size, color)
+}
+
 function rect (x, y, w, h, color) {
   ctx.fillStyle = color
   ctx.fillRect(x, y, w, h)
@@ -50,6 +54,7 @@ export default {
   setContext,
   clear,
   rect,
+  square,
   circle,
   image,
   subImage,
