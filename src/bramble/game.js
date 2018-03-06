@@ -33,11 +33,6 @@ function step () {
 }
 
 function start () {
-  // disables the right-click menu
-  canvas.element.addEventListener('contextmenu', e => {
-    e.preventDefault()
-  })
-
   input.start()
   window.requestAnimationFrame(step)
 }
@@ -48,5 +43,7 @@ export default {
   setRender,
   setBackgroundColor,
   attachTo: canvas.attachTo,
+  disableContextMenu: canvas.disableContextMenu,
+  setSmoothing: canvas.setSmoothing,
   start
 }

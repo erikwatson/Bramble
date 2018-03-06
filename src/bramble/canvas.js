@@ -13,9 +13,22 @@ function attachTo (element) {
   gfx.setContext(ctx)
 }
 
+// NOTE: Must be called AFTER anything that would change our context.
+//       setSize for example.
+function setSmoothing (to = true) {
+  ctx.imageSmoothingEnabled = to
+}
+
+function disableContextMenu () {
+  canvas.addEventListener('contextmenu', e => {
+    e.preventDefault()
+  })
+}
+
 export default {
   element: canvas,
-  ctx,
   setSize,
-  attachTo
+  attachTo,
+  setSmoothing,
+  disableContextMenu
 }
