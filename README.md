@@ -8,9 +8,11 @@ __This is not yet intended for public use__
 ## Example
 
 ```js
-import game from './bramble/game'
-import gfx from './bramble/graphics'
-import input from './bramble/input'
+import {
+  game, graphics, input, assets, music, sfx, sprite
+} from './bramble/bramble'
+
+import { onLoaded } from './events'
 
 const width = 640
 const height = 360
@@ -18,52 +20,45 @@ const height = 360
 const halfWidth = width / 2
 const halfHeight = height / 2
 
-const hero = {
-  position: { x: 0, y: 0 },
-  size: { width: 32, height: 32 },
-  color: '#ffffff'
-}
+let hero = null
 
 function update (delta) {
   const { mouse, keys } = input.getState()
 
-  // Make the hero larger and darker when the left mouse button is down
   if (mouse.pressed) {
     hero.color = '#232323'
-    hero.size.width = 42
-    hero.size.height = 42
+    hero.width = 32
+    hero.height = 32
   } else {
     hero.color = '#ffffff'
-    hero.size.width = 32
-    hero.size.height = 32
+    hero.width = 64
+    hero.height = 64
   }
 
-  // Hero should follow the player mouse position, centered
-  hero.position = {
-    x: mouse.x - hero.size.width / 2,
-    y: mouse.y - hero.size.height / 2
-  }
+  hero.rotation ++
+
+  hero.x = mouse.x - hero.width / 2
+  hero.y = mouse.y - hero.height / 2
 }
 
 function render () {
-  // Drawing a background
-  gfx.rect(0, 0, halfWidth, halfHeight, '#993366')
-  gfx.rect(halfWidth, 0, halfWidth, halfHeight, '#669933')
-  gfx.rect(halfWidth, halfHeight, halfWidth, halfHeight, '#993366')
-  gfx.rect(0, halfHeight, halfWidth, halfHeight, '#669933')
+  graphics.rect(0, 0, halfWidth, halfHeight, '#993366')
+  graphics.rect(halfWidth, 0, halfWidth, halfHeight, '#669933')
+  graphics.rect(halfWidth, halfHeight, halfWidth, halfHeight, '#993366')
+  graphics.rect(0, halfHeight, halfWidth, halfHeight, '#669933')
 
-  // Drawing the "Hero"
-  gfx.rect(
-    hero.position.x,
-    hero.position.y,
-    hero.size.width,
-    hero.size.height,
-    hero.color
+  graphics.sprite(hero)
+
+  graphics.text(
+    10,
+    30,
+    `Hero: ${JSON.stringify(hero)}`,
+    '#000000',
+    '12pt sans-serif'
   )
 }
 
-// Setup
-document.addEventListener('DOMContentLoaded', () => {
+function start () {
   const container = document.getElementById('app-container')
   game.attachTo(container)
 
@@ -72,6 +67,19 @@ document.addEventListener('DOMContentLoaded', () => {
   game.setRender(render)
 
   game.start()
+}
+
+function load () {
+  assets.loadImage('images/hero.jpg')
+    .then(img => {
+      hero = sprite.create(0, 0, 32, 32, 45, img)
+    })
+    .then(() => start())
+    .catch(err => console.error(err))
+}
+
+onLoaded(() => {
+  load()
 })
 ```
 
