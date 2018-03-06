@@ -1,3 +1,5 @@
+import number from './number'
+
 let ctx = null
 
 function setContext (context) {
@@ -34,13 +36,22 @@ function subImage (x, y, w, h, sx, sy, sw, sh, image) {
 }
 
 function sprite (sprite) {
-  drawImage(
-    sprite.x,
-    sprite.y,
+  const halfWidth = sprite.width / 2
+  const halfHeight = sprite.height / 2
+
+  ctx.save()
+  ctx.translate(sprite.x + halfWidth, sprite.y + halfHeight)
+  ctx.rotate(number.toRadians(sprite.rotation))
+
+  image(
+    - sprite.width / 2,
+    - sprite.height / 2,
     sprite.width,
     sprite.height,
     sprite.texture
   )
+
+  ctx.restore()
 }
 
 function text (x = 0, y = 0, text = '', color = '#000000', font = '16pt sans-serif') {
