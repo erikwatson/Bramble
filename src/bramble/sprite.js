@@ -15,6 +15,14 @@ function create (
     rotation,
     texture,
     color,
+    frame: 0,
+    frames: [
+      { x: 0, y: 0, width: 32, height: 32 },
+      { x: 32, y: 0, width: 32, height: 32 },
+      { x: 64, y: 0, width: 32, height: 32 },
+      { x: 96, y: 0, width: 32, height: 32 },
+      { x: 128, y: 0, width: 32, height: 32 }
+    ],
     get x () {
       return x
     },
