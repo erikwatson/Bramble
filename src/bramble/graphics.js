@@ -5,8 +5,7 @@ function setContext (context) {
 }
 
 function clear (color) {
-  ctx.fillStyle = color
-  ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+  rect(0, 0, ctx.canvas.width, ctx.canvas.height, color)
 }
 
 function square (x, y, size, color) {
