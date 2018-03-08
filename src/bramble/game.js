@@ -20,6 +20,8 @@ function setRender (callback) {
 }
 
 function step () {
+  input.update()
+
   if (update) {
     update(1 / 60) // TODO: faking it at 60fps for now
   }
