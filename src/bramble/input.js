@@ -1,17 +1,18 @@
 import { canvas } from './canvas'
+import allKeys from './keys'
 
 function defaultKeyState () {
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
-  const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-  const keys = letters.concat(numbers)
-
   const defaultState = {
     pressed: false,
     released: false
   }
 
-  return keys.reduce((acc, key) => {
-    acc[`${key}`] = { ...defaultState }
+  return allKeys.reduce((acc, key) => {
+    const label = key.label
+    delete key['label']
+
+    acc[label] = { ...key, ...defaultState }
+
     return acc
   }, {})
 }
@@ -48,16 +49,29 @@ function preventDefaultArrows (event) {
   }
 }
 
+function getKey (event, keys) {
+  let result = null
+  const objectKeys = Object.keys(keys)
+
+  for (let i = 0; i < objectKeys.length; i++) {
+    if (keys[objectKeys[i]].code === event.keyCode) {
+      result = keys[objectKeys[i]]
+    }
+  }
+
+  return result
+}
+
 function keyDown (event) {
   preventDefaultArrows(event)
 
-  const key = keys[event.key.toUpperCase()]
+  const key = getKey(event, keys)
 
   key.pressed = true
 }
 
 function keyUp (event) {
-  const key = keys[event.key.toUpperCase()]
+  const key = getKey(event, keys)
 
   key.pressed = false
 }
