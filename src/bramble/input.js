@@ -85,6 +85,10 @@ function start () {
   // keyboard events
   document.addEventListener('keydown', keyDown)
   document.addEventListener('keyup', keyUp)
+
+  // default mouse position, center of screen
+  mouse.x = canvas.width / 2
+  mouse.y = canvas.height / 2
 }
 
 function getState () {
