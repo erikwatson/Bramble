@@ -40,7 +40,17 @@ function mouseUp (event) {
   mouse.pressed = false
 }
 
+function preventDefaultArrows (event) {
+  const keys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
+
+  if (keys.includes(event.key)) {
+    event.preventDefault()
+  }
+}
+
 function keyDown (event) {
+  preventDefaultArrows(event)
+
   const key = keys[event.key.toUpperCase()]
 
   key.pressed = true
