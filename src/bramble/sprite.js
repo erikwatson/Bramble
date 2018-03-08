@@ -7,6 +7,8 @@ function create (
   texture = null,
   color = '#ffffff'
 ) {
+  let frames = []
+
   return {
     x,
     y,
@@ -16,28 +18,39 @@ function create (
     texture,
     color,
     frame: 0,
-    frames: [
-      { x: 0, y: 0, width: 32, height: 32 },
-      { x: 32, y: 0, width: 32, height: 32 },
-      { x: 64, y: 0, width: 32, height: 32 },
-      { x: 96, y: 0, width: 32, height: 32 },
-      { x: 128, y: 0, width: 32, height: 32 }
-    ],
+
+    setFrames: newFrames => {
+      frames = newFrames
+    },
+
+    addFrame: frame => {
+      frames.push(frame)
+    },
+
+    get frames () {
+      return frames
+    },
+
     get x () {
       return x
     },
+
     set x (newX) {
       x = newX
     },
+
     get y () {
       return y
     },
+
     set y (newY) {
       y = newY
     },
+
     get rotation () {
       return rotation
     },
+
     set rotation (degrees) {
       rotation = (degrees >= 360)
         ? 360 - degrees
