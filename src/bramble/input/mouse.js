@@ -1,6 +1,37 @@
 import { canvas } from '../canvas'
 
+let prevMouse = defaultState()
 let mouse = defaultState()
+
+function diff () {
+  let result = {}
+
+  if (prevMouse.x !== mouse.x) {
+    result['x'] = mouse.x
+  }
+
+  if (prevMouse.y !== mouse.y) {
+    result['y'] = mouse.y
+  }
+
+  if (prevMouse.pressed !== mouse.pressed) {
+    result['pressed'] = mouse.pressed
+  }
+
+  if (prevMouse.justPressed !== mouse.justPressed) {
+    result['justPressed'] = mouse.justPressed
+  }
+
+  if (prevMouse.released !== mouse.released) {
+    result['released'] = mouse.released
+  }
+
+  if (prevMouse.justReleased !== mouse.justReleased) {
+    result['justReleased'] = mouse.justReleased
+  }
+
+  return result
+}
 
 function defaultState () {
   return {
@@ -9,8 +40,13 @@ function defaultState () {
     pressed: false,
     justPressed: false,
     released: false,
-    justReleased: false
+    justReleased: false,
+    diff
   }
+}
+
+function clone (state) {
+  return Object.assign({}, state)
 }
 
 function relative (event, element) {
@@ -38,7 +74,7 @@ function up (event) {
 }
 
 function update () {
-
+  prevMouse = clone(mouse)
 }
 
 function start () {

@@ -1,4 +1,4 @@
-import canvas from './canvas'
+ import canvas from './canvas'
 import gfx from './graphics'
 import input from './input'
 
@@ -20,8 +20,6 @@ function setRender (callback) {
 }
 
 function step () {
-  input.update()
-
   if (update) {
     update(1 / 60) // TODO: faking it at 60fps for now
   }
@@ -31,6 +29,7 @@ function step () {
     render()
   }
 
+  input.update()
   window.requestAnimationFrame(step)
 }
 
