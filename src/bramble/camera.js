@@ -1,5 +1,12 @@
-function create (x, y, zoom, rotation) {
-  return { x, y, zoom, rotation }
+function create (x, y, width, height, zoom, rotation) {
+  return {
+    x,
+    y,
+    width,
+    height,
+    zoom,
+    rotation
+  }
 }
 
 export default {
