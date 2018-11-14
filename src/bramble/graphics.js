@@ -43,13 +43,21 @@ function sprite (sprite) {
   ctx.translate(sprite.x + halfWidth, sprite.y + halfHeight)
   ctx.rotate(number.toRadians(sprite.rotation))
 
-  image(
-    -sprite.width / 2,
-    -sprite.height / 2,
-    sprite.width,
-    sprite.height,
-    sprite.texture
-  )
+  if (sprite.frames.length > 1) {
+    subImage(
+      -halfWidth,
+      -halfHeight,
+      sprite.width,
+      sprite.height,
+      sprite.frames[sprite.frame].x,
+      sprite.frames[sprite.frame].y,
+      sprite.frames[sprite.frame].width,
+      sprite.frames[sprite.frame].height,
+      sprite.texture
+    )
+  } else {
+    image(-halfWidth, -halfHeight, sprite.width, sprite.height, sprite.texture)
+  }
 
   ctx.restore()
 }
