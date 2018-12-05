@@ -56,7 +56,13 @@ function sprite (sprite) {
       sprite.texture
     )
   } else {
-    image(-halfWidth, -halfHeight, sprite.width, sprite.height, sprite.texture)
+    image(
+      -halfWidth,
+      -halfHeight,
+      sprite.width,
+      sprite.height,
+      sprite.texture
+    )
   }
 
   ctx.restore()
