@@ -33,15 +33,23 @@ function diff () {
   return result
 }
 
+function defaultButtonState () {
+  return {
+    pressed: false,
+    justPressed: false,
+    released: false,
+    justReleased: false
+  }
+}
+
 function defaultState () {
   return {
     x: 0,
     y: 0,
-    pressed: false,
-    justPressed: false,
-    released: false,
-    justReleased: false,
-    diff
+
+    left: defaultButtonState(),
+    middle: defaultButtonState(),
+    right: defaultButtonState()
   }
 }
 
@@ -66,11 +74,35 @@ function move (event) {
 }
 
 function down (event) {
-  mouse.pressed = true
+  switch (event.which) {
+    case 1:
+      mouse.left.pressed = true
+      break
+
+    case 2:
+      mouse.middle.pressed = true
+      break
+
+    case 3:
+      mouse.right.pressed = true
+      break
+  }
 }
 
 function up (event) {
-  mouse.pressed = false
+  switch (event.which) {
+    case 1:
+      mouse.left.pressed = false
+      break
+
+    case 2:
+      mouse.middle.pressed = false
+      break
+
+    case 3:
+      mouse.right.pressed = false
+      break
+  }
 }
 
 function update () {
