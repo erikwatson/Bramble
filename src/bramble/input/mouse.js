@@ -3,7 +3,7 @@ import { canvas } from '../canvas'
 let prevMouse = defaultState()
 let mouse = defaultState()
 
-function diff () {
+function diff() {
   let result = {}
 
   if (prevMouse.x !== mouse.x) {
@@ -33,7 +33,7 @@ function diff () {
   return result
 }
 
-function defaultButtonState () {
+function defaultButtonState() {
   return {
     pressed: false,
     justPressed: false,
@@ -42,7 +42,7 @@ function defaultButtonState () {
   }
 }
 
-function defaultState () {
+function defaultState() {
   return {
     x: 0,
     y: 0,
@@ -53,11 +53,11 @@ function defaultState () {
   }
 }
 
-function clone (state) {
+function clone(state) {
   return Object.assign({}, state)
 }
 
-function relative (event, element) {
+function relative(event, element) {
   const bounds = canvas.getBoundingClientRect()
 
   return {
@@ -66,14 +66,14 @@ function relative (event, element) {
   }
 }
 
-function move (event) {
+function move(event) {
   const newPos = relative(event, canvas)
 
   mouse.x = newPos.x
   mouse.y = newPos.y
 }
 
-function down (event) {
+function down(event) {
   switch (event.which) {
     case 1:
       mouse.left.pressed = true
@@ -89,7 +89,7 @@ function down (event) {
   }
 }
 
-function up (event) {
+function up(event) {
   switch (event.which) {
     case 1:
       mouse.left.pressed = false
@@ -105,11 +105,11 @@ function up (event) {
   }
 }
 
-function update () {
+function update() {
   prevMouse = clone(mouse)
 }
 
-function start () {
+function start() {
   // mouse events
   canvas.addEventListener('mousemove', move)
   canvas.addEventListener('mousedown', down)

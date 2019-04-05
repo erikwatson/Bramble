@@ -1,4 +1,4 @@
-function create (x, y, width, height, zoom, rotation) {
+function create(x, y, width, height, zoom, rotation) {
   return {
     x,
     y,
