@@ -2,24 +2,24 @@ import number from './number'
 
 let ctx = null
 
-function setContext (context) {
+function setContext(context) {
   ctx = context
 }
 
-function clear (color) {
+function clear(color) {
   rect(0, 0, ctx.canvas.width, ctx.canvas.height, color)
 }
 
-function square (x, y, size, color) {
+function square(x, y, size, color) {
   rect(x, y, size, size, color)
 }
 
-function rect (x, y, w, h, color) {
+function rect(x, y, w, h, color) {
   ctx.fillStyle = color
   ctx.fillRect(x, y, w, h)
 }
 
-function circle (x, y, radius, color) {
+function circle(x, y, radius, color) {
   ctx.fillStyle = color
   ctx.beginPath()
   ctx.arc(x, y, radius, 0, 2 * Math.PI)
@@ -27,15 +27,15 @@ function circle (x, y, radius, color) {
   ctx.fill()
 }
 
-function image (x, y, w, h, image) {
+function image(x, y, w, h, image) {
   ctx.drawImage(image, x, y, w, h)
 }
 
-function subImage (x, y, w, h, sx, sy, sw, sh, image) {
+function subImage(x, y, w, h, sx, sy, sw, sh, image) {
   ctx.drawImage(image, sx, sy, sw, sh, x, y, w, h)
 }
 
-function sprite (sprite) {
+function sprite(sprite) {
   const halfWidth = sprite.width / 2
   const halfHeight = sprite.height / 2
 
@@ -56,19 +56,19 @@ function sprite (sprite) {
       sprite.texture
     )
   } else {
-    image(
-      -halfWidth,
-      -halfHeight,
-      sprite.width,
-      sprite.height,
-      sprite.texture
-    )
+    image(-halfWidth, -halfHeight, sprite.width, sprite.height, sprite.texture)
   }
 
   ctx.restore()
 }
 
-function text (x = 0, y = 0, text = '', color = '#000000', font = '16pt sans-serif') {
+function text(
+  x = 0,
+  y = 0,
+  text = '',
+  color = '#000000',
+  font = '16pt sans-serif'
+) {
   ctx.fillStyle = color
   ctx.font = font
   ctx.textAlign = 'left'
@@ -83,7 +83,7 @@ function text (x = 0, y = 0, text = '', color = '#000000', font = '16pt sans-ser
 //
 //       This could probably be cached in the object itself as long as we update
 //       every time there's a change to the font, text, width or height.
-function textbox (textbox) {
+function textbox(textbox) {
   ctx.fillStyle = '#ffffff'
   ctx.font = '16pt sans-serif'
   ctx.textAlign = 'left'
