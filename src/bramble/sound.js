@@ -6,4 +6,8 @@ function pause(sound) {}
 
 function stop(sound) {}
 
-export default {}
+export default {
+  play,
+  pause,
+  stop
+}

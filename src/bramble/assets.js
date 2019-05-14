@@ -73,6 +73,15 @@ export function loadAllSounds(paths = []) {
   return Promise.all(paths.map(x => loadSound(x)))
 }
 
+// TODO: I am not sure yet if/how these are meaningfully different to loadSound
+export function loadMusic(path) {
+  return new Promise((resolve, reject) => {})
+}
+
+export function loadAllMusic(paths = []) {
+  return Promise.all(paths.map(x => loadMusic(x)))
+}
+
 export default {
   loadText,
   loadJson,
