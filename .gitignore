@@ -2,7 +2,3 @@ yarn-error.log
 node_modules
 dest/main.min.js
 
-src/*
-
-!src/bramble
-!src/bramble/*

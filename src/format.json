@@ -1,0 +1,16 @@
+{
+  "name": "grass",
+  "type": 2,
+  "path": "/images/tileset.png",
+  "tileSize": {
+    "width": 8,
+    "height": 8
+  },
+  "tiles": [
+    {
+      "type": 1,
+      "position": { "x": 0, "y": 0 },
+      "chance": 0.5
+    }
+  ]
+}
