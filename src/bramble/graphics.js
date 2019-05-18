@@ -30,7 +30,7 @@ function square(x, y, size, options = defaultRect) {
   rect(x, y, size, size, options)
 }
 
-function rect(x, y, w, h, options) {
+function rect(x, y, w, h, options = defaultRect) {
   if (typeof options.fill !== 'undefined') {
     ctx.fillStyle = options.fill.color
     ctx.fillRect(x, y, w, h)
@@ -41,6 +41,21 @@ function rect(x, y, w, h, options) {
     ctx.lineWidth = options.line.width
     ctx.strokeRect(x, y, w, h)
   }
+}
+
+const defaultLine = {
+  width: 2,
+  color: '#000000'
+}
+
+function line(from, to, options = defaultLine) {
+  ctx.strokeStyle = options.color
+  ctx.lineWidth = options.width
+
+  ctx.beginPath()
+  ctx.moveTo(from.x, from.y)
+  ctx.lineTo(to.x, to.y)
+  ctx.stroke()
 }
 
 const defaultCircle = {
@@ -190,15 +205,17 @@ function tiles(tileGrid, spriteSheets, scale, tileWidth, tileHeight) {
       }
 
       // REAL VALUES
-      const tl = tileGrid[y - 1][x - 1]
-      const tm = tileGrid[y - 1][x]
-      const tr = tileGrid[y - 1][x + 1]
+      const tl = y > 0 ? tileGrid[y - 1][x - 1] : 0
+      const tm = y > 0 ? tileGrid[y - 1][x] : 0
+      const tr = y > 0 ? tileGrid[y - 1][x + 1] : 0
+
       const ml = tileGrid[y][x - 1]
       const m = tileGrid[y][x]
       const mr = tileGrid[y][x + 1]
-      const bl = tileGrid[y + 1][x - 1]
-      const bm = tileGrid[y + 1][x]
-      const br = tileGrid[y + 1][x + 1]
+
+      const bl = y < tileGrid.length - 1 ? tileGrid[y + 1][x - 1] : 0
+      const bm = y < tileGrid.length - 1 ? tileGrid[y + 1][x] : 0
+      const br = y < tileGrid.length - 1 ? tileGrid[y + 1][x + 1] : 0
 
       // BINARY VALUES
       const n = m === tm ? 1 : 0
@@ -437,14 +454,15 @@ function tiles(tileGrid, spriteSheets, scale, tileWidth, tileHeight) {
 }
 
 export default {
-  setContext,
-  clear,
-  rect,
-  square,
   circle,
+  clear,
   image,
-  subImage,
+  line,
+  rect,
+  setContext,
   sprite,
+  square,
+  subImage,
   text,
   textbox,
   tiles

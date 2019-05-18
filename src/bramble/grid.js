@@ -14,18 +14,29 @@ function make2DArray(width = 1, height = 1, defaultValue = null) {
   return result
 }
 
-function create(width, height) {
-  let grid = make2DArray(width, height, 0)
+const defaultGrid = {
+  pos: { x: 0, y: 0 },
+  visible: true,
+  divisions: 4,
+  tileWidth: 8,
+  tileHeight: 8
+}
 
-  const getCell = (x, y) => grid[y][x]
-
-  const setCell = (x, y, value) => {
-    grid[y][x] = value
-  }
+function create(width, height, options = defaultGrid) {
+  let tiles = make2DArray(width, height, 0)
+  let pos = { x: options.pos.x, y: options.pos.y } // I don't understand why this is necessary, but it is? :/
+  let visible = options.visible
+  let divisions = options.divisions
+  let tileWidth = options.tileWidth
+  let tileHeight = options.tileHeight
 
   return {
-    getCell,
-    setCell
+    divisions,
+    pos,
+    tileHeight,
+    tiles,
+    tileWidth,
+    visible
   }
 }
 
