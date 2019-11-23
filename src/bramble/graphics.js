@@ -245,8 +245,9 @@ function tiles(positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, t
         dirValues.W * w
 
       // Figure out which sheet we're supposed to be drawing from 
-      let sheet = spriteSheets[tileGrid[y][x]]
-
+      let sheet = spriteSheets.filter(sheet => {
+        return sheet.type === tileGrid[y][x]
+      })[0]
 
       const selections = sheet.tiles.filter(x => x.type === sum)
 
