@@ -42,13 +42,21 @@ function defaultButtonState() {
   }
 }
 
+function defaultWheelState() {
+  const buttonState = defaultButtonState()
+  return {
+    ...buttonState,
+    moved: false
+  }
+}
+
 function defaultState() {
   return {
     x: 0,
     y: 0,
 
     left: defaultButtonState(),
-    middle: defaultButtonState(),
+    wheel: defaultWheelState(),
     right: defaultButtonState()
   }
 }
@@ -105,7 +113,20 @@ function up(event) {
   }
 }
 
+function wheel (event) {
+  mouse.wheel.moved = (event.delta === 0)
+    ? false
+    : true 
+
+  if (mouse.wheel.moved !== false) {
+    mouse.wheel.direction = (event.deltaY < 0) 
+      ? 'up' 
+      : 'down'
+  }
+}
+
 function update() {
+  mouse.wheel.moved = false 
   prevMouse = clone(mouse)
 }
 
@@ -114,6 +135,7 @@ function start() {
   canvas.addEventListener('mousemove', move)
   canvas.addEventListener('mousedown', down)
   canvas.addEventListener('mouseup', up)
+  canvas.addEventListener('wheel', wheel)
 
   // default mouse position, center of screen
   mouse.x = canvas.width / 2

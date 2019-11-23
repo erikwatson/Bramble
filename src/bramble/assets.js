@@ -1,3 +1,5 @@
+import terrain from './terrain'
+
 function load(path, type = 'text') {
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest()
@@ -5,7 +7,18 @@ function load(path, type = 'text') {
     request.responseType = type
 
     request.addEventListener('load', event => {
-      resolve(event.target.responseText)
+      switch (type) {
+        case 'text': 
+          resolve(event.target.responseText); 
+          break
+
+        case 'json': 
+          resolve(event.target.response); 
+          break
+
+        default: 
+          console.error(`invalid type provided to load: ${type} is unknown`)
+      }
     })
 
     request.addEventListener('error', event => {
@@ -82,6 +95,33 @@ export function loadAllMusic(paths = []) {
   return Promise.all(paths.map(x => loadMusic(x)))
 }
 
+// Downloads a Terrain file, 
+// reads it, 
+// downloads the related image file, 
+// returns a new Terrain object 
+export function loadTerrain(path) {
+  let description = null
+
+  return loadJson(path)
+    .then(json => { 
+      description = json
+      return loadImage(description.path)
+    })
+    .then(image => terrain.create(
+      description.name, 
+      description.type, 
+      image,
+      description.tiles
+    ))
+    .catch(err => {
+      console.error(err)
+    })
+}
+
+export function loadAllTerrain(paths = []) {
+  return Promise.all(paths.map(x => loadTerrain(x)))
+}
+
 export default {
   loadText,
   loadJson,
@@ -89,5 +129,7 @@ export default {
   loadAllText,
   loadAllImages,
   loadSound,
-  loadAllSounds
+  loadAllSounds,
+  loadTerrain,
+  loadAllTerrain
 }
