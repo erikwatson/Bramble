@@ -24,12 +24,12 @@ const defaultGrid = {
 
 function create(width, height, options = defaultGrid) {
   let tiles = make2DArray(width, height, 0)
-  let pos = { x: options.pos.x, y: options.pos.y } // I don't understand why this is necessary, but it is? :/
+  let pos = { x: options.pos.x, y: options.pos.y }
   let visible = options.visible
   let divisions = options.divisions
   let tileWidth = options.tileWidth
   let tileHeight = options.tileHeight
-
+  
   return {
     divisions,
     pos,
