@@ -19,27 +19,36 @@ const defaultGrid = {
   visible: true,
   divisions: 4,
   tileWidth: 8,
-  tileHeight: 8
+  tileHeight: 8,
+  scale: 1
 }
 
 function create(width, height, options = defaultGrid) {
+  options = { ...defaultGrid, ...options }
+
   let tiles = make2DArray(width, height, 0)
   let pos = { x: options.pos.x, y: options.pos.y }
   let visible = options.visible
   let divisions = options.divisions
   let tileWidth = options.tileWidth
   let tileHeight = options.tileHeight
-  
+  let tileSize = options.tileWidth
+  let scale = options.scale
+
   return {
     divisions,
     pos,
     tileHeight,
     tiles,
     tileWidth,
-    visible
+    visible,
+    width,
+    height,
+    tileSize,
+    scale
   }
 }
 
-export default {
+module.exports = {
   create
 }
