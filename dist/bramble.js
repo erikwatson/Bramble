@@ -1,4 +1,4 @@
-/******/ ;(function(modules) {
+var Bramble = /******/ (function(modules) {
   // webpackBootstrap
   /******/ // The module cache
   /******/ var installedModules = {} // The require function

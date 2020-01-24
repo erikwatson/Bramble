@@ -8,7 +8,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bramble.js',
-    publicPath: '/js/'
+    publicPath: '/js/',
+    library: 'Bramble'
   },
 
   module: {
