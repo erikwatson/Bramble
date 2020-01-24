@@ -8,15 +8,15 @@ function load(path, type = 'text') {
 
     request.addEventListener('load', event => {
       switch (type) {
-        case 'text': 
-          resolve(event.target.responseText); 
+        case 'text':
+          resolve(event.target.responseText)
           break
 
-        case 'json': 
-          resolve(event.target.response); 
+        case 'json':
+          resolve(event.target.response)
           break
 
-        default: 
+        default:
           console.error(`invalid type provided to load: ${type} is unknown`)
       }
     })
@@ -95,24 +95,26 @@ export function loadAllMusic(paths = []) {
   return Promise.all(paths.map(x => loadMusic(x)))
 }
 
-// Downloads a Terrain file, 
-// reads it, 
-// downloads the related image file, 
-// returns a new Terrain object 
+// Downloads a Terrain file,
+// reads it,
+// downloads the related image file,
+// returns a new Terrain object
 export function loadTerrain(path) {
   let description = null
 
   return loadJson(path)
-    .then(json => { 
+    .then(json => {
       description = json
       return loadImage(description.path)
     })
-    .then(image => terrain.create(
-      description.name, 
-      description.type, 
-      image,
-      description.tiles
-    ))
+    .then(image =>
+      terrain.create(
+        description.name,
+        description.type,
+        image,
+        description.tiles
+      )
+    )
     .catch(err => {
       console.error(err)
     })

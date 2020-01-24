@@ -1,28 +1,50 @@
 {
-  "name": "bramble",
-  "version": "1.0.0",
+  "name": "@erikwatson/bramble",
+  "version": "0.1.0",
   "description": "A game engine built in JavaScript",
-  "main": "src/main.js",
+  "main": "dist/bramble.js",
   "author": "Erik Watson",
   "license": "MIT",
+  "files": [
+    "dist/**/*"
+  ],
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.3.1",
+    "babel-jest": "^24.0.0",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "glob": "^7.1.3",
     "husky": "^1.3.1",
-    "prettier": "^1.15.3",
-    "pretty-quick": "^1.9.0",
-    "rollup": "^0.56.3",
-    "rollup-plugin-babel": "^3.0.3",
-    "rollup-plugin-node-resolve": "^3.0.3"
+    "jest": "^24.0.0",
+    "prettier": "^1.16.2",
+    "pretty-quick": "^1.10.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-merge": "^4.2.1"
   },
   "scripts": {
-    "rollup": "./node_modules/.bin/rollup",
-    "build": "yarn rollup -c rollup.config.js",
-    "watch": "yarn build -w"
+    "build": "",
+    "watch": ""
   },
   "dependencies": {
     "node-fetch": "^2.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/championchap/Bramble.git"
+  },
+  "keywords": [
+    "Multimedia",
+    "Graphics",
+    "Sound",
+    "Games"
+  ],
+  "bugs": {
+    "url": "https://github.com/championchap/Bramble/issues"
+  },
+  "homepage": "https://github.com/championchap/Bramble#readme"
 }

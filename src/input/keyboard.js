@@ -3,7 +3,7 @@ import allKeys from './keys'
 
 let keys = defaultState()
 
-function defaultState () {
+function defaultState() {
   const defaultState = {
     pressed: false,
     justPressed: false,
@@ -21,7 +21,7 @@ function defaultState () {
   }, {})
 }
 
-function preventDefaultArrows (event) {
+function preventDefaultArrows(event) {
   const keys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 
   if (keys.includes(event.key)) {
@@ -29,7 +29,7 @@ function preventDefaultArrows (event) {
   }
 }
 
-function getKey (event, keys) {
+function getKey(event, keys) {
   let result = null
   const objectKeys = Object.keys(keys)
 
@@ -42,7 +42,7 @@ function getKey (event, keys) {
   return result
 }
 
-function down (event) {
+function down(event) {
   preventDefaultArrows(event)
 
   const key = getKey(event, keys)
@@ -50,17 +50,15 @@ function down (event) {
   key.pressed = true
 }
 
-function up (event) {
+function up(event) {
   const key = getKey(event, keys)
 
   key.pressed = false
 }
 
-function update () {
+function update() {}
 
-}
-
-function start () {
+function start() {
   // keyboard events
   document.addEventListener('keydown', down)
   document.addEventListener('keyup', up)

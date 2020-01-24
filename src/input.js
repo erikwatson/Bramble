@@ -1,12 +1,12 @@
 import keyboardInput from './input/keyboard'
 import mouseInput from './input/mouse'
 
-function start () {
+function start() {
   keyboardInput.start()
   mouseInput.start()
 }
 
-function update () {
+function update() {
   keyboardInput.update()
   mouseInput.update()
 }
