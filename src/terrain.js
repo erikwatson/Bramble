@@ -1,6 +1,6 @@
-function create (name, type, image, tiles) {
+function create(name, type, image, tiles) {
   return {
-    name, 
+    name,
     type,
     image,
     tiles

@@ -1,4 +1,4 @@
-function create (
+function create(
   x = 0,
   y = 0,
   width = 0,
@@ -27,34 +27,32 @@ function create (
       frames.push(frame)
     },
 
-    get frames () {
+    get frames() {
       return frames
     },
 
-    get x () {
+    get x() {
       return x
     },
 
-    set x (newX) {
+    set x(newX) {
       x = newX
     },
 
-    get y () {
+    get y() {
       return y
     },
 
-    set y (newY) {
+    set y(newY) {
       y = newY
     },
 
-    get rotation () {
+    get rotation() {
       return rotation
     },
 
-    set rotation (degrees) {
-      rotation = (degrees >= 360)
-        ? 360 - degrees
-        : degrees
+    set rotation(degrees) {
+      rotation = degrees >= 360 ? 360 - degrees : degrees
     }
   }
 }

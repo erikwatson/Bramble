@@ -113,20 +113,16 @@ function up(event) {
   }
 }
 
-function wheel (event) {
-  mouse.wheel.moved = (event.delta === 0)
-    ? false
-    : true 
+function wheel(event) {
+  mouse.wheel.moved = event.delta === 0 ? false : true
 
   if (mouse.wheel.moved !== false) {
-    mouse.wheel.direction = (event.deltaY < 0) 
-      ? 'up' 
-      : 'down'
+    mouse.wheel.direction = event.deltaY < 0 ? 'up' : 'down'
   }
 }
 
 function update() {
-  mouse.wheel.moved = false 
+  mouse.wheel.moved = false
   prevMouse = clone(mouse)
 }
 

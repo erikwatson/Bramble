@@ -192,7 +192,15 @@ function tile(
 
 // tilegrid: a 2d array of numbers representing terrain types
 // spritesheets: An object, each key is the value that represents a tile from this sheet
-function tiles(positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, tileHeight) {
+function tiles(
+  positionX,
+  positionY,
+  tileGrid,
+  spriteSheets,
+  scale,
+  tileWidth,
+  tileHeight
+) {
   const dirValues = {
     NW: 1,
     N: 2,
@@ -244,7 +252,7 @@ function tiles(positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, t
         dirValues.SW * sw +
         dirValues.W * w
 
-      // Figure out which sheet we're supposed to be drawing from 
+      // Figure out which sheet we're supposed to be drawing from
       let sheet = spriteSheets.filter(sheet => {
         return sheet.type === tileGrid[y][x]
       })[0]
@@ -252,13 +260,14 @@ function tiles(positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, t
       const selections = sheet.tiles.filter(x => x.type === sum)
 
       // Note: Just picking a random one of the variants every time we render for now
-      const selection = selections[Math.floor(Math.random() * selections.length)]
+      const selection =
+        selections[Math.floor(Math.random() * selections.length)]
 
       if (selection) {
         tile(
           positionX,
           positionY,
-          sheet.image, 
+          sheet.image,
           x,
           y,
           selection.position.x,
@@ -281,33 +290,33 @@ const defaultDropShadow = {
   shadowOffsetY: 4
 }
 
-function shadow (drawingOperations, options = defaultDropShadow) {
+function shadow(drawingOperations, options = defaultDropShadow) {
   ctx.save()
 
   ctx.shadowColor = options.shadowColor
   ctx.shadowBlur = options.shadowBlur
   ctx.shadowOffsetX = options.shadowOffsetX
   ctx.shadowOffsetY = options.shadowOffsetY
-  
+
   drawingOperations()
   ctx.restore()
 }
 
-function dodge (drawingOperations) {
+function dodge(drawingOperations) {
   ctx.save()
-  ctx.globalCompositeOperation = 'color-dodge';
+  ctx.globalCompositeOperation = 'color-dodge'
   drawingOperations()
   ctx.restore()
 }
 
-function overlay (drawingOperations) {
+function overlay(drawingOperations) {
   ctx.save()
-  ctx.globalCompositeOperation = 'overlay';
+  ctx.globalCompositeOperation = 'overlay'
   drawingOperations()
   ctx.restore()
 }
 
-function transparency (drawingOperations, alpha = 0.25) {
+function transparency(drawingOperations, alpha = 0.25) {
   ctx.save()
   ctx.globalAlpha = alpha
   drawingOperations()
