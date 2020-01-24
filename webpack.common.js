@@ -9,7 +9,8 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bramble.js',
     publicPath: '/js/',
-    library: 'Bramble'
+    library: 'Bramble',
+    libraryTarget: 'umd'
   },
 
   module: {
