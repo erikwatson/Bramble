@@ -1,4 +1,5 @@
 import terrain from './terrain'
+import sound from './sound'
 
 function load(path, type = 'text') {
   return new Promise((resolve, reject) => {
@@ -68,17 +69,12 @@ export function loadAllImages(paths = []) {
 
 export function loadSound(path) {
   return new Promise((resolve, reject) => {
-    const audio = new Audio()
-
-    audio.addEventListener('canplaythrough', e => {
-      resolve(audio)
-    })
-
-    audio.addEventListener('error', err => {
-      reject(err)
-    })
-
-    audio.src = path
+    window
+      .fetch(path)
+      .then(response => response.arrayBuffer())
+      .then(arrayBuffer => sound.decode(arrayBuffer))
+      .then(decoded => resolve(decoded))
+      .catch(err => reject(err))
   })
 }
 
