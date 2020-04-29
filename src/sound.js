@@ -1,13 +1,25 @@
-// This should be a lower level module that handles general sound stuff
-// sfx and music should both get to make use of this
-function play(sound) {}
+const ctx = new AudioContext()
+const oscillator = ctx.createOscillator()
+const gain = ctx.createGain()
 
-function pause(sound) {}
+function decode(arrayBuffer) {
+  return new Promise((resolve, reject) => {
+    ctx
+      .decodeAudioData(arrayBuffer)
+      .then(audioBuffer => resolve(audioBuffer))
+      .catch(err => reject(err))
+  })
+}
 
-function stop(sound) {}
+function play(audioBuffer) {
+  const source = ctx.createBufferSource()
+
+  source.buffer = audioBuffer
+  source.connect(ctx.destination)
+  source.start()
+}
 
 export default {
-  play,
-  pause,
-  stop
+  decode,
+  play
 }
