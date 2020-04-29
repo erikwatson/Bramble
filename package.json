@@ -30,7 +30,7 @@
     "build": "yarn run build:prod && yarn run build:dev",
     "build:prod": "yarn run webpack-cli --config webpack.prod.js",
     "build:dev": "yarn run webpack-cli --config webpack.dev.js",
-    "watch": ""
+    "watch": "yarn run build:dev --watch"
   },
   "dependencies": {
     "node-fetch": "^2.0.0"
