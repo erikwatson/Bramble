@@ -118,6 +118,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadTerrain", function() { return loadTerrain; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadAllTerrain", function() { return loadAllTerrain; });
 /* harmony import */ var _terrain__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./terrain */ "./src/terrain.js");
+/* harmony import */ var _sound__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sound */ "./src/sound.js");
+
 
 
 function load(path) {
@@ -185,14 +187,15 @@ function loadAllImages() {
 }
 function loadSound(path) {
   return new Promise(function (resolve, reject) {
-    var audio = new Audio();
-    audio.addEventListener('canplaythrough', function (e) {
-      resolve(audio);
+    window.fetch(path).then(function (response) {
+      return response.arrayBuffer();
+    }).then(function (arrayBuffer) {
+      return _sound__WEBPACK_IMPORTED_MODULE_1__["default"].decode(arrayBuffer);
+    }).then(function (decoded) {
+      return resolve(decoded);
+    })["catch"](function (err) {
+      return reject(err);
     });
-    audio.addEventListener('error', function (err) {
-      reject(err);
-    });
-    audio.src = path;
   });
 }
 function loadAllSounds() {
@@ -250,7 +253,7 @@ function loadAllTerrain() {
 /*!************************!*\
   !*** ./src/bramble.js ***!
   \************************/
-/*! exports provided: assets, game, grid, graphics, keyboard, mouse, music, sfx, sprite, textbox */
+/*! exports provided: assets, game, grid, graphics, keyboard, mouse, music, sfx, sprite, textbox, sound */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -283,6 +286,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _textbox__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./textbox */ "./src/textbox.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "textbox", function() { return _textbox__WEBPACK_IMPORTED_MODULE_8__["default"]; });
+
+/* harmony import */ var _sound__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./sound */ "./src/sound.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "sound", function() { return _sound__WEBPACK_IMPORTED_MODULE_9__["default"]; });
+
 
 
 
@@ -1439,18 +1446,30 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-// This should be a lower level module that handles general sound stuff
-// sfx and music should both get to make use of this
-function play(sound) {}
+var ctx = new AudioContext();
+var oscillator = ctx.createOscillator();
+var gain = ctx.createGain();
 
-function pause(sound) {}
+function decode(arrayBuffer) {
+  return new Promise(function (resolve, reject) {
+    ctx.decodeAudioData(arrayBuffer).then(function (audioBuffer) {
+      return resolve(audioBuffer);
+    })["catch"](function (err) {
+      return reject(err);
+    });
+  });
+}
 
-function stop(sound) {}
+function play(audioBuffer) {
+  var source = ctx.createBufferSource();
+  source.buffer = audioBuffer;
+  source.connect(ctx.destination);
+  source.start();
+}
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  play: play,
-  pause: pause,
-  stop: stop
+  decode: decode,
+  play: play
 });
 
 /***/ }),
