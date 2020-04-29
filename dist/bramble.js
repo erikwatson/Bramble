@@ -316,6 +316,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _graphics__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./graphics */ "./src/graphics.js");
 
 var canvas = document.createElement('canvas');
+canvas.id = 'bramble-game';
 var ctx = canvas.getContext('2d');
 
 function setSize(width, height) {

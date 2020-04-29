@@ -1,6 +1,8 @@
 import gfx from './graphics'
 
 export const canvas = document.createElement('canvas')
+canvas.id = 'bramble-game'
+
 const ctx = canvas.getContext('2d')
 
 function setSize(width, height) {
