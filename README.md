@@ -7,16 +7,11 @@ and prototypes.
 
 ## Documentation
 
-```js
-// The div we're going to attach our game to
-const container = document.querySelector('#bramble-view')
-const game = Bramble.game.create()
+TODO
 
-game.attachTo(container)
-game.setSize(this.props.width, this.props.height)
-game.setSmoothing(false)
-game.disableContextMenu()
-```
+## Example Project
+
+- [Level Editor](https://github.com/championchap/Level-Editor) - A work in progress Level Editor using Bramble, this is currenly the best place to see how a project is put together, if a little complicated.
 
 ## Authors
 
