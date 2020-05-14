@@ -84,7 +84,7 @@ Promise.all([
 
 ## Example Project
 
-- [Level Editor](https://github.com/championchap/Level-Editor) - A work in progress Level Editor using Bramble, this is currently the best place to see a working example.
+- [Level Editor](https://github.com/erikwatson/Level-Editor) - A work in progress Level Editor using Bramble, this is currently the best place to see a working example.
 
 ## Authors
 
