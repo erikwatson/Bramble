@@ -14,6 +14,10 @@ function make2DArray(width = 1, height = 1, defaultValue = null) {
   return result
 }
 
+function copyTiles(tiles) {
+  return tiles.map(arr => arr.slice())
+}
+
 const defaultGrid = {
   pos: { x: 0, y: 0 },
   visible: true,
@@ -21,6 +25,56 @@ const defaultGrid = {
   tileWidth: 8,
   tileHeight: 8,
   scale: 1
+}
+
+function fill(tiles, position, target, replacement) {
+  let gridClone = copyTiles(tiles)
+
+  function floodFill(position, target, replacement) {
+    if (target === replacement) {
+      return
+    }
+
+    const valueAtPosition = gridClone[position.y][position.x]
+
+    if (valueAtPosition !== target) {
+      return
+    }
+
+    const isWithinBounds =
+      position.x < gridClone[position.y].length &&
+      position.x >= 0 &&
+      position.y < gridClone.length &&
+      position.y >= 0
+
+    if (isWithinBounds) {
+      gridClone[position.y][position.x] = replacement
+
+      if (position.y < gridClone.length - 1) {
+        floodFill({ x: position.x, y: position.y + 1 }, target, replacement)
+      }
+
+      if (position.y > 0) {
+        floodFill({ x: position.x, y: position.y - 1 }, target, replacement)
+      }
+
+      if (position.x < gridClone[0].length - 1) {
+        floodFill({ x: position.x + 1, y: position.y }, target, replacement)
+      }
+
+      if (position.x > 0) {
+        floodFill({ x: position.x - 1, y: position.y }, target, replacement)
+      }
+    }
+
+    return
+  }
+
+  if (true) {
+    floodFill(position, target, replacement)
+  }
+
+  return gridClone
 }
 
 function create(width, height, options = defaultGrid) {
@@ -50,5 +104,7 @@ function create(width, height, options = defaultGrid) {
 }
 
 module.exports = {
-  create
+  create,
+  fill,
+  copyTiles
 }

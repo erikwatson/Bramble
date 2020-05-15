@@ -752,6 +752,12 @@ function make2DArray() {
   return result;
 }
 
+function copyTiles(tiles) {
+  return tiles.map(function (arr) {
+    return arr.slice();
+  });
+}
+
 var defaultGrid = {
   pos: {
     x: 0,
@@ -763,6 +769,64 @@ var defaultGrid = {
   tileHeight: 8,
   scale: 1
 };
+
+function fill(tiles, position, target, replacement) {
+  var gridClone = copyTiles(tiles);
+
+  function floodFill(position, target, replacement) {
+    if (target === replacement) {
+      return;
+    }
+
+    var valueAtPosition = gridClone[position.y][position.x];
+
+    if (valueAtPosition !== target) {
+      return;
+    }
+
+    var isWithinBounds = position.x < gridClone[position.y].length && position.x >= 0 && position.y < gridClone.length && position.y >= 0;
+
+    if (isWithinBounds) {
+      gridClone[position.y][position.x] = replacement;
+
+      if (position.y < gridClone.length - 1) {
+        floodFill({
+          x: position.x,
+          y: position.y + 1
+        }, target, replacement);
+      }
+
+      if (position.y > 0) {
+        floodFill({
+          x: position.x,
+          y: position.y - 1
+        }, target, replacement);
+      }
+
+      if (position.x < gridClone[0].length - 1) {
+        floodFill({
+          x: position.x + 1,
+          y: position.y
+        }, target, replacement);
+      }
+
+      if (position.x > 0) {
+        floodFill({
+          x: position.x - 1,
+          y: position.y
+        }, target, replacement);
+      }
+    }
+
+    return;
+  }
+
+  if (true) {
+    floodFill(position, target, replacement);
+  }
+
+  return gridClone;
+}
 
 function create(width, height) {
   var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultGrid;
@@ -793,7 +857,9 @@ function create(width, height) {
 }
 
 module.exports = {
-  create: create
+  create: create,
+  fill: fill,
+  copyTiles: copyTiles
 };
 
 /***/ }),
