@@ -257,6 +257,11 @@ function tiles(
         return sheet.type === tileGrid[y][x]
       })[0]
 
+      if (!sheet) {
+        console.error(`Sheet ${tileGrid[y][x]} not found!`)
+        return
+      }
+
       const selections = sheet.tiles.filter(x => x.type === sum)
 
       // Note: Just picking a random one of the variants every time we render for now

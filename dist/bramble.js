@@ -428,6 +428,8 @@ function start() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _number__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./number */ "./src/number.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 
 var ctx = null;
 
@@ -633,6 +635,16 @@ function tiles(positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, t
       var sheet = spriteSheets.filter(function (sheet) {
         return sheet.type === tileGrid[y][x];
       })[0];
+
+      if (!sheet) {
+        console.error("Sheet ".concat(tileGrid[y][x], " not found!"));
+        return {
+          v: {
+            v: void 0
+          }
+        };
+      }
+
       var selections = sheet.tiles.filter(function (x) {
         return x.type === sum;
       }); // Note: Just picking a random one of the variants every time we render for now
@@ -647,14 +659,22 @@ function tiles(positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, t
     };
 
     for (var x = 0; x < tileGrid[y].length; x++) {
-      var _ret = _loop2(x);
+      var _ret2 = _loop2(x);
 
-      if (_ret === "continue") continue;
+      switch (_ret2) {
+        case "continue":
+          continue;
+
+        default:
+          if (_typeof(_ret2) === "object") return _ret2.v;
+      }
     }
   };
 
   for (var y = 0; y < tileGrid.length; y++) {
-    _loop(y);
+    var _ret = _loop(y);
+
+    if (_typeof(_ret) === "object") return _ret.v;
   }
 }
 
