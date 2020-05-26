@@ -1,54 +1,62 @@
 import canvas from './canvas'
 import gfx from './graphics'
-import input from './input'
+import { mouse, keyboard } from './input'
 
-let backgroundColor = '#000000'
+const create = () => {
+  let backgroundColor = '#000000'
 
-let update = null
-let render = null
+  let update = null
+  let render = null
 
-// These are used for calculating the Delta Time for the Frame
-let prevTime = 0
-let frameTime = 0
+  // These are used for calculating the Delta Time for the Frame
+  let prevTime = 0
+  let frameTime = 0
 
-function setBackgroundColor(color) {
-  backgroundColor = color
-}
+  const mouseInput = mouse.create(canvas.element)
 
-function setUpdate(callback) {
-  update = callback
-}
-
-function setRender(callback) {
-  render = callback
-}
-
-function step() {
-  if (update) {
-    update(1 / 60) // TODO: fake it at 60fps for now
+  const setBackgroundColor = color => {
+    backgroundColor = color
   }
 
-  if (render) {
-    gfx.clear(backgroundColor)
-    render()
+  const setUpdate = callback => {
+    update = callback
   }
 
-  input.update()
-  window.requestAnimationFrame(step)
-}
+  const setRender = callback => {
+    render = callback
+  }
 
-function start() {
-  input.start()
-  window.requestAnimationFrame(step)
+  const step = () => {
+    if (update) {
+      update(1 / 60) // TODO: fake it at 60fps for now
+    }
+
+    if (render) {
+      gfx.clear(backgroundColor)
+      render()
+    }
+
+    mouseInput.update()
+    window.requestAnimationFrame(step)
+  }
+
+  const start = () => {
+    mouseInput.start()
+    window.requestAnimationFrame(step)
+  }
+
+  return {
+    setSize: canvas.setSize,
+    setUpdate,
+    setRender,
+    setBackgroundColor,
+    attachTo: canvas.attachTo,
+    disableContextMenu: canvas.disableContextMenu,
+    setSmoothing: canvas.setSmoothing,
+    start
+  }
 }
 
 export default {
-  setSize: canvas.setSize,
-  setUpdate,
-  setRender,
-  setBackgroundColor,
-  attachTo: canvas.attachTo,
-  disableContextMenu: canvas.disableContextMenu,
-  setSmoothing: canvas.setSmoothing,
-  start
+  create
 }
