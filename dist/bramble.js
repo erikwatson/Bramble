@@ -253,7 +253,7 @@ function loadAllTerrain() {
 /*!************************!*\
   !*** ./src/bramble.js ***!
   \************************/
-/*! exports provided: assets, game, grid, graphics, keyboard, mouse, music, sfx, sprite, textbox, sound */
+/*! exports provided: assets, game, grid, graphics, keyboard, mouse, music, sfx, sprite, textbox, sound, canvas */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -289,6 +289,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _sound__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./sound */ "./src/sound.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "sound", function() { return _sound__WEBPACK_IMPORTED_MODULE_9__["default"]; });
+
+/* harmony import */ var _canvas__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./canvas */ "./src/canvas.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "canvas", function() { return _canvas__WEBPACK_IMPORTED_MODULE_10__["default"]; });
+
 
 
 
@@ -367,53 +371,61 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var backgroundColor = '#000000';
-var update = null;
-var render = null; // These are used for calculating the Delta Time for the Frame
 
-var prevTime = 0;
-var frameTime = 0;
+var create = function create() {
+  var backgroundColor = '#000000';
+  var update = null;
+  var render = null; // These are used for calculating the Delta Time for the Frame
 
-function setBackgroundColor(color) {
-  backgroundColor = color;
-}
+  var prevTime = 0;
+  var frameTime = 0;
+  var mouseInput = _input__WEBPACK_IMPORTED_MODULE_2__["mouse"].create(_canvas__WEBPACK_IMPORTED_MODULE_0__["default"].element);
 
-function setUpdate(callback) {
-  update = callback;
-}
+  var setBackgroundColor = function setBackgroundColor(color) {
+    backgroundColor = color;
+  };
 
-function setRender(callback) {
-  render = callback;
-}
+  var setUpdate = function setUpdate(callback) {
+    update = callback;
+  };
 
-function step() {
-  if (update) {
-    update(1 / 60); // TODO: fake it at 60fps for now
-  }
+  var setRender = function setRender(callback) {
+    render = callback;
+  };
 
-  if (render) {
-    _graphics__WEBPACK_IMPORTED_MODULE_1__["default"].clear(backgroundColor);
-    render();
-  }
+  var step = function step() {
+    if (update) {
+      update(1 / 60); // TODO: fake it at 60fps for now
+    }
 
-  _input__WEBPACK_IMPORTED_MODULE_2__["default"].update();
-  window.requestAnimationFrame(step);
-}
+    if (render) {
+      _graphics__WEBPACK_IMPORTED_MODULE_1__["default"].clear(backgroundColor);
+      render();
+    }
 
-function start() {
-  _input__WEBPACK_IMPORTED_MODULE_2__["default"].start();
-  window.requestAnimationFrame(step);
-}
+    mouseInput.update();
+    window.requestAnimationFrame(step);
+  };
+
+  var start = function start() {
+    mouseInput.start();
+    window.requestAnimationFrame(step);
+  };
+
+  return {
+    setSize: _canvas__WEBPACK_IMPORTED_MODULE_0__["default"].setSize,
+    setUpdate: setUpdate,
+    setRender: setRender,
+    setBackgroundColor: setBackgroundColor,
+    attachTo: _canvas__WEBPACK_IMPORTED_MODULE_0__["default"].attachTo,
+    disableContextMenu: _canvas__WEBPACK_IMPORTED_MODULE_0__["default"].disableContextMenu,
+    setSmoothing: _canvas__WEBPACK_IMPORTED_MODULE_0__["default"].setSmoothing,
+    start: start
+  };
+};
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  setSize: _canvas__WEBPACK_IMPORTED_MODULE_0__["default"].setSize,
-  setUpdate: setUpdate,
-  setRender: setRender,
-  setBackgroundColor: setBackgroundColor,
-  attachTo: _canvas__WEBPACK_IMPORTED_MODULE_0__["default"].attachTo,
-  disableContextMenu: _canvas__WEBPACK_IMPORTED_MODULE_0__["default"].disableContextMenu,
-  setSmoothing: _canvas__WEBPACK_IMPORTED_MODULE_0__["default"].setSmoothing,
-  start: start
+  create: create
 });
 
 /***/ }),
@@ -888,425 +900,42 @@ module.exports = {
 /*!**********************!*\
   !*** ./src/input.js ***!
   \**********************/
-/*! exports provided: keyboard, mouse, default */
+/*! exports provided: mouse, keyboard */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "keyboard", function() { return keyboard; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mouse", function() { return mouse; });
-/* harmony import */ var _input_keyboard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./input/keyboard */ "./src/input/keyboard.js");
-/* harmony import */ var _input_mouse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./input/mouse */ "./src/input/mouse.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "keyboard", function() { return keyboard; });
+/* harmony import */ var _input_mouse__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./input/mouse */ "./src/input/mouse.js");
 
 
+function create(canvas) {
+  var mouseInput = _input_mouse__WEBPACK_IMPORTED_MODULE_0__["default"].create(canvas);
 
-function start() {
-  _input_keyboard__WEBPACK_IMPORTED_MODULE_0__["default"].start();
-  _input_mouse__WEBPACK_IMPORTED_MODULE_1__["default"].start();
-}
-
-function update() {
-  _input_keyboard__WEBPACK_IMPORTED_MODULE_0__["default"].update();
-  _input_mouse__WEBPACK_IMPORTED_MODULE_1__["default"].update();
-}
-
-var keyboard = _input_keyboard__WEBPACK_IMPORTED_MODULE_0__["default"].state;
-var mouse = _input_mouse__WEBPACK_IMPORTED_MODULE_1__["default"].state;
-/* harmony default export */ __webpack_exports__["default"] = ({
-  start: start,
-  update: update
-});
-
-/***/ }),
-
-/***/ "./src/input/keyboard.js":
-/*!*******************************!*\
-  !*** ./src/input/keyboard.js ***!
-  \*******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _canvas__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../canvas */ "./src/canvas.js");
-/* harmony import */ var _keys__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./keys */ "./src/input/keys.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-var keys = defaultState();
-
-function defaultState() {
-  var defaultState = {
-    pressed: false,
-    justPressed: false,
-    released: false,
-    justReleased: false
+  var start = function start() {
+    mouseInput.start();
   };
-  return _keys__WEBPACK_IMPORTED_MODULE_1__["default"].reduce(function (acc, key) {
-    var label = key.label;
-    delete key['label'];
-    acc[label] = _objectSpread({}, key, {}, defaultState);
-    return acc;
-  }, {});
+
+  var update = function update() {
+    mouseInput.update();
+  };
+
+  return {
+    start: start,
+    update: update,
+    mouse: mouseInput.state
+  };
 }
 
-function preventDefaultArrows(event) {
-  var keys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
-
-  if (keys.includes(event.key)) {
-    event.preventDefault();
+var mouse = {
+  create: create
+};
+var keyboard = {
+  create: function create() {
+    console.log('keyboard input stub');
   }
-}
-
-function getKey(event, keys) {
-  var result = null;
-  var objectKeys = Object.keys(keys);
-
-  for (var i = 0; i < objectKeys.length; i++) {
-    if (keys[objectKeys[i]].code === event.keyCode) {
-      result = keys[objectKeys[i]];
-    }
-  }
-
-  return result;
-}
-
-function down(event) {
-  preventDefaultArrows(event);
-  var key = getKey(event, keys);
-  key.pressed = true;
-}
-
-function up(event) {
-  var key = getKey(event, keys);
-  key.pressed = false;
-}
-
-function update() {}
-
-function start() {
-  // keyboard events
-  document.addEventListener('keydown', down);
-  document.addEventListener('keyup', up);
-}
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  start: start,
-  update: update,
-  state: keys
-});
-
-/***/ }),
-
-/***/ "./src/input/keys.js":
-/*!***************************!*\
-  !*** ./src/input/keys.js ***!
-  \***************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ([{
-  code: 8,
-  label: 'backspace'
-}, {
-  code: 9,
-  label: 'tab'
-}, {
-  code: 13,
-  label: 'enter'
-}, {
-  code: 16,
-  label: 'shift'
-}, {
-  code: 17,
-  label: 'ctrl'
-}, {
-  code: 18,
-  label: 'alt'
-}, {
-  code: 20,
-  label: 'caps'
-}, {
-  code: 27,
-  label: 'escape'
-}, {
-  code: 32,
-  label: 'space'
-}, {
-  code: 33,
-  label: 'pageUp'
-}, {
-  code: 34,
-  label: 'pageDown'
-}, {
-  code: 35,
-  label: 'end'
-}, {
-  code: 36,
-  label: 'home'
-}, {
-  code: 37,
-  label: 'left'
-}, {
-  code: 38,
-  label: 'up'
-}, {
-  code: 39,
-  label: 'right'
-}, {
-  code: 40,
-  label: 'down'
-}, {
-  code: 45,
-  label: 'insert'
-}, {
-  code: 46,
-  label: 'delete'
-}, {
-  code: 48,
-  label: 'zero'
-}, {
-  code: 49,
-  label: 'one'
-}, {
-  code: 50,
-  label: 'two'
-}, {
-  code: 51,
-  label: 'three'
-}, {
-  code: 52,
-  label: 'four'
-}, {
-  code: 53,
-  label: 'five'
-}, {
-  code: 54,
-  label: 'six'
-}, {
-  code: 55,
-  label: 'seven'
-}, {
-  code: 56,
-  label: 'eight'
-}, {
-  code: 57,
-  label: 'nine'
-}, {
-  code: 65,
-  label: 'A'
-}, {
-  code: 66,
-  label: 'B'
-}, {
-  code: 67,
-  label: 'C'
-}, {
-  code: 68,
-  label: 'D'
-}, {
-  code: 69,
-  label: 'E'
-}, {
-  code: 70,
-  label: 'F'
-}, {
-  code: 71,
-  label: 'G'
-}, {
-  code: 72,
-  label: 'H'
-}, {
-  code: 73,
-  label: 'I'
-}, {
-  code: 74,
-  label: 'J'
-}, {
-  code: 75,
-  label: 'K'
-}, {
-  code: 76,
-  label: 'L'
-}, {
-  code: 77,
-  label: 'M'
-}, {
-  code: 78,
-  label: 'N'
-}, {
-  code: 79,
-  label: 'O'
-}, {
-  code: 80,
-  label: 'P'
-}, {
-  code: 81,
-  label: 'Q'
-}, {
-  code: 82,
-  label: 'R'
-}, {
-  code: 83,
-  label: 'S'
-}, {
-  code: 84,
-  label: 'T'
-}, {
-  code: 85,
-  label: 'U'
-}, {
-  code: 86,
-  label: 'V'
-}, {
-  code: 87,
-  label: 'W'
-}, {
-  code: 88,
-  label: 'X'
-}, {
-  code: 89,
-  label: 'Y'
-}, {
-  code: 90,
-  label: 'Z'
-}, {
-  code: 91,
-  label: 'superLeft'
-}, {
-  code: 92,
-  label: 'superRight'
-}, {
-  code: 93,
-  label: 'select'
-}, {
-  code: 96,
-  label: 'num0'
-}, {
-  code: 97,
-  label: 'num1'
-}, {
-  code: 98,
-  label: 'num2'
-}, {
-  code: 99,
-  label: 'num3'
-}, {
-  code: 100,
-  label: 'num4'
-}, {
-  code: 101,
-  label: 'num5'
-}, {
-  code: 102,
-  label: 'num6'
-}, {
-  code: 103,
-  label: 'num7'
-}, {
-  code: 104,
-  label: 'num8'
-}, {
-  code: 105,
-  label: 'num9'
-}, {
-  code: 106,
-  label: 'multiply'
-}, {
-  code: 107,
-  label: 'add'
-}, {
-  code: 109,
-  label: 'subtract'
-}, {
-  code: 110,
-  label: 'point'
-}, {
-  code: 111,
-  label: 'divide'
-}, {
-  code: 112,
-  label: 'F1'
-}, {
-  code: 113,
-  label: 'F2'
-}, {
-  code: 114,
-  label: 'F3'
-}, {
-  code: 115,
-  label: 'F4'
-}, {
-  code: 116,
-  label: 'F5'
-}, {
-  code: 117,
-  label: 'F6'
-}, {
-  code: 118,
-  label: 'F7'
-}, {
-  code: 119,
-  label: 'F8'
-}, {
-  code: 120,
-  label: 'F9'
-}, {
-  code: 121,
-  label: 'F10'
-}, {
-  code: 122,
-  label: 'F11'
-}, {
-  code: 123,
-  label: 'F12'
-}, {
-  code: 144,
-  label: 'numLock'
-}, {
-  code: 145,
-  label: 'scrollLock'
-}, {
-  code: 186,
-  label: 'semiColon'
-}, {
-  code: 187,
-  label: 'equals'
-}, {
-  code: 188,
-  label: 'comma'
-}, {
-  code: 189,
-  label: 'dash'
-}, {
-  code: 190,
-  label: 'dot'
-}, {
-  code: 191,
-  label: 'forewardSlash'
-}, {
-  code: 192,
-  label: 'graveAccent'
-}, {
-  code: 219,
-  label: 'openBracket'
-}, {
-  code: 220,
-  label: 'backSlash'
-}, {
-  code: 221,
-  label: 'closeBracket'
-}, {
-  code: 222,
-  label: 'singleQuote'
-}]);
+};
 
 /***/ }),
 
@@ -1319,151 +948,124 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _canvas__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../canvas */ "./src/canvas.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-
-var prevMouse = defaultState();
-var mouse = defaultState();
-
-function diff() {
-  var result = {};
-
-  if (prevMouse.x !== mouse.x) {
-    result['x'] = mouse.x;
-  }
-
-  if (prevMouse.y !== mouse.y) {
-    result['y'] = mouse.y;
-  }
-
-  if (prevMouse.pressed !== mouse.pressed) {
-    result['pressed'] = mouse.pressed;
-  }
-
-  if (prevMouse.justPressed !== mouse.justPressed) {
-    result['justPressed'] = mouse.justPressed;
-  }
-
-  if (prevMouse.released !== mouse.released) {
-    result['released'] = mouse.released;
-  }
-
-  if (prevMouse.justReleased !== mouse.justReleased) {
-    result['justReleased'] = mouse.justReleased;
-  }
-
-  return result;
-}
-
-function defaultButtonState() {
-  return {
-    pressed: false,
-    justPressed: false,
-    released: false,
-    justReleased: false
+function create(canvas) {
+  var defaultState = function defaultState() {
+    return {
+      x: 0,
+      y: 0,
+      left: defaultButtonState(),
+      wheel: defaultWheelState(),
+      right: defaultButtonState()
+    };
   };
-}
 
-function defaultWheelState() {
-  var buttonState = defaultButtonState();
-  return _objectSpread({}, buttonState, {
-    moved: false
-  });
-}
-
-function defaultState() {
-  return {
-    x: 0,
-    y: 0,
-    left: defaultButtonState(),
-    wheel: defaultWheelState(),
-    right: defaultButtonState()
+  var defaultButtonState = function defaultButtonState() {
+    return {
+      pressed: false,
+      justPressed: false,
+      released: false,
+      justReleased: false
+    };
   };
-}
 
-function clone(state) {
-  return Object.assign({}, state);
-}
-
-function relative(event, element) {
-  var bounds = _canvas__WEBPACK_IMPORTED_MODULE_0__["canvas"].getBoundingClientRect();
-  return {
-    x: event.clientX - bounds.left,
-    y: event.clientY - bounds.top
+  var defaultWheelState = function defaultWheelState() {
+    var buttonState = defaultButtonState();
+    return _objectSpread({}, buttonState, {
+      moved: false
+    });
   };
-}
 
-function move(event) {
-  var newPos = relative(event, _canvas__WEBPACK_IMPORTED_MODULE_0__["canvas"]);
-  mouse.x = newPos.x;
-  mouse.y = newPos.y;
-}
+  var clone = function clone(state) {
+    return Object.assign({}, state);
+  };
 
-function down(event) {
-  switch (event.which) {
-    case 1:
-      mouse.left.pressed = true;
-      break;
+  var relative = function relative(event, element) {
+    var bounds = canvas.getBoundingClientRect();
+    return {
+      x: event.clientX - bounds.left,
+      y: event.clientY - bounds.top
+    };
+  };
 
-    case 2:
-      mouse.middle.pressed = true;
-      break;
+  var move = function move(event) {
+    var newPos = relative(event, canvas);
+    mouse.x = newPos.x;
+    mouse.y = newPos.y;
+  };
 
-    case 3:
-      mouse.right.pressed = true;
-      break;
-  }
-}
+  var down = function down(event) {
+    switch (event.which) {
+      case 1:
+        mouse.left.pressed = true;
+        break;
 
-function up(event) {
-  switch (event.which) {
-    case 1:
-      mouse.left.pressed = false;
-      break;
+      case 2:
+        mouse.middle.pressed = true;
+        break;
 
-    case 2:
-      mouse.middle.pressed = false;
-      break;
+      case 3:
+        mouse.right.pressed = true;
+        break;
+    }
+  };
 
-    case 3:
-      mouse.right.pressed = false;
-      break;
-  }
-}
+  var up = function up(event) {
+    switch (event.which) {
+      case 1:
+        mouse.left.pressed = false;
+        break;
 
-function wheel(event) {
-  mouse.wheel.moved = event.delta === 0 ? false : true;
+      case 2:
+        mouse.middle.pressed = false;
+        break;
 
-  if (mouse.wheel.moved !== false) {
-    mouse.wheel.direction = event.deltaY < 0 ? 'up' : 'down';
-  }
-}
+      case 3:
+        mouse.right.pressed = false;
+        break;
+    }
+  };
 
-function update() {
-  mouse.wheel.moved = false;
-  prevMouse = clone(mouse);
-}
+  var wheel = function wheel(event) {
+    mouse.wheel.moved = event.delta === 0 ? false : true;
 
-function start() {
-  // mouse events
-  _canvas__WEBPACK_IMPORTED_MODULE_0__["canvas"].addEventListener('mousemove', move);
-  _canvas__WEBPACK_IMPORTED_MODULE_0__["canvas"].addEventListener('mousedown', down);
-  _canvas__WEBPACK_IMPORTED_MODULE_0__["canvas"].addEventListener('mouseup', up);
-  _canvas__WEBPACK_IMPORTED_MODULE_0__["canvas"].addEventListener('wheel', wheel); // default mouse position, center of screen
+    if (mouse.wheel.moved !== false) {
+      mouse.wheel.direction = event.deltaY < 0 ? 'up' : 'down';
+    }
+  };
 
-  mouse.x = _canvas__WEBPACK_IMPORTED_MODULE_0__["canvas"].width / 2;
-  mouse.y = _canvas__WEBPACK_IMPORTED_MODULE_0__["canvas"].height / 2;
+  var update = function update() {
+    mouse.wheel.moved = false;
+    prevMouse = clone(mouse);
+  };
+
+  var start = function start() {
+    // mouse events
+    canvas.addEventListener('mousemove', move);
+    canvas.addEventListener('mousedown', down);
+    canvas.addEventListener('mouseup', up);
+    canvas.addEventListener('wheel', wheel); // default mouse position, center of screen
+
+    mouse.x = canvas.width / 2;
+    mouse.y = canvas.height / 2;
+  };
+
+  var prevMouse = defaultState();
+  var mouse = defaultState();
+  return {
+    state: mouse,
+    start: start,
+    update: update
+  };
 }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  start: start,
-  update: update,
-  state: mouse
+  create: create
 });
 
 /***/ }),
