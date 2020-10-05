@@ -253,7 +253,7 @@ function loadAllTerrain() {
 /*!************************!*\
   !*** ./src/bramble.js ***!
   \************************/
-/*! exports provided: assets, game, grid, graphics, keyboard, mouse, music, sfx, sprite, textbox, sound, canvas */
+/*! exports provided: assets, game, grid, graphics, keyboard, mouse, music, sfx, sprite, textbox, sound, canvas, vec2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -292,6 +292,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _canvas__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./canvas */ "./src/canvas.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "canvas", function() { return _canvas__WEBPACK_IMPORTED_MODULE_10__["default"]; });
+
+/* harmony import */ var _vec2__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./vec2 */ "./src/vec2.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "vec2", function() { return _vec2__WEBPACK_IMPORTED_MODULE_11__["default"]; });
+
 
 
 
@@ -1274,6 +1278,144 @@ function create() {
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   create: create
+});
+
+/***/ }),
+
+/***/ "./src/vec2.js":
+/*!*********************!*\
+  !*** ./src/vec2.js ***!
+  \*********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function create(_x, _y) {
+  var x = _x;
+  var y = _y;
+
+  var add = function add(v) {
+    x += v.x;
+    y += v.y;
+  };
+
+  var addScalar = function addScalar(s) {
+    x += s;
+    y += s;
+  };
+
+  var divide = function divide(v) {
+    x /= v.x;
+    y /= v.y;
+  };
+
+  var divideScalar = function divideScalar(s) {
+    x /= s;
+    y /= s;
+  };
+
+  var dot = function dot(v) {
+    return x * v.x + y * v.y;
+  };
+
+  var getLength = function getLength() {
+    return Math.sqrt(x * x + y * y);
+  };
+
+  var getOpposite = function getOpposite(v) {
+    return create(-v.x, -v.y);
+  };
+
+  var getPerp = function getPerp() {
+    return create(-y, x);
+  };
+
+  var isEqualTo = function isEqualTo(v) {
+    return x == v.x && y == v.y;
+  };
+
+  var multiply = function multiply(v) {
+    x *= v.x;
+    y *= v.y;
+  };
+
+  var multiplyScalar = function multiplyScalar(s) {
+    x *= s;
+    y *= s;
+  };
+
+  var normalise = function normalise() {
+    var l = getLength();
+    x = x / l;
+    y = y / l;
+  };
+
+  var setLength = function setLength(l) {
+    normalise();
+    multiplyScalar(l);
+  };
+
+  var subtract = function subtract(v) {
+    x -= v.x;
+    y -= v.y;
+  };
+
+  var subtractScalar = function subtractScalar(s) {
+    x -= s;
+    y -= s;
+  };
+
+  return {
+    add: add,
+    addScalar: addScalar,
+    clone: clone,
+    divide: divide,
+    divideScalar: divideScalar,
+    dot: dot,
+    getLength: getLength,
+    getOpposite: getOpposite,
+    getPerp: getPerp,
+    isEqualTo: isEqualTo,
+    multiply: multiply,
+    multiplyScalar: multiplyScalar,
+    normalise: normalise,
+    setLength: setLength,
+    subtract: subtract,
+    subtractScalar: subtractScalar,
+
+    set x(_x) {
+      x = _x;
+    },
+
+    get x() {
+      return x;
+    },
+
+    set y(_y) {
+      y = _y;
+    },
+
+    get y() {
+      return y;
+    }
+
+  };
+}
+
+var fromDegrees = function fromDegrees(degrees) {
+  var rad = degrees * (Math.PI / 180);
+  return create(Math.cos(rad), Math.sin(rad));
+};
+
+var clone = function clone(v) {
+  return create(v.x, v.y);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  clone: clone,
+  create: create,
+  fromDegrees: fromDegrees
 });
 
 /***/ })
