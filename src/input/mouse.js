@@ -27,6 +27,11 @@ function create(canvas) {
     }
   }
 
+  let prevMouse = defaultState()
+  let mouse = defaultState()
+
+  console.log(mouse)
+
   const clone = state => {
     return Object.assign({}, state)
   }
@@ -50,6 +55,7 @@ function create(canvas) {
   const down = event => {
     switch (event.which) {
       case 1:
+        console.log('left down')
         mouse.left.pressed = true
         break
 
@@ -104,11 +110,8 @@ function create(canvas) {
     mouse.y = canvas.height / 2
   }
 
-  let prevMouse = defaultState()
-  let mouse = defaultState()
-
   return {
-    state: mouse,
+    mouse,
     start,
     update
   }

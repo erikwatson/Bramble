@@ -440,7 +440,7 @@ var create = function create() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _number__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./number */ "./src/number.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 
 var ctx = null;
@@ -673,13 +673,8 @@ function tiles(positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, t
     for (var x = 0; x < tileGrid[y].length; x++) {
       var _ret2 = _loop2(x);
 
-      switch (_ret2) {
-        case "continue":
-          continue;
-
-        default:
-          if (_typeof(_ret2) === "object") return _ret2.v;
-      }
+      if (_ret2 === "continue") continue;
+      if (_typeof(_ret2) === "object") return _ret2.v;
     }
   };
 
@@ -862,7 +857,7 @@ function fill(tiles, position, target, replacement) {
 
 function create(width, height) {
   var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultGrid;
-  options = _objectSpread({}, defaultGrid, {}, options);
+  options = _objectSpread(_objectSpread({}, defaultGrid), options);
   var tiles = make2DArray(width, height, 0);
   var pos = {
     x: options.pos.x,
@@ -976,10 +971,14 @@ function create(canvas) {
 
   var defaultWheelState = function defaultWheelState() {
     var buttonState = defaultButtonState();
-    return _objectSpread({}, buttonState, {
+    return _objectSpread(_objectSpread({}, buttonState), {}, {
       moved: false
     });
   };
+
+  var prevMouse = defaultState();
+  var mouse = defaultState();
+  console.log(mouse);
 
   var clone = function clone(state) {
     return Object.assign({}, state);
@@ -1002,6 +1001,7 @@ function create(canvas) {
   var down = function down(event) {
     switch (event.which) {
       case 1:
+        console.log('left down');
         mouse.left.pressed = true;
         break;
 
@@ -1055,10 +1055,8 @@ function create(canvas) {
     mouse.y = canvas.height / 2;
   };
 
-  var prevMouse = defaultState();
-  var mouse = defaultState();
   return {
-    state: mouse,
+    mouse: mouse,
     start: start,
     update: update
   };
