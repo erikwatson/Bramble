@@ -1,21 +1,21 @@
 import number from './number'
 
-function clear(ctx, color) {
+function clear(ctx, colour) {
   rect(ctx, 0, 0, ctx.canvas.width, ctx.canvas.height, {
     fill: {
-      color
+      colour
     }
   })
 }
 
 const defaultRect = {
   fill: {
-    color: '#ffffff',
+    colour: '#ffffff',
     opacity: 1
   },
   line: {
     width: 2,
-    color: '#000000',
+    colour: '#000000',
     opacity: 1
   }
 }
@@ -26,12 +26,12 @@ function square(ctx, x, y, size, options = defaultRect) {
 
 function rect(ctx, x, y, w, h, options = defaultRect) {
   if (typeof options.fill !== 'undefined') {
-    ctx.fillStyle = options.fill.color
+    ctx.fillStyle = options.fill.colour
     ctx.fillRect(x, y, w, h)
   }
 
   if (typeof options.line !== 'undefined') {
-    ctx.strokeStyle = options.line.color
+    ctx.strokeStyle = options.line.colour
     ctx.lineWidth = options.line.width
     ctx.strokeRect(x, y, w, h)
   }
@@ -39,11 +39,11 @@ function rect(ctx, x, y, w, h, options = defaultRect) {
 
 const defaultLine = {
   width: 2,
-  color: '#000000'
+  colour: '#000000'
 }
 
 function line(ctx, from, to, options = defaultLine) {
-  ctx.strokeStyle = options.color
+  ctx.strokeStyle = options.colour
   ctx.lineWidth = options.width
 
   ctx.beginPath()
@@ -54,12 +54,12 @@ function line(ctx, from, to, options = defaultLine) {
 
 const defaultCircle = {
   fill: {
-    color: '#000000',
+    colour: '#000000',
     opacity: 1
   },
 
   line: {
-    color: '#ffffff',
+    colour: '#ffffff',
     opacity: 1,
     width: 2
   }
@@ -68,11 +68,11 @@ const defaultCircle = {
 function circle(ctx, x, y, radius, options = defaultCircle) {
   // not happy with this really, make another function i think
   if (typeof options.fill !== 'undefined') {
-    ctx.fillStyle = options.fill.color
+    ctx.fillStyle = options.fill.colour
   }
 
   ctx.beginPath()
-  ctx.strokeStyle = options.line.color
+  ctx.strokeStyle = options.line.colour
   ctx.lineWidth = options.line.width
   ctx.arc(x, y, radius, 0, 2 * Math.PI)
   ctx.closePath()
@@ -132,10 +132,10 @@ function text(
   x = 0,
   y = 0,
   text = '',
-  color = '#000000',
+  colour = '#000000',
   font = '16pt sans-serif'
 ) {
-  ctx.fillStyle = color
+  ctx.fillStyle = colour
   ctx.font = font
   ctx.textAlign = 'left'
   ctx.textBaseline = 'top'
@@ -292,7 +292,7 @@ function tiles(
 }
 
 const defaultDropShadow = {
-  shadowColor: '#000000',
+  shadowcolour: '#000000',
   shadowBlur: 6,
   shadowOffsetX: 4,
   shadowOffsetY: 4
@@ -301,7 +301,7 @@ const defaultDropShadow = {
 function shadow(ctx, drawingOperations, options = defaultDropShadow) {
   ctx.save()
 
-  ctx.shadowColor = options.shadowColor
+  ctx.shadowcolour = options.shadowcolour
   ctx.shadowBlur = options.shadowBlur
   ctx.shadowOffsetX = options.shadowOffsetX
   ctx.shadowOffsetY = options.shadowOffsetY
@@ -312,7 +312,7 @@ function shadow(ctx, drawingOperations, options = defaultDropShadow) {
 
 function dodge(ctx, drawingOperations) {
   ctx.save()
-  ctx.globalCompositeOperation = 'color-dodge'
+  ctx.globalCompositeOperation = 'colour-dodge'
   drawingOperations()
   ctx.restore()
 }
@@ -331,12 +331,12 @@ function transparency(ctx, drawingOperations, alpha = 0.25) {
   ctx.restore()
 }
 
-function create (ctx) {
+function create(ctx) {
   return {
     circle: (x, y, radius, options = defaultCircle) => {
       circle(ctx, x, y, radius, options)
     },
-    clear: (colour) => {
+    clear: colour => {
       clear(ctx, colour)
     },
     square: (x, y, size, options = defaultRect) => {
@@ -351,7 +351,7 @@ function create (ctx) {
     line: (from, to, options = defaultLine) => {
       line(ctx, from, to, options)
     },
-    sprite: (sprite) => {
+    sprite: sprite => {
       sprite(ctx, sprite)
     },
     subImage: (x, y, w, h, sx, sy, sw, sh, image) => {
@@ -366,7 +366,7 @@ function create (ctx) {
     ) => {
       text(ctx, x, y, text, colour, font)
     },
-    textbox: (textbox) => {
+    textbox: textbox => {
       textbox(ctx, textbox)
     },
     tiles: (
@@ -392,10 +392,10 @@ function create (ctx) {
     shadow: (drawingOperations, options = defaultDropShadow) => {
       shadow(ctx, drawingOperations, options)
     },
-    dodge: (drawingOperations) => {
+    dodge: drawingOperations => {
       dodge(ctx, drawingOperations)
     },
-    overlay: (drawingOperations) => {
+    overlay: drawingOperations => {
       overlay(ctx, drawingOperations)
     },
     transparency: (drawingOperations, alpha = 0.25) => {
