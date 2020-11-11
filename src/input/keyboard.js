@@ -1,4 +1,3 @@
-import { canvas } from '../canvas'
 import allKeys from './keys'
 
 let keys = defaultState()

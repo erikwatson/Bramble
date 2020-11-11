@@ -53,7 +53,6 @@ function create(canvas) {
   const down = event => {
     switch (event.which) {
       case 1:
-        console.log('left down')
         mouse.left.pressed = true
         break
 
@@ -109,7 +108,7 @@ function create(canvas) {
   }
 
   return {
-    mouse,
+    getState: () => mouse,
     start,
     update
   }

@@ -80,7 +80,8 @@ const create = () => {
     attachTo,
     disableContextMenu,
     setSmoothing,
-    start
+    start,
+    getMouseState: () => mouseInput.getState()
   }
 }
 

@@ -14,7 +14,7 @@ function create(canvas) {
   return {
     start,
     update,
-    mouse: mouseInput.state
+    getState: () => mouseInput.getState()
   }
 }
 
