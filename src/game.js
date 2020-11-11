@@ -1,4 +1,3 @@
-import canvas from './canvas'
 import gfx from './graphics'
 import { mouse, keyboard } from './input'
 
@@ -12,7 +11,13 @@ const create = () => {
   let prevTime = 0
   let frameTime = 0
 
-  const mouseInput = mouse.create(canvas.element)
+  const canvas = document.createElement('canvas')
+  const ctx = canvas.getContext('2d')
+  const graphics = gfx.create(ctx)
+
+  canvas.id = 'bramble-game'
+
+  let mouseInput = null //  mouse.create(canvas.element)
 
   const setBackgroundColor = color => {
     backgroundColor = color
@@ -32,8 +37,8 @@ const create = () => {
     }
 
     if (render) {
-      gfx.clear(backgroundColor)
-      render()
+      graphics.clear(backgroundColor)
+      render(graphics)
     }
 
     mouseInput.update()
@@ -41,18 +46,40 @@ const create = () => {
   }
 
   const start = () => {
+    mouseInput = mouse.create(canvas)
     mouseInput.start()
     window.requestAnimationFrame(step)
   }
 
+  const setSize = (width, height) => {
+    canvas.width = width
+    canvas.height = height
+  }
+
+  const attachTo = element => {
+    element.appendChild(canvas)
+  }
+
+  // NOTE: Must be called AFTER anything that would change our context.
+  //       setSize for example.
+  const setSmoothing = (to = true) => {
+    ctx.imageSmoothingEnabled = to
+  }
+
+  const disableContextMenu = () => {
+    canvas.addEventListener('contextmenu', e => {
+      e.preventDefault()
+    })
+  }
+
   return {
-    setSize: canvas.setSize,
+    setSize,
     setUpdate,
     setRender,
     setBackgroundColor,
-    attachTo: canvas.attachTo,
-    disableContextMenu: canvas.disableContextMenu,
-    setSmoothing: canvas.setSmoothing,
+    attachTo,
+    disableContextMenu,
+    setSmoothing,
     start
   }
 }
