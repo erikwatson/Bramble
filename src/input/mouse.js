@@ -30,8 +30,6 @@ function create(canvas) {
   let prevMouse = defaultState()
   let mouse = defaultState()
 
-  console.log(mouse)
-
   const clone = state => {
     return Object.assign({}, state)
   }
