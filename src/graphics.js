@@ -1,17 +1,7 @@
 import number from './number'
 
-let ctx = null
-
-function setContext(context) {
-  ctx = context
-}
-
-function getContext() {
-  return ctx
-}
-
-function clear(color) {
-  rect(0, 0, ctx.canvas.width, ctx.canvas.height, {
+function clear(ctx, color) {
+  rect(ctx, 0, 0, ctx.canvas.width, ctx.canvas.height, {
     fill: {
       color
     }
@@ -30,11 +20,11 @@ const defaultRect = {
   }
 }
 
-function square(x, y, size, options = defaultRect) {
-  rect(x, y, size, size, options)
+function square(ctx, x, y, size, options = defaultRect) {
+  rect(ctx, x, y, size, size, options)
 }
 
-function rect(x, y, w, h, options = defaultRect) {
+function rect(ctx, x, y, w, h, options = defaultRect) {
   if (typeof options.fill !== 'undefined') {
     ctx.fillStyle = options.fill.color
     ctx.fillRect(x, y, w, h)
@@ -52,7 +42,7 @@ const defaultLine = {
   color: '#000000'
 }
 
-function line(from, to, options = defaultLine) {
+function line(ctx, from, to, options = defaultLine) {
   ctx.strokeStyle = options.color
   ctx.lineWidth = options.width
 
@@ -75,7 +65,7 @@ const defaultCircle = {
   }
 }
 
-function circle(x, y, radius, options = defaultCircle) {
+function circle(ctx, x, y, radius, options = defaultCircle) {
   // not happy with this really, make another function i think
   if (typeof options.fill !== 'undefined') {
     ctx.fillStyle = options.fill.color
@@ -94,15 +84,15 @@ function circle(x, y, radius, options = defaultCircle) {
   ctx.stroke()
 }
 
-function image(x, y, w, h, image) {
+function image(ctx, x, y, w, h, image) {
   ctx.drawImage(image, x, y, w, h)
 }
 
-function subImage(x, y, w, h, sx, sy, sw, sh, image) {
+function subImage(ctx, x, y, w, h, sx, sy, sw, sh, image) {
   ctx.drawImage(image, sx, sy, sw, sh, x, y, w, h)
 }
 
-function sprite(sprite) {
+function sprite(ctx, sprite) {
   const halfWidth = sprite.width / 2
   const halfHeight = sprite.height / 2
 
@@ -112,6 +102,7 @@ function sprite(sprite) {
 
   if (sprite.frames.length > 1) {
     subImage(
+      ctx,
       -halfWidth,
       -halfHeight,
       sprite.width,
@@ -123,13 +114,21 @@ function sprite(sprite) {
       sprite.texture
     )
   } else {
-    image(-halfWidth, -halfHeight, sprite.width, sprite.height, sprite.texture)
+    image(
+      ctx,
+      -halfWidth,
+      -halfHeight,
+      sprite.width,
+      sprite.height,
+      sprite.texture
+    )
   }
 
   ctx.restore()
 }
 
 function text(
+  ctx,
   x = 0,
   y = 0,
   text = '',
@@ -150,7 +149,7 @@ function text(
 //
 //       This could probably be cached in the object itself as long as we update
 //       every time there's a change to the font, text, width or height.
-function textbox(textbox) {
+function textbox(ctx, textbox) {
   ctx.fillStyle = '#ffffff'
   ctx.font = '16pt sans-serif'
   ctx.textAlign = 'left'
@@ -166,6 +165,7 @@ function textbox(textbox) {
 }
 
 function tile(
+  ctx,
   positionX,
   positionY,
   tilesheet,
@@ -178,6 +178,7 @@ function tile(
   tileHeight
 ) {
   subImage(
+    ctx,
     positionX + scale * (gridX * tileWidth),
     positionY + scale * (gridY * tileHeight),
     scale * tileWidth,
@@ -193,6 +194,7 @@ function tile(
 // tilegrid: a 2d array of numbers representing terrain types
 // spritesheets: An object, each key is the value that represents a tile from this sheet
 function tiles(
+  ctx,
   positionX,
   positionY,
   tileGrid,
@@ -270,6 +272,7 @@ function tiles(
 
       if (selection) {
         tile(
+          ctx,
           positionX,
           positionY,
           sheet.image,
@@ -295,7 +298,7 @@ const defaultDropShadow = {
   shadowOffsetY: 4
 }
 
-function shadow(drawingOperations, options = defaultDropShadow) {
+function shadow(ctx, drawingOperations, options = defaultDropShadow) {
   ctx.save()
 
   ctx.shadowColor = options.shadowColor
@@ -307,35 +310,107 @@ function shadow(drawingOperations, options = defaultDropShadow) {
   ctx.restore()
 }
 
-function dodge(drawingOperations) {
+function dodge(ctx, drawingOperations) {
   ctx.save()
   ctx.globalCompositeOperation = 'color-dodge'
   drawingOperations()
   ctx.restore()
 }
 
-function overlay(drawingOperations) {
+function overlay(ctx, drawingOperations) {
   ctx.save()
   ctx.globalCompositeOperation = 'overlay'
   drawingOperations()
   ctx.restore()
 }
 
-function transparency(drawingOperations, alpha = 0.25) {
+function transparency(ctx, drawingOperations, alpha = 0.25) {
   ctx.save()
   ctx.globalAlpha = alpha
   drawingOperations()
   ctx.restore()
 }
 
+function create (ctx) {
+  return {
+    circle: (x, y, radius, options = defaultCircle) => {
+      circle(ctx, x, y, radius, options)
+    },
+    clear: (colour) => {
+      clear(ctx, colour)
+    },
+    square: (x, y, size, options = defaultRect) => {
+      square(ctx, x, y, size, options)
+    },
+    rect: (x, y, w, h, options = defaultRect) => {
+      rect(ctx, x, y, w, h, options)
+    },
+    image: (x, y, w, h, image) => {
+      image(ctx, x, y, w, h, image)
+    },
+    line: (from, to, options = defaultLine) => {
+      line(ctx, from, to, options)
+    },
+    sprite: (sprite) => {
+      sprite(ctx, sprite)
+    },
+    subImage: (x, y, w, h, sx, sy, sw, sh, image) => {
+      subImage(ctx, x, y, w, h, sx, sy, sw, sh, image)
+    },
+    text: (
+      x = 0,
+      y = 0,
+      text = '',
+      colour = '#000000',
+      font = '16pt sans-serif'
+    ) => {
+      text(ctx, x, y, text, colour, font)
+    },
+    textbox: (textbox) => {
+      textbox(ctx, textbox)
+    },
+    tiles: (
+      positionX,
+      positionY,
+      tileGrid,
+      spriteSheets,
+      scale,
+      tileWidth,
+      tileHeight
+    ) => {
+      tiles(
+        ctx,
+        positionX,
+        positionY,
+        tileGrid,
+        spriteSheets,
+        scale,
+        tileWidth,
+        tileHeight
+      )
+    },
+    shadow: (drawingOperations, options = defaultDropShadow) => {
+      shadow(ctx, drawingOperations, options)
+    },
+    dodge: (drawingOperations) => {
+      dodge(ctx, drawingOperations)
+    },
+    overlay: (drawingOperations) => {
+      overlay(ctx, drawingOperations)
+    },
+    transparency: (drawingOperations, alpha = 0.25) => {
+      transparency(ctx, drawingOperations, alpha)
+    }
+  }
+}
+
 export default {
+  create,
   circle,
   clear,
   image,
   line,
   rect,
-  getContext,
-  setContext,
   sprite,
   square,
   subImage,
