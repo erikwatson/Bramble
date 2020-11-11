@@ -253,7 +253,7 @@ function loadAllTerrain() {
 /*!************************!*\
   !*** ./src/bramble.js ***!
   \************************/
-/*! exports provided: assets, game, grid, graphics, keyboard, mouse, music, sfx, sprite, textbox, sound, canvas, vec2 */
+/*! exports provided: assets, game, grid, graphics, keyboard, mouse, music, sfx, sprite, textbox, sound, vec2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -290,11 +290,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sound__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./sound */ "./src/sound.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "sound", function() { return _sound__WEBPACK_IMPORTED_MODULE_9__["default"]; });
 
-/* harmony import */ var _canvas__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./canvas */ "./src/canvas.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "canvas", function() { return _canvas__WEBPACK_IMPORTED_MODULE_10__["default"]; });
-
-/* harmony import */ var _vec2__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./vec2 */ "./src/vec2.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "vec2", function() { return _vec2__WEBPACK_IMPORTED_MODULE_11__["default"]; });
+/* harmony import */ var _vec2__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./vec2 */ "./src/vec2.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "vec2", function() { return _vec2__WEBPACK_IMPORTED_MODULE_10__["default"]; });
 
 
 
@@ -307,56 +304,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-/***/ }),
-
-/***/ "./src/canvas.js":
-/*!***********************!*\
-  !*** ./src/canvas.js ***!
-  \***********************/
-/*! exports provided: canvas, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "canvas", function() { return canvas; });
-/* harmony import */ var _graphics__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./graphics */ "./src/graphics.js");
-
-var canvas = document.createElement('canvas');
-canvas.id = 'bramble-game';
-var ctx = canvas.getContext('2d');
-
-function setSize(width, height) {
-  canvas.width = width;
-  canvas.height = height;
-}
-
-function attachTo(element) {
-  element.appendChild(canvas);
-  _graphics__WEBPACK_IMPORTED_MODULE_0__["default"].setContext(ctx);
-} // NOTE: Must be called AFTER anything that would change our context.
-//       setSize for example.
-
-
-function setSmoothing() {
-  var to = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-  ctx.imageSmoothingEnabled = to;
-}
-
-function disableContextMenu() {
-  canvas.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-  });
-}
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  element: canvas,
-  setSize: setSize,
-  attachTo: attachTo,
-  setSmoothing: setSmoothing,
-  disableContextMenu: disableContextMenu
-});
 
 /***/ }),
 
@@ -369,10 +316,8 @@ function disableContextMenu() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _canvas__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./canvas */ "./src/canvas.js");
-/* harmony import */ var _graphics__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./graphics */ "./src/graphics.js");
-/* harmony import */ var _input__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./input */ "./src/input.js");
-
+/* harmony import */ var _graphics__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./graphics */ "./src/graphics.js");
+/* harmony import */ var _input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./input */ "./src/input.js");
 
 
 
@@ -383,7 +328,11 @@ var create = function create() {
 
   var prevTime = 0;
   var frameTime = 0;
-  var mouseInput = _input__WEBPACK_IMPORTED_MODULE_2__["mouse"].create(_canvas__WEBPACK_IMPORTED_MODULE_0__["default"].element);
+  var canvas = document.createElement('canvas');
+  var ctx = canvas.getContext('2d');
+  var graphics = _graphics__WEBPACK_IMPORTED_MODULE_0__["default"].create(ctx);
+  canvas.id = 'bramble-game';
+  var mouseInput = null; //  mouse.create(canvas.element)
 
   var setBackgroundColor = function setBackgroundColor(color) {
     backgroundColor = color;
@@ -403,8 +352,8 @@ var create = function create() {
     }
 
     if (render) {
-      _graphics__WEBPACK_IMPORTED_MODULE_1__["default"].clear(backgroundColor);
-      render();
+      graphics.clear(backgroundColor);
+      render(graphics);
     }
 
     mouseInput.update();
@@ -412,19 +361,45 @@ var create = function create() {
   };
 
   var start = function start() {
+    mouseInput = _input__WEBPACK_IMPORTED_MODULE_1__["mouse"].create(canvas);
     mouseInput.start();
     window.requestAnimationFrame(step);
   };
 
+  var setSize = function setSize(width, height) {
+    canvas.width = width;
+    canvas.height = height;
+  };
+
+  var attachTo = function attachTo(element) {
+    element.appendChild(canvas);
+  }; // NOTE: Must be called AFTER anything that would change our context.
+  //       setSize for example.
+
+
+  var setSmoothing = function setSmoothing() {
+    var to = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+    ctx.imageSmoothingEnabled = to;
+  };
+
+  var disableContextMenu = function disableContextMenu() {
+    canvas.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+  };
+
   return {
-    setSize: _canvas__WEBPACK_IMPORTED_MODULE_0__["default"].setSize,
+    setSize: setSize,
     setUpdate: setUpdate,
     setRender: setRender,
     setBackgroundColor: setBackgroundColor,
-    attachTo: _canvas__WEBPACK_IMPORTED_MODULE_0__["default"].attachTo,
-    disableContextMenu: _canvas__WEBPACK_IMPORTED_MODULE_0__["default"].disableContextMenu,
-    setSmoothing: _canvas__WEBPACK_IMPORTED_MODULE_0__["default"].setSmoothing,
-    start: start
+    attachTo: attachTo,
+    disableContextMenu: disableContextMenu,
+    setSmoothing: setSmoothing,
+    start: start,
+    getMouseState: function getMouseState() {
+      return mouseInput.getState();
+    }
   };
 };
 
@@ -447,51 +422,43 @@ __webpack_require__.r(__webpack_exports__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 
-var ctx = null;
 
-function setContext(context) {
-  ctx = context;
-}
-
-function getContext() {
-  return ctx;
-}
-
-function clear(color) {
-  rect(0, 0, ctx.canvas.width, ctx.canvas.height, {
+function _clear(ctx, colour) {
+  _rect(ctx, 0, 0, ctx.canvas.width, ctx.canvas.height, {
     fill: {
-      color: color
+      colour: colour
     }
   });
 }
 
 var defaultRect = {
   fill: {
-    color: '#ffffff',
+    colour: '#ffffff',
     opacity: 1
   },
   line: {
     width: 2,
-    color: '#000000',
+    colour: '#000000',
     opacity: 1
   }
 };
 
-function square(x, y, size) {
-  var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : defaultRect;
-  rect(x, y, size, size, options);
-}
-
-function rect(x, y, w, h) {
+function _square(ctx, x, y, size) {
   var options = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : defaultRect;
 
+  _rect(ctx, x, y, size, size, options);
+}
+
+function _rect(ctx, x, y, w, h) {
+  var options = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : defaultRect;
+
   if (typeof options.fill !== 'undefined') {
-    ctx.fillStyle = options.fill.color;
+    ctx.fillStyle = options.fill.colour;
     ctx.fillRect(x, y, w, h);
   }
 
   if (typeof options.line !== 'undefined') {
-    ctx.strokeStyle = options.line.color;
+    ctx.strokeStyle = options.line.colour;
     ctx.lineWidth = options.line.width;
     ctx.strokeRect(x, y, w, h);
   }
@@ -499,12 +466,12 @@ function rect(x, y, w, h) {
 
 var defaultLine = {
   width: 2,
-  color: '#000000'
+  colour: '#000000'
 };
 
-function line(from, to) {
-  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultLine;
-  ctx.strokeStyle = options.color;
+function _line(ctx, from, to) {
+  var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : defaultLine;
+  ctx.strokeStyle = options.colour;
   ctx.lineWidth = options.width;
   ctx.beginPath();
   ctx.moveTo(from.x, from.y);
@@ -514,26 +481,26 @@ function line(from, to) {
 
 var defaultCircle = {
   fill: {
-    color: '#000000',
+    colour: '#000000',
     opacity: 1
   },
   line: {
-    color: '#ffffff',
+    colour: '#ffffff',
     opacity: 1,
     width: 2
   }
 };
 
-function circle(x, y, radius) {
-  var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : defaultCircle;
+function _circle(ctx, x, y, radius) {
+  var options = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : defaultCircle;
 
   // not happy with this really, make another function i think
   if (typeof options.fill !== 'undefined') {
-    ctx.fillStyle = options.fill.color;
+    ctx.fillStyle = options.fill.colour;
   }
 
   ctx.beginPath();
-  ctx.strokeStyle = options.line.color;
+  ctx.strokeStyle = options.line.colour;
   ctx.lineWidth = options.line.width;
   ctx.arc(x, y, radius, 0, 2 * Math.PI);
   ctx.closePath();
@@ -545,15 +512,15 @@ function circle(x, y, radius) {
   ctx.stroke();
 }
 
-function image(x, y, w, h, image) {
+function image(ctx, x, y, w, h, image) {
   ctx.drawImage(image, x, y, w, h);
 }
 
-function subImage(x, y, w, h, sx, sy, sw, sh, image) {
+function _subImage(ctx, x, y, w, h, sx, sy, sw, sh, image) {
   ctx.drawImage(image, sx, sy, sw, sh, x, y, w, h);
 }
 
-function sprite(sprite) {
+function sprite(ctx, sprite) {
   var halfWidth = sprite.width / 2;
   var halfHeight = sprite.height / 2;
   ctx.save();
@@ -561,21 +528,21 @@ function sprite(sprite) {
   ctx.rotate(_number__WEBPACK_IMPORTED_MODULE_0__["default"].toRadians(sprite.rotation));
 
   if (sprite.frames.length > 1) {
-    subImage(-halfWidth, -halfHeight, sprite.width, sprite.height, sprite.frames[sprite.frame].x, sprite.frames[sprite.frame].y, sprite.frames[sprite.frame].width, sprite.frames[sprite.frame].height, sprite.texture);
+    _subImage(ctx, -halfWidth, -halfHeight, sprite.width, sprite.height, sprite.frames[sprite.frame].x, sprite.frames[sprite.frame].y, sprite.frames[sprite.frame].width, sprite.frames[sprite.frame].height, sprite.texture);
   } else {
-    image(-halfWidth, -halfHeight, sprite.width, sprite.height, sprite.texture);
+    image(ctx, -halfWidth, -halfHeight, sprite.width, sprite.height, sprite.texture);
   }
 
   ctx.restore();
 }
 
-function text() {
-  var x = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-  var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  var text = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-  var color = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '#000000';
-  var font = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '16pt sans-serif';
-  ctx.fillStyle = color;
+function text(ctx) {
+  var x = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  var y = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+  var text = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
+  var colour = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '#000000';
+  var font = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : '16pt sans-serif';
+  ctx.fillStyle = colour;
   ctx.font = font;
   ctx.textAlign = 'left';
   ctx.textBaseline = 'top';
@@ -589,7 +556,7 @@ function text() {
 //       every time there's a change to the font, text, width or height.
 
 
-function textbox(textbox) {
+function textbox(ctx, textbox) {
   ctx.fillStyle = '#ffffff';
   ctx.font = '16pt sans-serif';
   ctx.textAlign = 'left';
@@ -603,13 +570,13 @@ function textbox(textbox) {
   ctx.fillText(textbox.text, textbox.x, textbox.y);
 }
 
-function tile(positionX, positionY, tilesheet, gridX, gridY, tileSheetX, tileSheetY, scale, tileWidth, tileHeight) {
-  subImage(positionX + scale * (gridX * tileWidth), positionY + scale * (gridY * tileHeight), scale * tileWidth, scale * tileHeight, tileWidth * tileSheetX, tileHeight * tileSheetY, tileWidth, tileHeight, tilesheet);
+function tile(ctx, positionX, positionY, tilesheet, gridX, gridY, tileSheetX, tileSheetY, scale, tileWidth, tileHeight) {
+  _subImage(ctx, positionX + scale * (gridX * tileWidth), positionY + scale * (gridY * tileHeight), scale * tileWidth, scale * tileHeight, tileWidth * tileSheetX, tileHeight * tileSheetY, tileWidth, tileHeight, tilesheet);
 } // tilegrid: a 2d array of numbers representing terrain types
 // spritesheets: An object, each key is the value that represents a tile from this sheet
 
 
-function tiles(positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, tileHeight) {
+function _tiles(ctx, positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, tileHeight) {
   var dirValues = {
     NW: 1,
     N: 2,
@@ -668,7 +635,7 @@ function tiles(positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, t
       var selection = selections[Math.floor(Math.random() * selections.length)];
 
       if (selection) {
-        tile(positionX, positionY, sheet.image, x, y, selection.position.x, selection.position.y, scale, selection.size.width, selection.size.height);
+        tile(ctx, positionX, positionY, sheet.image, x, y, selection.position.x, selection.position.y, scale, selection.size.width, selection.size.height);
       } else {
         console.log("Tile not defined ".concat(sum));
       }
@@ -690,16 +657,16 @@ function tiles(positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, t
 }
 
 var defaultDropShadow = {
-  shadowColor: '#000000',
+  shadowcolour: '#000000',
   shadowBlur: 6,
   shadowOffsetX: 4,
   shadowOffsetY: 4
 };
 
-function shadow(drawingOperations) {
-  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : defaultDropShadow;
+function _shadow(ctx, drawingOperations) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultDropShadow;
   ctx.save();
-  ctx.shadowColor = options.shadowColor;
+  ctx.shadowcolour = options.shadowcolour;
   ctx.shadowBlur = options.shadowBlur;
   ctx.shadowOffsetX = options.shadowOffsetX;
   ctx.shadowOffsetY = options.shadowOffsetY;
@@ -707,46 +674,115 @@ function shadow(drawingOperations) {
   ctx.restore();
 }
 
-function dodge(drawingOperations) {
+function _dodge(ctx, drawingOperations) {
   ctx.save();
-  ctx.globalCompositeOperation = 'color-dodge';
+  ctx.globalCompositeOperation = 'colour-dodge';
   drawingOperations();
   ctx.restore();
 }
 
-function overlay(drawingOperations) {
+function _overlay(ctx, drawingOperations) {
   ctx.save();
   ctx.globalCompositeOperation = 'overlay';
   drawingOperations();
   ctx.restore();
 }
 
-function transparency(drawingOperations) {
-  var alpha = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.25;
+function _transparency(ctx, drawingOperations) {
+  var alpha = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0.25;
   ctx.save();
   ctx.globalAlpha = alpha;
   drawingOperations();
   ctx.restore();
 }
 
+function create(ctx) {
+  return {
+    circle: function circle(x, y, radius) {
+      var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : defaultCircle;
+
+      _circle(ctx, x, y, radius, options);
+    },
+    clear: function clear(colour) {
+      _clear(ctx, colour);
+    },
+    square: function square(x, y, size) {
+      var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : defaultRect;
+
+      _square(ctx, x, y, size, options);
+    },
+    rect: function rect(x, y, w, h) {
+      var options = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : defaultRect;
+
+      _rect(ctx, x, y, w, h, options);
+    },
+    image: function image(x, y, w, h, _image) {
+      _image(ctx, x, y, w, h, _image);
+    },
+    line: function line(from, to) {
+      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultLine;
+
+      _line(ctx, from, to, options);
+    },
+    sprite: function sprite(_sprite) {
+      _sprite(ctx, _sprite);
+    },
+    subImage: function subImage(x, y, w, h, sx, sy, sw, sh, image) {
+      _subImage(ctx, x, y, w, h, sx, sy, sw, sh, image);
+    },
+    text: function text() {
+      var x = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+      var _text = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+
+      var colour = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '#000000';
+      var font = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '16pt sans-serif';
+
+      _text(ctx, x, y, _text, colour, font);
+    },
+    textbox: function textbox(_textbox) {
+      _textbox(ctx, _textbox);
+    },
+    tiles: function tiles(positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, tileHeight) {
+      _tiles(ctx, positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, tileHeight);
+    },
+    shadow: function shadow(drawingOperations) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : defaultDropShadow;
+
+      _shadow(ctx, drawingOperations, options);
+    },
+    dodge: function dodge(drawingOperations) {
+      _dodge(ctx, drawingOperations);
+    },
+    overlay: function overlay(drawingOperations) {
+      _overlay(ctx, drawingOperations);
+    },
+    transparency: function transparency(drawingOperations) {
+      var alpha = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.25;
+
+      _transparency(ctx, drawingOperations, alpha);
+    }
+  };
+}
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  circle: circle,
-  clear: clear,
+  create: create,
+  circle: _circle,
+  clear: _clear,
   image: image,
-  line: line,
-  rect: rect,
-  getContext: getContext,
-  setContext: setContext,
+  line: _line,
+  rect: _rect,
   sprite: sprite,
-  square: square,
-  subImage: subImage,
+  square: _square,
+  subImage: _subImage,
   text: text,
   textbox: textbox,
-  tiles: tiles,
-  shadow: shadow,
-  dodge: dodge,
-  overlay: overlay,
-  transparency: transparency
+  tiles: _tiles,
+  shadow: _shadow,
+  dodge: _dodge,
+  overlay: _overlay,
+  transparency: _transparency
 });
 
 /***/ }),
@@ -923,7 +959,9 @@ function create(canvas) {
   return {
     start: start,
     update: update,
-    mouse: mouseInput.state
+    getState: function getState() {
+      return mouseInput.getState();
+    }
   };
 }
 
@@ -982,7 +1020,6 @@ function create(canvas) {
 
   var prevMouse = defaultState();
   var mouse = defaultState();
-  console.log(mouse);
 
   var clone = function clone(state) {
     return Object.assign({}, state);
@@ -1005,7 +1042,6 @@ function create(canvas) {
   var down = function down(event) {
     switch (event.which) {
       case 1:
-        console.log('left down');
         mouse.left.pressed = true;
         break;
 
@@ -1060,7 +1096,9 @@ function create(canvas) {
   };
 
   return {
-    mouse: mouse,
+    getState: function getState() {
+      return mouse;
+    },
     start: start,
     update: update
   };
