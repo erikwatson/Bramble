@@ -1,4 +1,8 @@
-function make2DArray(width = 1, height = 1, defaultValue = null) {
+function make2DArray(
+  width: number = 1,
+  height: number = 1,
+  defaultValue: any = null
+) {
   let result = []
 
   for (let y = 0; y < height; y++) {
@@ -18,6 +22,24 @@ function copyTiles(tiles) {
   return tiles.map(arr => arr.slice())
 }
 
+interface Position {
+  x: number
+  y: number
+}
+
+export interface Grid {
+  pos: Position
+  visible: boolean
+  divisions: number
+  tileWidth: number
+  tileHeight: number
+  tiles: number[][]
+  width: number
+  height: number
+  tileSize: number
+  scale: number
+}
+
 const defaultGrid = {
   pos: { x: 0, y: 0 },
   visible: true,
@@ -27,10 +49,10 @@ const defaultGrid = {
   scale: 1
 }
 
-function fill(tiles, position, target, replacement) {
+function fill(tiles, position: Position, target, replacement) {
   let gridClone = copyTiles(tiles)
 
-  function floodFill(position, target, replacement) {
+  function floodFill(position: Position, target, replacement) {
     if (target === replacement) {
       return
     }
@@ -77,7 +99,20 @@ function fill(tiles, position, target, replacement) {
   return gridClone
 }
 
-function create(width, height, options = defaultGrid) {
+interface GridOptions {
+  pos: Position
+  visible: boolean
+  divisions: number
+  tileWidth: number
+  tileHeight: number
+  scale: number
+}
+
+function create(
+  width: number,
+  height: number,
+  options: GridOptions = defaultGrid
+): Grid {
   options = { ...defaultGrid, ...options }
 
   let tiles = make2DArray(width, height, 0)
@@ -103,7 +138,7 @@ function create(width, height, options = defaultGrid) {
   }
 }
 
-module.exports = {
+export default {
   create,
   fill,
   copyTiles

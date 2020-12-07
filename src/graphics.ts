@@ -1,6 +1,8 @@
 import number from './number'
+import { Sprite } from './sprite'
+import { Grid } from './grid'
 
-function clear(ctx, colour) {
+function clear(ctx: CanvasRenderingContext2D, colour: string) {
   rect(ctx, 0, 0, ctx.canvas.width, ctx.canvas.height, {
     fill: {
       colour
@@ -8,7 +10,20 @@ function clear(ctx, colour) {
   })
 }
 
-const defaultRect = {
+interface RectangleOptions {
+  fill?: {
+    colour?: string
+    opacity?: number
+  }
+
+  line?: {
+    width?: number
+    colour?: string
+    opacity?: number
+  }
+}
+
+const defaultRect: RectangleOptions = {
   fill: {
     colour: '#ffffff',
     opacity: 1
@@ -20,11 +35,24 @@ const defaultRect = {
   }
 }
 
-function square(ctx, x, y, size, options = defaultRect) {
+function square(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  size: number,
+  options: RectangleOptions = defaultRect
+) {
   rect(ctx, x, y, size, size, options)
 }
 
-function rect(ctx, x, y, w, h, options = defaultRect) {
+function rect(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  options: RectangleOptions = defaultRect
+) {
   if (typeof options.fill !== 'undefined') {
     ctx.fillStyle = options.fill.colour
     ctx.fillRect(x, y, w, h)
@@ -37,12 +65,27 @@ function rect(ctx, x, y, w, h, options = defaultRect) {
   }
 }
 
-const defaultLine = {
+interface LineOptions {
+  width?: number
+  colour?: string
+}
+
+const defaultLine: LineOptions = {
   width: 2,
   colour: '#000000'
 }
 
-function line(ctx, from, to, options = defaultLine) {
+interface Point {
+  x: number
+  y: number
+}
+
+function line(
+  ctx: CanvasRenderingContext2D,
+  from: Point,
+  to: Point,
+  options: LineOptions = defaultLine
+) {
   ctx.strokeStyle = options.colour
   ctx.lineWidth = options.width
 
@@ -52,7 +95,20 @@ function line(ctx, from, to, options = defaultLine) {
   ctx.stroke()
 }
 
-const defaultCircle = {
+interface CircleOptions {
+  fill?: {
+    colour?: string
+    opacity?: number
+  }
+
+  line?: {
+    colour?: string
+    opacity?: number
+    width?: number
+  }
+}
+
+const defaultCircle: CircleOptions = {
   fill: {
     colour: '#000000',
     opacity: 1
@@ -65,7 +121,13 @@ const defaultCircle = {
   }
 }
 
-function circle(ctx, x, y, radius, options = defaultCircle) {
+function circle(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  radius: number,
+  options: CircleOptions = defaultCircle
+) {
   // not happy with this really, make another function i think
   if (typeof options.fill !== 'undefined') {
     ctx.fillStyle = options.fill.colour
@@ -84,15 +146,33 @@ function circle(ctx, x, y, radius, options = defaultCircle) {
   ctx.stroke()
 }
 
-function image(ctx, x, y, w, h, image) {
+function image(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  image: CanvasImageSource
+) {
   ctx.drawImage(image, x, y, w, h)
 }
 
-function subImage(ctx, x, y, w, h, sx, sy, sw, sh, image) {
+function subImage(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  sx: number,
+  sy: number,
+  sw: number,
+  sh: number,
+  image: CanvasImageSource
+) {
   ctx.drawImage(image, sx, sy, sw, sh, x, y, w, h)
 }
 
-function sprite(ctx, sprite) {
+function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
   const halfWidth = sprite.width / 2
   const halfHeight = sprite.height / 2
 
@@ -127,8 +207,8 @@ function sprite(ctx, sprite) {
   ctx.restore()
 }
 
-function text(
-  ctx,
+function txt(
+  ctx: CanvasRenderingContext2D,
   x = 0,
   y = 0,
   text = '',
@@ -149,7 +229,7 @@ function text(
 //
 //       This could probably be cached in the object itself as long as we update
 //       every time there's a change to the font, text, width or height.
-function textbox(ctx, textbox) {
+function textbox(ctx: CanvasRenderingContext2D, textbox) {
   ctx.fillStyle = '#ffffff'
   ctx.font = '16pt sans-serif'
   ctx.textAlign = 'left'
@@ -165,17 +245,17 @@ function textbox(ctx, textbox) {
 }
 
 function tile(
-  ctx,
-  positionX,
-  positionY,
-  tilesheet,
-  gridX,
-  gridY,
-  tileSheetX,
-  tileSheetY,
-  scale,
-  tileWidth,
-  tileHeight
+  ctx: CanvasRenderingContext2D,
+  positionX: number,
+  positionY: number,
+  tilesheet: CanvasImageSource,
+  gridX: number,
+  gridY: number,
+  tileSheetX: number,
+  tileSheetY: number,
+  scale: number,
+  tileWidth: number,
+  tileHeight: number
 ) {
   subImage(
     ctx,
@@ -194,14 +274,14 @@ function tile(
 // tilegrid: a 2d array of numbers representing terrain types
 // spritesheets: An object, each key is the value that represents a tile from this sheet
 function tiles(
-  ctx,
-  positionX,
-  positionY,
-  tileGrid,
+  ctx: CanvasRenderingContext2D,
+  positionX: number,
+  positionY: number,
+  tileGrid: number[][],
   spriteSheets,
-  scale,
-  tileWidth,
-  tileHeight
+  scale: number,
+  tileWidth: number,
+  tileHeight: number
 ) {
   const dirValues = {
     NW: 1,
@@ -298,10 +378,14 @@ const defaultDropShadow = {
   shadowOffsetY: 4
 }
 
-function shadow(ctx, drawingOperations, options = defaultDropShadow) {
+function shadow(
+  ctx: CanvasRenderingContext2D,
+  drawingOperations,
+  options = defaultDropShadow
+) {
   ctx.save()
 
-  ctx.shadowcolour = options.shadowcolour
+  ctx.shadowColor = options.shadowcolour
   ctx.shadowBlur = options.shadowBlur
   ctx.shadowOffsetX = options.shadowOffsetX
   ctx.shadowOffsetY = options.shadowOffsetY
@@ -310,28 +394,50 @@ function shadow(ctx, drawingOperations, options = defaultDropShadow) {
   ctx.restore()
 }
 
-function dodge(ctx, drawingOperations) {
+function dodge(ctx: CanvasRenderingContext2D, drawingOperations) {
   ctx.save()
   ctx.globalCompositeOperation = 'colour-dodge'
   drawingOperations()
   ctx.restore()
 }
 
-function overlay(ctx, drawingOperations) {
+function overlay(ctx: CanvasRenderingContext2D, drawingOperations) {
   ctx.save()
   ctx.globalCompositeOperation = 'overlay'
   drawingOperations()
   ctx.restore()
 }
 
-function transparency(ctx, drawingOperations, alpha = 0.25) {
+function transparency(
+  ctx: CanvasRenderingContext2D,
+  drawingOperations,
+  alpha = 0.25
+) {
   ctx.save()
   ctx.globalAlpha = alpha
   drawingOperations()
   ctx.restore()
 }
 
-function create(ctx) {
+interface Graphics {
+  circle
+  clear
+  square
+  rect
+  image
+  line
+  sprite
+  subImage
+  text
+  textbox
+  tiles
+  shadow
+  dodge
+  overlay
+  transparency
+}
+
+function create(ctx: CanvasRenderingContext2D): Graphics {
   return {
     circle: (x, y, radius, options = defaultCircle) => {
       circle(ctx, x, y, radius, options)
@@ -364,7 +470,7 @@ function create(ctx) {
       colour = '#000000',
       font = '16pt sans-serif'
     ) => {
-      text(ctx, x, y, text, colour, font)
+      txt(ctx, x, y, text, colour, font)
     },
     textbox: textbox => {
       textbox(ctx, textbox)
@@ -414,7 +520,7 @@ export default {
   sprite,
   square,
   subImage,
-  text,
+  text: txt,
   textbox,
   tiles,
   shadow,

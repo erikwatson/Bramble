@@ -1,7 +1,20 @@
 import gfx from './graphics'
 import { mouse, keyboard } from './input'
+import { MouseState } from './input/mouse'
 
-const create = () => {
+interface Game {
+  setSize: (width: number, height: number) => void
+  setUpdate: (callback) => void
+  setRender: (callback) => void
+  setBackgroundColor: (colour) => void
+  attachTo: (element) => void
+  disableContextMenu: () => void
+  setSmoothing: (to: boolean) => void
+  start: () => void
+  getMouseState: () => MouseState
+}
+
+const create = (): Game => {
   let backgroundColor = '#000000'
 
   let update = null
@@ -11,7 +24,7 @@ const create = () => {
   let prevTime = 0
   let frameTime = 0
 
-  const canvas = document.createElement('canvas')
+  const canvas: HTMLCanvasElement = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
   const graphics = gfx.create(ctx)
 
@@ -19,7 +32,7 @@ const create = () => {
 
   let mouseInput = null //  mouse.create(canvas.element)
 
-  const setBackgroundColor = color => {
+  const setBackgroundColor = (color: string) => {
     backgroundColor = color
   }
 
@@ -73,7 +86,7 @@ const create = () => {
   }
 
   return {
-    setSize,
+    setSize: setSize,
     setUpdate,
     setRender,
     setBackgroundColor,

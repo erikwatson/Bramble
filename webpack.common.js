@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  entry: './src/bramble.js',
+  entry: './src/bramble.ts',
 
   target: 'web',
 
@@ -13,14 +13,19 @@ module.exports = {
     libraryTarget: 'umd'
   },
 
+  resolve: {
+    // Add '.ts' and '.tsx' as resolvable extensions.
+    extensions: ['.webpack.js', '.web.js', '.ts', '.js']
+  },
+
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.ts$/,
         exclude: /(node_modules|dist)/,
         use: [
           {
-            loader: 'babel-loader'
+            loader: 'ts-loader'
           }
         ]
       }

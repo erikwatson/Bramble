@@ -1,3 +1,24 @@
+interface Frame {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
+export interface Sprite {
+  x: number
+  y: number
+  rotation: number
+  width: number
+  height: number
+  frames: Frame[]
+  frame: number
+  texture
+  colour: string
+  setFrames
+  addFrame
+}
+
 function create(
   x = 0,
   y = 0,
@@ -5,18 +26,15 @@ function create(
   height = 0,
   rotation = 0,
   texture = null,
-  color = '#ffffff'
-) {
+  colour = '#ffffff'
+): Sprite {
   let frames = []
 
   return {
-    x,
-    y,
     width,
     height,
-    rotation,
     texture,
-    color,
+    colour,
     frame: 0,
 
     setFrames: newFrames => {

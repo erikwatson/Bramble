@@ -1,4 +1,9 @@
-export default [
+interface Key {
+  code: number
+  label: string
+}
+
+const allKeys: Key[] = [
   { code: 8, label: 'backspace' },
   { code: 9, label: 'tab' },
 
@@ -112,3 +117,5 @@ export default [
   { code: 221, label: 'closeBracket' },
   { code: 222, label: 'singleQuote' }
 ]
+
+export default allKeys

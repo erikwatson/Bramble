@@ -1,7 +1,7 @@
 import terrain from './terrain'
 import sound from './sound'
 
-function load(path, type = 'text') {
+function load(path: string, type: XMLHttpRequestResponseType = 'text') {
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest()
 
@@ -10,11 +10,11 @@ function load(path, type = 'text') {
     request.addEventListener('load', event => {
       switch (type) {
         case 'text':
-          resolve(event.target.responseText)
+          resolve(request.responseText)
           break
 
         case 'json':
-          resolve(event.target.response)
+          resolve(request.response)
           break
 
         default:
@@ -31,23 +31,23 @@ function load(path, type = 'text') {
   })
 }
 
-export function loadText(path) {
+export function loadText(path: string) {
   return load(path, 'text')
 }
 
-export function loadAllText(paths = []) {
+export function loadAllText(paths: string[] = []) {
   return Promise.all(paths.map(x => load(x, 'text')))
 }
 
-export function loadJson(path) {
+export function loadJson(path: string) {
   return load(path, 'json')
 }
 
-export function loadAllJson(paths = []) {
+export function loadAllJson(paths: string[] = []) {
   return Promise.all(paths.map(x => load(x, 'json')))
 }
 
-export function loadImage(path) {
+export function loadImage(path: string) {
   return new Promise((resolve, reject) => {
     const img = new Image()
 
@@ -63,11 +63,11 @@ export function loadImage(path) {
   })
 }
 
-export function loadAllImages(paths = []) {
+export function loadAllImages(paths: string[] = []) {
   return Promise.all(paths.map(x => loadImage(x)))
 }
 
-export function loadSound(path) {
+export function loadSound(path: string) {
   return new Promise((resolve, reject) => {
     window
       .fetch(path)
@@ -78,16 +78,16 @@ export function loadSound(path) {
   })
 }
 
-export function loadAllSounds(paths = []) {
+export function loadAllSounds(paths: string[] = []) {
   return Promise.all(paths.map(x => loadSound(x)))
 }
 
 // TODO: I am not sure yet if/how these are meaningfully different to loadSound
-export function loadMusic(path) {
+export function loadMusic(path: string) {
   return new Promise((resolve, reject) => {})
 }
 
-export function loadAllMusic(paths = []) {
+export function loadAllMusic(paths: string[] = []) {
   return Promise.all(paths.map(x => loadMusic(x)))
 }
 
@@ -95,7 +95,7 @@ export function loadAllMusic(paths = []) {
 // reads it,
 // downloads the related image file,
 // returns a new Terrain object
-export function loadTerrain(path) {
+export function loadTerrain(path: string) {
   let description = null
 
   return loadJson(path)
@@ -116,7 +116,7 @@ export function loadTerrain(path) {
     })
 }
 
-export function loadAllTerrain(paths = []) {
+export function loadAllTerrain(paths: string[] = []) {
   return Promise.all(paths.map(x => loadTerrain(x)))
 }
 

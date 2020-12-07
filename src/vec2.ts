@@ -1,4 +1,25 @@
-function create(_x, _y) {
+interface Vec2 {
+  add: (v: Vec2) => void
+  addScalar: (s: number) => void
+  clone: (v: Vec2) => Vec2
+  divide: (v: Vec2) => void
+  divideScalar: (s: number) => void
+  dot: (v: Vec2) => number
+  getLength: () => number
+  getOpposite: (v: Vec2) => Vec2
+  getPerp: () => Vec2
+  isEqualTo: (v: Vec2) => boolean
+  multiply: (v: Vec2) => void
+  multiplyScalar: (s: number) => void
+  normalise: () => void
+  setLength: (l: number) => void
+  subtract: (v: Vec2) => void
+  subtractScalar: (s: number) => void
+  x: number
+  y: number
+}
+
+function create(_x: number, _y: number): Vec2 {
   let x = _x
   let y = _y
 
@@ -106,12 +127,12 @@ function create(_x, _y) {
   }
 }
 
-const fromDegrees = degrees => {
+const fromDegrees = (degrees: number): Vec2 => {
   const rad = degrees * (Math.PI / 180)
   return create(Math.cos(rad), Math.sin(rad))
 }
 
-const clone = v => {
+const clone = (v: Vec2): Vec2 => {
   return create(v.x, v.y)
 }
 

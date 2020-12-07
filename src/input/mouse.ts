@@ -1,3 +1,24 @@
+interface ButtonState {
+  pressed: boolean
+  justPressed: boolean
+  released: boolean
+  justReleased: boolean
+}
+
+interface WheelState extends ButtonState {
+  moved: boolean
+  direction: string
+}
+
+export interface MouseState {
+  x: number
+  y: number
+
+  left: ButtonState
+  wheel: WheelState
+  right: ButtonState
+}
+
 function create(canvas) {
   const defaultState = () => {
     return {
@@ -10,7 +31,7 @@ function create(canvas) {
     }
   }
 
-  const defaultButtonState = () => {
+  const defaultButtonState = (): ButtonState => {
     return {
       pressed: false,
       justPressed: false,
@@ -19,11 +40,12 @@ function create(canvas) {
     }
   }
 
-  const defaultWheelState = () => {
+  const defaultWheelState = (): WheelState => {
     const buttonState = defaultButtonState()
     return {
       ...buttonState,
-      moved: false
+      moved: false,
+      direction: 'up'
     }
   }
 
@@ -57,7 +79,7 @@ function create(canvas) {
         break
 
       case 2:
-        mouse.middle.pressed = true
+        mouse.wheel.pressed = true
         break
 
       case 3:
@@ -73,7 +95,7 @@ function create(canvas) {
         break
 
       case 2:
-        mouse.middle.pressed = false
+        mouse.wheel.pressed = false
         break
 
       case 3:
