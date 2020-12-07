@@ -1,4 +1,4 @@
-interface Terrain {
+export interface Terrain {
   name: string
   type: number
   image

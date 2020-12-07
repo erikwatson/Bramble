@@ -1,7 +1,10 @@
-import terrain from './terrain'
+import terrain, { Terrain } from './terrain'
 import sound from './sound'
 
-function load(path: string, type: XMLHttpRequestResponseType = 'text') {
+function load(
+  path: string,
+  type: XMLHttpRequestResponseType = 'text'
+): Promise<string> {
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest()
 
@@ -31,23 +34,23 @@ function load(path: string, type: XMLHttpRequestResponseType = 'text') {
   })
 }
 
-export function loadText(path: string) {
+export function loadText(path: string): Promise<string> {
   return load(path, 'text')
 }
 
-export function loadAllText(paths: string[] = []) {
+export function loadAllText(paths: string[] = []): Promise<string[]> {
   return Promise.all(paths.map(x => load(x, 'text')))
 }
 
-export function loadJson(path: string) {
+export function loadJson(path: string): Promise<string> {
   return load(path, 'json')
 }
 
-export function loadAllJson(paths: string[] = []) {
+export function loadAllJson(paths: string[] = []): Promise<string[]> {
   return Promise.all(paths.map(x => load(x, 'json')))
 }
 
-export function loadImage(path: string) {
+export function loadImage(path: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image()
 
@@ -63,7 +66,9 @@ export function loadImage(path: string) {
   })
 }
 
-export function loadAllImages(paths: string[] = []) {
+export function loadAllImages(
+  paths: string[] = []
+): Promise<HTMLImageElement[]> {
   return Promise.all(paths.map(x => loadImage(x)))
 }
 
@@ -95,7 +100,7 @@ export function loadAllMusic(paths: string[] = []) {
 // reads it,
 // downloads the related image file,
 // returns a new Terrain object
-export function loadTerrain(path: string) {
+export function loadTerrain(path: string): Promise<Terrain> {
   let description = null
 
   return loadJson(path)
@@ -111,12 +116,9 @@ export function loadTerrain(path: string) {
         description.tiles
       )
     )
-    .catch(err => {
-      console.error(err)
-    })
 }
 
-export function loadAllTerrain(paths: string[] = []) {
+export function loadAllTerrain(paths: string[] = []): Promise<Terrain[]> {
   return Promise.all(paths.map(x => loadTerrain(x)))
 }
 
