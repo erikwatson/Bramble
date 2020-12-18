@@ -1,9 +1,18 @@
 {
   "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "declaration": true,
+    "declarationDir": "./dist",
     "outDir": "./dist",
     "allowJs": true,
     "target": "es5",
     "lib": ["es2017", "dom"]
   },
-  "include": ["./src/**/*"]
+  "typedocOptions": {
+    "mode": "modules",
+    "out": "docs"
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
