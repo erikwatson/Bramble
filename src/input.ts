@@ -1,6 +1,6 @@
 import Mouse from './input/mouse'
 
-function create(canvas) {
+function create(canvas: HTMLCanvasElement) {
   const mouseInput = Mouse.create(canvas)
 
   const start = () => {

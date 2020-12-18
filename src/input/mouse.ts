@@ -1,6 +1,6 @@
-import { MouseState, ButtonState, WheelState } from '../types'
+import { Mouse, MouseState, ButtonState, WheelState } from '../types'
 
-function create(canvas: HTMLCanvasElement) {
+function create(canvas: HTMLCanvasElement): Mouse {
   const defaultState = (): MouseState => {
     return {
       x: 0,
@@ -33,7 +33,7 @@ function create(canvas: HTMLCanvasElement) {
   let prevMouse = defaultState()
   let mouse = defaultState()
 
-  const clone = (state: any) => {
+  const clone = (state: MouseState): MouseState => {
     return Object.assign({}, state)
   }
 

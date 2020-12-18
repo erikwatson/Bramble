@@ -1,12 +1,12 @@
 import gfx from './graphics'
 import { mouse, keyboard } from './input'
-import { Game, MouseState, Graphics } from './types'
+import { Game, Mouse, MouseState, Graphics } from './types'
 
 const create = (): Game => {
   let backgroundColor = '#000000'
 
-  let update:((dt:number) => {}) = null
-  let render:((gfx:Graphics) => {}) = null
+  let update: (dt: number) => void = null
+  let render: (gfx: Graphics) => void = null
 
   // These are used for calculating the Delta Time for the Frame
   let prevTime = 0
@@ -18,17 +18,17 @@ const create = (): Game => {
 
   canvas.id = 'bramble-game'
 
-  let mouseInput = null //  mouse.create(canvas.element)
+  let mouseInput: Mouse = null //  mouse.create(canvas.element)
 
   const setBackgroundColor = (color: string) => {
     backgroundColor = color
   }
 
-  const setUpdate = callback => {
+  const setUpdate = (callback: (dt: number) => void) => {
     update = callback
   }
 
-  const setRender = callback => {
+  const setRender = (callback: (gfx: Graphics) => void) => {
     render = callback
   }
 
@@ -52,12 +52,12 @@ const create = (): Game => {
     window.requestAnimationFrame(step)
   }
 
-  const setSize = (width, height) => {
+  const setSize = (width: number, height: number) => {
     canvas.width = width
     canvas.height = height
   }
 
-  const attachTo = element => {
+  const attachTo = (element: HTMLElement) => {
     element.appendChild(canvas)
   }
 

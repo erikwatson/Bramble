@@ -31,6 +31,12 @@ export interface MouseState {
   right: ButtonState
 }
 
+export interface Mouse {
+  update: () => void
+  start: () => void
+  getState: () => MouseState
+}
+
 export interface Terrain {
   name: string
   type: number

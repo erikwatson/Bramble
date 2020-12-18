@@ -2,16 +2,16 @@ const ctx = new AudioContext()
 const oscillator = ctx.createOscillator()
 const gain = ctx.createGain()
 
-function decode(arrayBuffer) {
+function decode(arrayBuffer: ArrayBuffer) {
   return new Promise((resolve, reject) => {
     ctx
       .decodeAudioData(arrayBuffer)
       .then(audioBuffer => resolve(audioBuffer))
-      .catch(err => reject(err))
+      .catch((err: ErrorEvent) => reject(err))
   })
 }
 
-function play(audioBuffer) {
+function play(audioBuffer: AudioBuffer) {
   const source = ctx.createBufferSource()
 
   source.buffer = audioBuffer
