@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A game engine built in JavaScript",
   "main": "dist/bramble.js",
+  "types": "./dist/bramble.d.ts",
   "author": "Erik Watson",
   "license": "MIT",
   "files": [
