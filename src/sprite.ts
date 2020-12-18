@@ -1,15 +1,15 @@
-import { Sprite } from './types'
+import { Sprite, Frame } from './types'
 
 function create(
-  x = 0,
-  y = 0,
-  width = 0,
-  height = 0,
-  rotation = 0,
-  texture = null,
-  colour = '#ffffff'
+  x: number = 0,
+  y: number = 0,
+  width: number = 0,
+  height: number = 0,
+  rotation: number = 0,
+  texture: CanvasImageSource,
+  colour: string = '#ffffff'
 ): Sprite {
-  let frames = []
+  let frames: Frame[] = []
 
   return {
     width,
@@ -18,15 +18,15 @@ function create(
     colour,
     frame: 0,
 
-    setFrames: newFrames => {
+    setFrames: (newFrames: Frame[]): void => {
       frames = newFrames
     },
 
-    addFrame: frame => {
+    addFrame: (frame: Frame): void => {
       frames.push(frame)
     },
 
-    get frames() {
+    get frames(): Frame[] {
       return frames
     },
 

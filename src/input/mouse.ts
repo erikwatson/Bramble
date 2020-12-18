@@ -1,7 +1,7 @@
 import { MouseState, ButtonState, WheelState } from '../types'
 
-function create(canvas) {
-  const defaultState = ():MouseState => {
+function create(canvas: HTMLCanvasElement) {
+  const defaultState = (): MouseState => {
     return {
       x: 0,
       y: 0,
@@ -33,11 +33,11 @@ function create(canvas) {
   let prevMouse = defaultState()
   let mouse = defaultState()
 
-  const clone = state => {
+  const clone = (state: any) => {
     return Object.assign({}, state)
   }
 
-  const relative = (event, element) => {
+  const relative = (event: MouseEvent) => {
     const bounds = canvas.getBoundingClientRect()
 
     return {
@@ -46,14 +46,14 @@ function create(canvas) {
     }
   }
 
-  const move = event => {
-    const newPos = relative(event, canvas)
+  const move = (event: MouseEvent) => {
+    const newPos = relative(event)
 
     mouse.x = newPos.x
     mouse.y = newPos.y
   }
 
-  const down = event => {
+  const down = (event: MouseEvent) => {
     switch (event.which) {
       case 1:
         mouse.left.pressed = true
@@ -69,7 +69,7 @@ function create(canvas) {
     }
   }
 
-  const up = event => {
+  const up = (event: MouseEvent) => {
     switch (event.which) {
       case 1:
         mouse.left.pressed = false
@@ -85,8 +85,8 @@ function create(canvas) {
     }
   }
 
-  const wheel = event => {
-    mouse.wheel.moved = event.delta === 0 ? false : true
+  const wheel = (event: WheelEvent) => {
+    mouse.wheel.moved = event.deltaY === 0 ? false : true
 
     if (mouse.wheel.moved !== false) {
       mouse.wheel.direction = event.deltaY < 0 ? 'up' : 'down'

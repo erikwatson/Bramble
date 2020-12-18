@@ -3,8 +3,8 @@ import { Position, GridOptions, Grid } from './types'
 function make2DArray(
   width: number = 1,
   height: number = 1,
-  defaultValue: any = null
-) {
+  defaultValue: number = null
+): number[][] {
   let result = []
 
   for (let y = 0; y < height; y++) {
@@ -20,7 +20,7 @@ function make2DArray(
   return result
 }
 
-function copyTiles(tiles) {
+function copyTiles(tiles: number[][]): number[][] {
   return tiles.map(arr => arr.slice())
 }
 
@@ -33,10 +33,15 @@ const defaultGrid = {
   scale: 1
 }
 
-function fill(tiles, position: Position, target, replacement) {
+function fill(
+  tiles: number[][],
+  position: Position,
+  target: number,
+  replacement: number
+) {
   let gridClone = copyTiles(tiles)
 
-  function floodFill(position: Position, target, replacement) {
+  function floodFill(position: Position, target: number, replacement: number) {
     if (target === replacement) {
       return
     }
