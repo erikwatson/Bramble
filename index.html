@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <div id="cont">Hi</div>
+    <script src="./dist/bramble.js"></script>
+    <script>
+      const game = Bramble.game.create()
+      const elem = document.getElementById('cont')
+
+      game.attachTo(elem)
+      game.setSize(1920, 720)
+      game.setRender(gfx => {
+        gfx.circle(100, 100, 100)
+      })
+
+      // const assets = Bramble.assets.loadTerrain('./terrain/default.json')
+
+      game.start()
+    </script>
+  </body>
+</html>

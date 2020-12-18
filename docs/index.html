@@ -1,0 +1,204 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@erikwatson/bramble</title>
+	<meta name="description" content="Documentation for @erikwatson/bramble">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@erikwatson/bramble</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>@erikwatson/bramble</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#bramble" id="bramble" style="color: inherit; text-decoration: none;">
+					<h1>Bramble</h1>
+				</a>
+				<p>A little JavaScript library for making Video Games.</p>
+				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
+					<h2>Features</h2>
+				</a>
+				<ul>
+					<li><a href="https://github.com/erikwatson/Level-Editor">Level Editor</a></li>
+					<li>Asset Loading</li>
+					<li>Input Handling</li>
+					<li>Simple Canvas Drawing API</li>
+					<li>Tile Maps that Auto-Tile</li>
+					<li>Sprite Animations based on Sprite Sheets</li>
+					<li>2D Vectors</li>
+					<li>Music and SFX playback</li>
+				</ul>
+				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+					<h2>Example</h2>
+				</a>
+				<p>There&#39;s no docs for this yet really, but this is what a really basic, barebones
+				Bramble project looks like.</p>
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> container = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;some-div&#x27;</span>)
+<span class="hljs-keyword">const</span> game = Bramble.game.create()
+
+game.attachTo(container)
+game.setSize(<span class="hljs-number">1280.</span> <span class="hljs-number">720</span>)
+
+<span class="hljs-keyword">let</span> mouse = game.getMouseState()
+
+game.setUpdate(<span class="hljs-function"><span class="hljs-params">dt</span> =&gt;</span> {
+  mouse = game.getMouseState()
+})
+
+game.setRender(<span class="hljs-function"><span class="hljs-params">gfx</span> =&gt;</span> {
+  gfx.circle(mouse.x, mouse.y, <span class="hljs-number">100</span>)
+})
+
+game.start()</code></pre>
+				<a href="#authors" id="authors" style="color: inherit; text-decoration: none;">
+					<h2>Authors</h2>
+				</a>
+				<ul>
+					<li><a href="http://erikwatson.me">Erik Watson</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_assets_.html">&quot;assets&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_bramble_.html">&quot;bramble&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_game_.html">&quot;game&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_graphics_.html">&quot;graphics&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_grid_.html">&quot;grid&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_input_.html">&quot;input&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_input_keyboard_.html">&quot;input/keyboard&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_input_keys_.html">&quot;input/keys&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_input_mouse_.html">&quot;input/mouse&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_music_.html">&quot;music&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_number_.html">&quot;number&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_sfx_.html">&quot;sfx&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_sound_.html">&quot;sound&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_sprite_.html">&quot;sprite&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_terrain_.html">&quot;terrain&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_textbox_.html">&quot;textbox&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_types_.html">&quot;types&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_vec2_.html">&quot;vec2&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
