@@ -1,13 +1,13 @@
-import { Terrain } from './types'
+import { Terrain, Tile } from './types'
 import terrain from './terrain'
 import sound from './sound'
 
-export function loadText (path:string) {
+export function loadString(path: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest()
 
     request.addEventListener('load', event => {
-      resolve(request.response)
+      resolve(request.responseText)
     })
 
     request.addEventListener('error', event => {
@@ -19,8 +19,8 @@ export function loadText (path:string) {
   })
 }
 
-export function loadAllText (paths:string[] = []) {
-  return Promise.all(paths.map(x => loadText(x)))
+export function loadAllText(paths: string[] = []) {
+  return Promise.all(paths.map(x => loadString(x)))
 }
 
 export function loadImage(path: string): Promise<HTMLImageElement> {
@@ -52,7 +52,7 @@ export function loadSound(path: string) {
       .then(response => response.arrayBuffer())
       .then(arrayBuffer => sound.decode(arrayBuffer))
       .then(decoded => resolve(decoded))
-      .catch(err => reject(err))
+      .catch((err: ErrorEvent) => reject(err))
   })
 }
 
@@ -69,24 +69,23 @@ export function loadAllMusic(paths: string[] = []) {
   return Promise.all(paths.map(x => loadMusic(x)))
 }
 
+interface Description {
+  path: string
+  name: string
+  type: number
+  tiles: Tile[]
+}
+
 // Downloads a Terrain file,
 // reads it,
 // downloads the related image file,
 // returns a new Terrain object
-interface Description {
-  name
-  type
-  image
-  tiles
-  path
-}
-
 export function loadTerrain(path: string): Promise<Terrain> {
-  let description
+  let description: Description
 
-  return loadText(path)
+  return loadString(path)
     .then(json => {
-      description = json 
+      description = JSON.parse(json)
       return loadImage(description.path)
     })
     .then(image =>
@@ -105,7 +104,7 @@ export function loadAllTerrain(paths: string[] = []): Promise<Terrain[]> {
 
 export default {
   loadImage,
-  loadText,
+  loadString,
   loadAllText,
   loadAllImages,
   loadSound,

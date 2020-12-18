@@ -88,9 +88,26 @@ export interface TextBox {
   text: string
 }
 
+export interface KeyState {
+  code: number
+  label: string
+  pressed: false
+  justPressed: false
+  released: false
+  justReleased: false
+}
+
+export interface KeyboardState {
+  [key: string]: KeyState
+}
+
 export interface Key {
   code: number
   label: string
+  pressed: boolean
+  justPressed: boolean
+  released: boolean
+  justReleased: boolean
 }
 
 export interface RectangleOptions {

@@ -1,8 +1,9 @@
 import allKeys from './keys'
+import { Key, KeyState, KeyboardState } from '../types'
 
 let keys = defaultState()
 
-function defaultState() {
+function defaultState(): KeyboardState {
   const defaultState = {
     pressed: false,
     justPressed: false,
@@ -10,7 +11,7 @@ function defaultState() {
     justReleased: false
   }
 
-  return allKeys.reduce((acc, key) => {
+  return allKeys.reduce((acc, key: Key) => {
     const label = key.label
     delete key['label']
 
@@ -28,8 +29,8 @@ function preventDefaultArrows(event: KeyboardEvent) {
   }
 }
 
-function getKey(event: KeyboardEvent, keys) {
-  let result = null
+function getKey(event: KeyboardEvent, keys: KeyboardState): Key {
+  let result: KeyState = null
   const objectKeys = Object.keys(keys)
 
   for (let i = 0; i < objectKeys.length; i++) {

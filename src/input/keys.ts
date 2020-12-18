@@ -1,6 +1,4 @@
-import { Key } from '../types'
-
-const allKeys: Key[] = [
+const allKeys: { code: number; label: string }[] = [
   { code: 8, label: 'backspace' },
   { code: 9, label: 'tab' },
 
