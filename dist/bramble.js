@@ -241,6 +241,7 @@ var sound_1 = __webpack_require__(/*! ./sound */ "./src/sound.ts");
 Object.defineProperty(exports, "sound", { enumerable: true, get: function () { return sound_1.default; } });
 var vec2_1 = __webpack_require__(/*! ./vec2 */ "./src/vec2.ts");
 Object.defineProperty(exports, "vec2", { enumerable: true, get: function () { return vec2_1.default; } });
+console.log('test');
 
 
 /***/ }),
@@ -290,6 +291,7 @@ var create = function () {
         window.requestAnimationFrame(step);
     };
     var start = function () {
+        console.log('test');
         mouseInput = input_1.mouse.create(canvas);
         mouseInput.start();
         window.requestAnimationFrame(step);
