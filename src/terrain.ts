@@ -1,11 +1,11 @@
-export interface Terrain {
-  name: string
-  type: number
-  image
-  tiles
-}
+import { Terrain, Tile } from './types'
 
-function create(name: string, type: number, image, tiles): Terrain {
+function create(
+  name: string,
+  type: number,
+  image: CanvasImageSource,
+  tiles: Array<Tile>
+): Terrain {
   return {
     name,
     type,

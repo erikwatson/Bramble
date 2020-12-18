@@ -1,18 +1,6 @@
 import gfx from './graphics'
 import { mouse, keyboard } from './input'
-import { MouseState } from './input/mouse'
-
-interface Game {
-  setSize: (width: number, height: number) => void
-  setUpdate: (callback) => void
-  setRender: (callback) => void
-  setBackgroundColor: (colour) => void
-  attachTo: (element) => void
-  disableContextMenu: () => void
-  setSmoothing: (to: boolean) => void
-  start: () => void
-  getMouseState: () => MouseState
-}
+import { Game, MouseState } from './types'
 
 const create = (): Game => {
   let backgroundColor = '#000000'

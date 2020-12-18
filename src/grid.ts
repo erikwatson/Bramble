@@ -1,3 +1,5 @@
+import { Position, GridOptions, Grid } from './types'
+
 function make2DArray(
   width: number = 1,
   height: number = 1,
@@ -20,24 +22,6 @@ function make2DArray(
 
 function copyTiles(tiles) {
   return tiles.map(arr => arr.slice())
-}
-
-interface Position {
-  x: number
-  y: number
-}
-
-export interface Grid {
-  pos: Position
-  visible: boolean
-  divisions: number
-  tileWidth: number
-  tileHeight: number
-  tiles: number[][]
-  width: number
-  height: number
-  tileSize: number
-  scale: number
 }
 
 const defaultGrid = {
@@ -97,15 +81,6 @@ function fill(tiles, position: Position, target, replacement) {
   }
 
   return gridClone
-}
-
-interface GridOptions {
-  pos: Position
-  visible: boolean
-  divisions: number
-  tileWidth: number
-  tileHeight: number
-  scale: number
 }
 
 function create(

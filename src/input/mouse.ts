@@ -1,23 +1,4 @@
-interface ButtonState {
-  pressed: boolean
-  justPressed: boolean
-  released: boolean
-  justReleased: boolean
-}
-
-interface WheelState extends ButtonState {
-  moved: boolean
-  direction: string
-}
-
-export interface MouseState {
-  x: number
-  y: number
-
-  left: ButtonState
-  wheel: WheelState
-  right: ButtonState
-}
+import { ButtonState, WheelState } from '../types'
 
 function create(canvas) {
   const defaultState = () => {

@@ -1,28 +1,15 @@
-import terrain, { Terrain } from './terrain'
+import { Terrain } from './types'
+import terrain from './terrain'
 import sound from './sound'
 
-function load(
-  path: string,
-  type: XMLHttpRequestResponseType = 'text'
-): Promise<string> {
+export function loadText(path: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest()
 
-    request.responseType = type
+    request.responseType = 'text'
 
     request.addEventListener('load', event => {
-      switch (type) {
-        case 'text':
-          resolve(request.responseText)
-          break
-
-        case 'json':
-          resolve(request.response)
-          break
-
-        default:
-          console.error(`invalid type provided to load: ${type} is unknown`)
-      }
+      resolve(request.responseText)
     })
 
     request.addEventListener('error', event => {
@@ -34,20 +21,35 @@ function load(
   })
 }
 
-export function loadText(path: string): Promise<string> {
-  return load(path, 'text')
-}
-
 export function loadAllText(paths: string[] = []): Promise<string[]> {
-  return Promise.all(paths.map(x => load(x, 'text')))
+  return Promise.all(paths.map(x => loadText(x)))
 }
 
-export function loadJson(path: string): Promise<string> {
-  return load(path, 'json')
+interface DynamicObject {
+  [key: string]: any
 }
 
-export function loadAllJson(paths: string[] = []): Promise<string[]> {
-  return Promise.all(paths.map(x => load(x, 'json')))
+export function loadJson(path: string): Promise<DynamicObject> {
+  return new Promise((resolve, reject) => {
+    const request = new XMLHttpRequest()
+
+    request.responseType = 'text'
+
+    request.addEventListener('load', event => {
+      resolve(request.response)
+    })
+
+    request.addEventListener('error', event => {
+      reject(event)
+    })
+
+    request.open('GET', path, true)
+    request.send()
+  })
+}
+
+export function loadAllJson(paths: string[] = []): Promise<DynamicObject> {
+  return Promise.all(paths.map(x => loadJson(x)))
 }
 
 export function loadImage(path: string): Promise<HTMLImageElement> {
@@ -100,12 +102,20 @@ export function loadAllMusic(paths: string[] = []) {
 // reads it,
 // downloads the related image file,
 // returns a new Terrain object
+interface Description {
+  name
+  type
+  image
+  tiles
+  path
+}
+
 export function loadTerrain(path: string): Promise<Terrain> {
-  let description = null
+  let description: Description
 
   return loadJson(path)
     .then(json => {
-      description = json
+      description = json as DynamicObject
       return loadImage(description.path)
     })
     .then(image =>

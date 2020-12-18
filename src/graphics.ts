@@ -1,6 +1,16 @@
 import number from './number'
-import { Sprite } from './sprite'
-import { Grid } from './grid'
+import {
+  SpriteSheet,
+  TextBox,
+  DropShadowOptions,
+  Graphics,
+  Point,
+  Sprite,
+  Grid,
+  RectangleOptions,
+  CircleOptions,
+  LineOptions
+} from './types'
 
 function clear(ctx: CanvasRenderingContext2D, colour: string) {
   rect(ctx, 0, 0, ctx.canvas.width, ctx.canvas.height, {
@@ -10,17 +20,14 @@ function clear(ctx: CanvasRenderingContext2D, colour: string) {
   })
 }
 
-interface RectangleOptions {
-  fill?: {
-    colour?: string
-    opacity?: number
-  }
-
-  line?: {
-    width?: number
-    colour?: string
-    opacity?: number
-  }
+function square(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  size: number,
+  options: RectangleOptions = defaultRect
+) {
+  rect(ctx, x, y, size, size, options)
 }
 
 const defaultRect: RectangleOptions = {
@@ -33,16 +40,6 @@ const defaultRect: RectangleOptions = {
     colour: '#000000',
     opacity: 1
   }
-}
-
-function square(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  size: number,
-  options: RectangleOptions = defaultRect
-) {
-  rect(ctx, x, y, size, size, options)
 }
 
 function rect(
@@ -65,19 +62,9 @@ function rect(
   }
 }
 
-interface LineOptions {
-  width?: number
-  colour?: string
-}
-
 const defaultLine: LineOptions = {
   width: 2,
   colour: '#000000'
-}
-
-interface Point {
-  x: number
-  y: number
 }
 
 function line(
@@ -93,19 +80,6 @@ function line(
   ctx.moveTo(from.x, from.y)
   ctx.lineTo(to.x, to.y)
   ctx.stroke()
-}
-
-interface CircleOptions {
-  fill?: {
-    colour?: string
-    opacity?: number
-  }
-
-  line?: {
-    colour?: string
-    opacity?: number
-    width?: number
-  }
 }
 
 const defaultCircle: CircleOptions = {
@@ -209,11 +183,11 @@ function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
 
 function txt(
   ctx: CanvasRenderingContext2D,
-  x = 0,
-  y = 0,
-  text = '',
-  colour = '#000000',
-  font = '16pt sans-serif'
+  x: number = 0,
+  y: number = 0,
+  text: string = '',
+  colour: string = '#000000',
+  font: string = '16pt sans-serif'
 ) {
   ctx.fillStyle = colour
   ctx.font = font
@@ -229,7 +203,7 @@ function txt(
 //
 //       This could probably be cached in the object itself as long as we update
 //       every time there's a change to the font, text, width or height.
-function textbox(ctx: CanvasRenderingContext2D, textbox) {
+function textbox(ctx: CanvasRenderingContext2D, textbox: TextBox) {
   ctx.fillStyle = '#ffffff'
   ctx.font = '16pt sans-serif'
   ctx.textAlign = 'left'
@@ -278,7 +252,7 @@ function tiles(
   positionX: number,
   positionY: number,
   tileGrid: number[][],
-  spriteSheets,
+  spriteSheets: SpriteSheet[],
   scale: number,
   tileWidth: number,
   tileHeight: number
@@ -380,8 +354,8 @@ const defaultDropShadow = {
 
 function shadow(
   ctx: CanvasRenderingContext2D,
-  drawingOperations,
-  options = defaultDropShadow
+  drawingOperations: () => {},
+  options: DropShadowOptions = defaultDropShadow
 ) {
   ctx.save()
 
@@ -394,14 +368,14 @@ function shadow(
   ctx.restore()
 }
 
-function dodge(ctx: CanvasRenderingContext2D, drawingOperations) {
+function dodge(ctx: CanvasRenderingContext2D, drawingOperations: () => {}) {
   ctx.save()
   ctx.globalCompositeOperation = 'colour-dodge'
   drawingOperations()
   ctx.restore()
 }
 
-function overlay(ctx: CanvasRenderingContext2D, drawingOperations) {
+function overlay(ctx: CanvasRenderingContext2D, drawingOperations: () => {}) {
   ctx.save()
   ctx.globalCompositeOperation = 'overlay'
   drawingOperations()
@@ -410,31 +384,13 @@ function overlay(ctx: CanvasRenderingContext2D, drawingOperations) {
 
 function transparency(
   ctx: CanvasRenderingContext2D,
-  drawingOperations,
+  drawingOperations: () => {},
   alpha = 0.25
 ) {
   ctx.save()
   ctx.globalAlpha = alpha
   drawingOperations()
   ctx.restore()
-}
-
-interface Graphics {
-  circle
-  clear
-  square
-  rect
-  image
-  line
-  sprite
-  subImage
-  text
-  textbox
-  tiles
-  shadow
-  dodge
-  overlay
-  transparency
 }
 
 function create(ctx: CanvasRenderingContext2D): Graphics {
@@ -451,17 +407,17 @@ function create(ctx: CanvasRenderingContext2D): Graphics {
     rect: (x, y, w, h, options = defaultRect) => {
       rect(ctx, x, y, w, h, options)
     },
-    image: (x, y, w, h, image) => {
-      image(ctx, x, y, w, h, image)
+    image: (x, y, w, h, img) => {
+      image(ctx, x, y, w, h, img)
     },
     line: (from, to, options = defaultLine) => {
       line(ctx, from, to, options)
     },
-    sprite: sprite => {
-      sprite(ctx, sprite)
+    sprite: spr => {
+      sprite(ctx, spr)
     },
-    subImage: (x, y, w, h, sx, sy, sw, sh, image) => {
-      subImage(ctx, x, y, w, h, sx, sy, sw, sh, image)
+    subImage: (x, y, w, h, sx, sy, sw, sh, img) => {
+      subImage(ctx, x, y, w, h, sx, sy, sw, sh, img)
     },
     text: (
       x = 0,
@@ -472,8 +428,8 @@ function create(ctx: CanvasRenderingContext2D): Graphics {
     ) => {
       txt(ctx, x, y, text, colour, font)
     },
-    textbox: textbox => {
-      textbox(ctx, textbox)
+    textbox: tb => {
+      textbox(ctx, tb)
     },
     tiles: (
       positionX,

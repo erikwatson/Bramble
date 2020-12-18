@@ -1,96 +1,77 @@
-interface Vec2 {
-  add: (v: Vec2) => void
-  addScalar: (s: number) => void
-  clone: (v: Vec2) => Vec2
-  divide: (v: Vec2) => void
-  divideScalar: (s: number) => void
-  dot: (v: Vec2) => number
-  getLength: () => number
-  getOpposite: (v: Vec2) => Vec2
-  getPerp: () => Vec2
-  isEqualTo: (v: Vec2) => boolean
-  multiply: (v: Vec2) => void
-  multiplyScalar: (s: number) => void
-  normalise: () => void
-  setLength: (l: number) => void
-  subtract: (v: Vec2) => void
-  subtractScalar: (s: number) => void
-  x: number
-  y: number
-}
+import { Vec2 } from './types'
 
 function create(_x: number, _y: number): Vec2 {
   let x = _x
   let y = _y
 
-  const add = v => {
+  const add = (v: Vec2): void => {
     x += v.x
     y += v.y
   }
 
-  const addScalar = s => {
+  const addScalar = (s: number): void => {
     x += s
     y += s
   }
 
-  const divide = v => {
+  const divide = (v: Vec2): void => {
     x /= v.x
     y /= v.y
   }
 
-  const divideScalar = s => {
+  const divideScalar = (s: number): void => {
     x /= s
     y /= s
   }
 
-  const dot = v => {
+  const dot = (v: Vec2): number => {
     return x * v.x + y * v.y
   }
 
-  const getLength = () => {
+  const getLength = (): number => {
     return Math.sqrt(x * x + y * y)
   }
 
-  const getOpposite = v => {
+  const getOpposite = (v: Vec2): Vec2 => {
     return create(-v.x, -v.y)
   }
 
-  const getPerp = () => {
+  const getPerp = (): Vec2 => {
     return create(-y, x)
   }
 
-  const isEqualTo = v => {
+  const isEqualTo = (v: Vec2): boolean => {
     return x == v.x && y == v.y
   }
 
-  const multiply = v => {
+  const multiply = (v: Vec2): void => {
     x *= v.x
     y *= v.y
   }
 
-  const multiplyScalar = s => {
+  const multiplyScalar = (s: number): void => {
     x *= s
     y *= s
   }
 
-  const normalise = () => {
+  const normalise = (): void => {
     let l = getLength()
 
     x = x / l
     y = y / l
   }
 
-  const setLength = l => {
+  const setLength = (l: number): void => {
     normalise()
     multiplyScalar(l)
   }
 
-  const subtract = v => {
+  const subtract = (v: Vec2): void => {
     x -= v.x
     y -= v.y
   }
 
-  const subtractScalar = s => {
+  const subtractScalar = (s: number): void => {
     x -= s
     y -= s
   }

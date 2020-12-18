@@ -1,23 +1,4 @@
-interface Frame {
-  x: number
-  y: number
-  width: number
-  height: number
-}
-
-export interface Sprite {
-  x: number
-  y: number
-  rotation: number
-  width: number
-  height: number
-  frames: Frame[]
-  frame: number
-  texture
-  colour: string
-  setFrames
-  addFrame
-}
+import { Sprite } from './types'
 
 function create(
   x = 0,

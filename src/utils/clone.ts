@@ -1,4 +1,4 @@
-function cloneArray(arr) {
+function cloneArray<T>(arr: T[]): T[] {
   return arr.map(x => clone(x))
 }
 

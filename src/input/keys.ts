@@ -1,7 +1,4 @@
-interface Key {
-  code: number
-  label: string
-}
+import { Key } from '../types'
 
 const allKeys: Key[] = [
   { code: 8, label: 'backspace' },
