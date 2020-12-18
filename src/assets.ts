@@ -2,38 +2,9 @@ import { Terrain } from './types'
 import terrain from './terrain'
 import sound from './sound'
 
-export function loadText(path: string): Promise<string> {
+export function loadText (path:string) {
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest()
-
-    request.responseType = 'text'
-
-    request.addEventListener('load', event => {
-      resolve(request.responseText)
-    })
-
-    request.addEventListener('error', event => {
-      reject(event)
-    })
-
-    request.open('GET', path, true)
-    request.send()
-  })
-}
-
-export function loadAllText(paths: string[] = []): Promise<string[]> {
-  return Promise.all(paths.map(x => loadText(x)))
-}
-
-interface DynamicObject {
-  [key: string]: any
-}
-
-export function loadJson(path: string): Promise<DynamicObject> {
-  return new Promise((resolve, reject) => {
-    const request = new XMLHttpRequest()
-
-    request.responseType = 'text'
 
     request.addEventListener('load', event => {
       resolve(request.response)
@@ -43,13 +14,13 @@ export function loadJson(path: string): Promise<DynamicObject> {
       reject(event)
     })
 
-    request.open('GET', path, true)
+    request.open('GET', path)
     request.send()
   })
 }
 
-export function loadAllJson(paths: string[] = []): Promise<DynamicObject> {
-  return Promise.all(paths.map(x => loadJson(x)))
+export function loadAllText (paths:string[] = []) {
+  return Promise.all(paths.map(x => loadText(x)))
 }
 
 export function loadImage(path: string): Promise<HTMLImageElement> {
@@ -111,11 +82,11 @@ interface Description {
 }
 
 export function loadTerrain(path: string): Promise<Terrain> {
-  let description: Description
+  let description
 
-  return loadJson(path)
+  return loadText(path)
     .then(json => {
-      description = json as DynamicObject
+      description = json 
       return loadImage(description.path)
     })
     .then(image =>
@@ -133,9 +104,8 @@ export function loadAllTerrain(paths: string[] = []): Promise<Terrain[]> {
 }
 
 export default {
-  loadText,
-  loadJson,
   loadImage,
+  loadText,
   loadAllText,
   loadAllImages,
   loadSound,

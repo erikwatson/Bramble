@@ -1,7 +1,7 @@
-import { ButtonState, WheelState } from '../types'
+import { MouseState, ButtonState, WheelState } from '../types'
 
 function create(canvas) {
-  const defaultState = () => {
+  const defaultState = ():MouseState => {
     return {
       x: 0,
       y: 0,

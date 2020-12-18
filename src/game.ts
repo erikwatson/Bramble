@@ -1,12 +1,12 @@
 import gfx from './graphics'
 import { mouse, keyboard } from './input'
-import { Game, MouseState } from './types'
+import { Game, MouseState, Graphics } from './types'
 
 const create = (): Game => {
   let backgroundColor = '#000000'
 
-  let update = null
-  let render = null
+  let update:((dt:number) => {}) = null
+  let render:((gfx:Graphics) => {}) = null
 
   // These are used for calculating the Delta Time for the Frame
   let prevTime = 0
