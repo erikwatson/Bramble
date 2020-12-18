@@ -24,9 +24,11 @@
     "pretty-quick": "^1.10.0",
     "ts-loader": "^8.0.11",
     "typescript": "^4.1.2",
+    "typescript-coverage-report": "^0.3.1",
     "typescript-loader": "^1.1.3",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^4.2.1"
   },
   "scripts": {
@@ -36,6 +38,7 @@
     "watch": "npm run build:dev --watch"
   },
   "dependencies": {
+    "@webpack-cli/serve": "^1.1.0",
     "node-fetch": "^2.0.0"
   },
   "repository": {

@@ -106,51 +106,28 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loadAllTerrain = exports.loadTerrain = exports.loadAllMusic = exports.loadMusic = exports.loadAllSounds = exports.loadSound = exports.loadAllImages = exports.loadImage = exports.loadAllJson = exports.loadJson = exports.loadAllText = exports.loadText = void 0;
+exports.loadAllTerrain = exports.loadTerrain = exports.loadAllMusic = exports.loadMusic = exports.loadAllSounds = exports.loadSound = exports.loadAllImages = exports.loadImage = exports.loadAllText = exports.loadString = void 0;
 var terrain_1 = __webpack_require__(/*! ./terrain */ "./src/terrain.ts");
 var sound_1 = __webpack_require__(/*! ./sound */ "./src/sound.ts");
-function load(path, type) {
-    if (type === void 0) { type = 'text'; }
+function loadString(path) {
     return new Promise(function (resolve, reject) {
         var request = new XMLHttpRequest();
-        request.responseType = type;
         request.addEventListener('load', function (event) {
-            switch (type) {
-                case 'text':
-                    resolve(request.responseText);
-                    break;
-                case 'json':
-                    resolve(request.response);
-                    break;
-                default:
-                    console.error("invalid type provided to load: " + type + " is unknown");
-            }
+            resolve(request.responseText);
         });
         request.addEventListener('error', function (event) {
             reject(event);
         });
-        request.open('GET', path, true);
+        request.open('GET', path);
         request.send();
     });
 }
-function loadText(path) {
-    return load(path, 'text');
-}
-exports.loadText = loadText;
+exports.loadString = loadString;
 function loadAllText(paths) {
     if (paths === void 0) { paths = []; }
-    return Promise.all(paths.map(function (x) { return load(x, 'text'); }));
+    return Promise.all(paths.map(function (x) { return loadString(x); }));
 }
 exports.loadAllText = loadAllText;
-function loadJson(path) {
-    return load(path, 'json');
-}
-exports.loadJson = loadJson;
-function loadAllJson(paths) {
-    if (paths === void 0) { paths = []; }
-    return Promise.all(paths.map(function (x) { return load(x, 'json'); }));
-}
-exports.loadAllJson = loadAllJson;
 function loadImage(path) {
     return new Promise(function (resolve, reject) {
         var img = new Image();
@@ -200,17 +177,14 @@ exports.loadAllMusic = loadAllMusic;
 // downloads the related image file,
 // returns a new Terrain object
 function loadTerrain(path) {
-    var description = null;
-    return loadJson(path)
+    var description;
+    return loadString(path)
         .then(function (json) {
-        description = json;
+        description = JSON.parse(json);
         return loadImage(description.path);
     })
         .then(function (image) {
         return terrain_1.default.create(description.name, description.type, image, description.tiles);
-    })
-        .catch(function (err) {
-        console.error(err);
     });
 }
 exports.loadTerrain = loadTerrain;
@@ -220,9 +194,8 @@ function loadAllTerrain(paths) {
 }
 exports.loadAllTerrain = loadAllTerrain;
 exports.default = {
-    loadText: loadText,
-    loadJson: loadJson,
     loadImage: loadImage,
+    loadString: loadString,
     loadAllText: loadAllText,
     loadAllImages: loadAllImages,
     loadSound: loadSound,
@@ -376,6 +349,10 @@ function clear(ctx, colour) {
         }
     });
 }
+function square(ctx, x, y, size, options) {
+    if (options === void 0) { options = defaultRect; }
+    rect(ctx, x, y, size, size, options);
+}
 var defaultRect = {
     fill: {
         colour: '#ffffff',
@@ -387,10 +364,6 @@ var defaultRect = {
         opacity: 1
     }
 };
-function square(ctx, x, y, size, options) {
-    if (options === void 0) { options = defaultRect; }
-    rect(ctx, x, y, size, size, options);
-}
 function rect(ctx, x, y, w, h, options) {
     if (options === void 0) { options = defaultRect; }
     if (typeof options.fill !== 'undefined') {
@@ -623,18 +596,18 @@ function create(ctx) {
             if (options === void 0) { options = defaultRect; }
             rect(ctx, x, y, w, h, options);
         },
-        image: function (x, y, w, h, image) {
-            image(ctx, x, y, w, h, image);
+        image: function (x, y, w, h, img) {
+            image(ctx, x, y, w, h, img);
         },
         line: function (from, to, options) {
             if (options === void 0) { options = defaultLine; }
             line(ctx, from, to, options);
         },
-        sprite: function (sprite) {
-            sprite(ctx, sprite);
+        sprite: function (spr) {
+            sprite(ctx, spr);
         },
-        subImage: function (x, y, w, h, sx, sy, sw, sh, image) {
-            subImage(ctx, x, y, w, h, sx, sy, sw, sh, image);
+        subImage: function (x, y, w, h, sx, sy, sw, sh, img) {
+            subImage(ctx, x, y, w, h, sx, sy, sw, sh, img);
         },
         text: function (x, y, text, colour, font) {
             if (x === void 0) { x = 0; }
@@ -644,8 +617,8 @@ function create(ctx) {
             if (font === void 0) { font = '16pt sans-serif'; }
             txt(ctx, x, y, text, colour, font);
         },
-        textbox: function (textbox) {
-            textbox(ctx, textbox);
+        textbox: function (tb) {
+            textbox(ctx, tb);
         },
         tiles: function (positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, tileHeight) {
             tiles(ctx, positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, tileHeight);
@@ -889,7 +862,7 @@ function create(canvas) {
     var clone = function (state) {
         return Object.assign({}, state);
     };
-    var relative = function (event, element) {
+    var relative = function (event) {
         var bounds = canvas.getBoundingClientRect();
         return {
             x: event.clientX - bounds.left,
@@ -897,7 +870,7 @@ function create(canvas) {
         };
     };
     var move = function (event) {
-        var newPos = relative(event, canvas);
+        var newPos = relative(event);
         mouse.x = newPos.x;
         mouse.y = newPos.y;
     };
@@ -928,7 +901,7 @@ function create(canvas) {
         }
     };
     var wheel = function (event) {
-        mouse.wheel.moved = event.delta === 0 ? false : true;
+        mouse.wheel.moved = event.deltaY === 0 ? false : true;
         if (mouse.wheel.moved !== false) {
             mouse.wheel.direction = event.deltaY < 0 ? 'up' : 'down';
         }
@@ -1066,7 +1039,6 @@ function create(x, y, width, height, rotation, texture, colour) {
     if (width === void 0) { width = 0; }
     if (height === void 0) { height = 0; }
     if (rotation === void 0) { rotation = 0; }
-    if (texture === void 0) { texture = null; }
     if (colour === void 0) { colour = '#ffffff'; }
     var frames = [];
     return {
