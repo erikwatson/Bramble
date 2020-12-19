@@ -11,12 +11,10 @@
       const elem = document.getElementById('cont')
 
       game.attachTo(elem)
-      game.setSize(1920, 720)
+      game.setSize(1080, 720)
       game.setRender(gfx => {
         gfx.circle(100, 100, 100)
       })
-
-      // const assets = Bramble.assets.loadTerrain('./terrain/default.json')
 
       game.start()
     </script>
