@@ -1,4 +1,4 @@
-import { Position, GridOptions, Grid } from './types'
+import { Point, GridOptions, Grid } from './types'
 
 function make2DArray(
   width: number = 1,
@@ -35,13 +35,13 @@ const defaultGrid = {
 
 function fill(
   tiles: number[][],
-  position: Position,
+  position: Point,
   target: number,
   replacement: number
 ) {
   let gridClone = copyTiles(tiles)
 
-  function floodFill(position: Position, target: number, replacement: number) {
+  function floodFill(position: Point, target: number, replacement: number) {
     if (target === replacement) {
       return
     }

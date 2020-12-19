@@ -113,12 +113,8 @@ export interface RectangleOptions {
         opacity?: number;
     };
 }
-export interface Position {
-    x: number;
-    y: number;
-}
 export interface GridOptions {
-    pos: Position;
+    pos: Point;
     visible: boolean;
     divisions: number;
     tileWidth: number;
@@ -126,7 +122,7 @@ export interface GridOptions {
     scale: number;
 }
 export interface Grid {
-    pos: Position;
+    pos: Point;
     visible: boolean;
     divisions: number;
     tileWidth: number;

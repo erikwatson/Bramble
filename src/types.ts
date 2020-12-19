@@ -129,13 +129,8 @@ export interface RectangleOptions {
   }
 }
 
-export interface Position {
-  x: number
-  y: number
-}
-
 export interface GridOptions {
-  pos: Position
+  pos: Point
   visible: boolean
   divisions: number
   tileWidth: number
@@ -144,7 +139,7 @@ export interface GridOptions {
 }
 
 export interface Grid {
-  pos: Position
+  pos: Point
   visible: boolean
   divisions: number
   tileWidth: number
