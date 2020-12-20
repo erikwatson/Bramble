@@ -1,4 +1,4 @@
-import { SpriteSheet, TextBox, DropShadowOptions, Graphics, Point, Sprite, RectangleOptions, CircleOptions, LineOptions } from './types';
+import { SpriteSheet, DropShadowOptions, Graphics, Point, Sprite, RectangleOptions, CircleOptions, LineOptions } from './types';
 declare function clear(ctx: CanvasRenderingContext2D, colour: string): void;
 declare function square(ctx: CanvasRenderingContext2D, x: number, y: number, size: number, options?: RectangleOptions): void;
 declare function rect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, options?: RectangleOptions): void;
@@ -8,7 +8,6 @@ declare function image(ctx: CanvasRenderingContext2D, x: number, y: number, w: n
 declare function subImage(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, sx: number, sy: number, sw: number, sh: number, image: CanvasImageSource): void;
 declare function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite): void;
 declare function txt(ctx: CanvasRenderingContext2D, x?: number, y?: number, text?: string, colour?: string, font?: string): void;
-declare function textbox(ctx: CanvasRenderingContext2D, textbox: TextBox): void;
 declare function tiles(ctx: CanvasRenderingContext2D, positionX: number, positionY: number, tileGrid: number[][], spriteSheets: SpriteSheet[], scale: number, tileWidth: number, tileHeight: number): void;
 declare function shadow(ctx: CanvasRenderingContext2D, drawingOperations: () => {}, options?: DropShadowOptions): void;
 declare function dodge(ctx: CanvasRenderingContext2D, drawingOperations: () => {}): void;
@@ -26,7 +25,6 @@ declare const _default: {
     square: typeof square;
     subImage: typeof subImage;
     text: typeof txt;
-    textbox: typeof textbox;
     tiles: typeof tiles;
     shadow: typeof shadow;
     dodge: typeof dodge;

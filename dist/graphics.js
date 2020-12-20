@@ -107,24 +107,6 @@ function txt(ctx, x, y, text, colour, font) {
     ctx.textBaseline = 'top';
     ctx.fillText(text, x, y);
 }
-// TODO: Figure out word wrapping for these boxes.
-//
-//       I think we will probably have to split the text up into lines of
-//       appropriate width, then render each one of them individually.
-//
-//       This could probably be cached in the object itself as long as we update
-//       every time there's a change to the font, text, width or height.
-function textbox(ctx, textbox) {
-    ctx.fillStyle = '#ffffff';
-    ctx.font = '16pt sans-serif';
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'top';
-    var measurements = ctx.measureText(textbox.text);
-    if (measurements.width > textbox.width) {
-        textbox.text = textbox.text.substr(0, 10) + '\n' + textbox.text.substr(10);
-    }
-    ctx.fillText(textbox.text, textbox.x, textbox.y);
-}
 function tile(ctx, positionX, positionY, tilesheet, gridX, gridY, tileSheetX, tileSheetY, scale, tileWidth, tileHeight) {
     subImage(ctx, positionX + scale * (gridX * tileWidth), positionY + scale * (gridY * tileHeight), scale * tileWidth, scale * tileHeight, tileWidth * tileSheetX, tileHeight * tileSheetY, tileWidth, tileHeight, tilesheet);
 }
@@ -276,9 +258,6 @@ function create(ctx) {
             if (font === void 0) { font = '16pt sans-serif'; }
             txt(ctx, x, y, text, colour, font);
         },
-        textbox: function (tb) {
-            textbox(ctx, tb);
-        },
         tiles: function (positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, tileHeight) {
             tiles(ctx, positionX, positionY, tileGrid, spriteSheets, scale, tileWidth, tileHeight);
         },
@@ -309,7 +288,6 @@ exports.default = {
     square: square,
     subImage: subImage,
     text: txt,
-    textbox: textbox,
     tiles: tiles,
     shadow: shadow,
     dodge: dodge,

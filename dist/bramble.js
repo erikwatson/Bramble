@@ -11,14 +11,8 @@ Object.defineProperty(exports, "graphics", { enumerable: true, get: function () 
 var input_1 = require("./input");
 Object.defineProperty(exports, "keyboard", { enumerable: true, get: function () { return input_1.keyboard; } });
 Object.defineProperty(exports, "mouse", { enumerable: true, get: function () { return input_1.mouse; } });
-var music_1 = require("./music");
-Object.defineProperty(exports, "music", { enumerable: true, get: function () { return music_1.default; } });
-var sfx_1 = require("./sfx");
-Object.defineProperty(exports, "sfx", { enumerable: true, get: function () { return sfx_1.default; } });
 var sprite_1 = require("./sprite");
 Object.defineProperty(exports, "sprite", { enumerable: true, get: function () { return sprite_1.default; } });
-var textbox_1 = require("./textbox");
-Object.defineProperty(exports, "textbox", { enumerable: true, get: function () { return textbox_1.default; } });
 var sound_1 = require("./sound");
 Object.defineProperty(exports, "sound", { enumerable: true, get: function () { return sound_1.default; } });
 var vec2_1 = require("./vec2");

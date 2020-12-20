@@ -76,13 +76,6 @@ export interface Sprite {
     setFrames: (newFrames: Frame[]) => void;
     addFrame: (frame: Frame) => void;
 }
-export interface TextBox {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    text: string;
-}
 export interface KeyState {
     code: number;
     label: string;
@@ -176,7 +169,6 @@ export interface Graphics {
     sprite: (sprite: Sprite) => void;
     subImage: (x: number, y: number, w: number, h: number, sx: number, sy: number, sw: number, sh: number, image: CanvasImageSource) => void;
     text: (x: number, y: number, text: string, colour: string, font: string) => void;
-    textbox: (textbox: TextBox) => void;
     tiles: (positionX: number, positionY: number, tileGrid: number[][], spriteSheets: SpriteSheet[], scale: number, tileWidth: number, tileHeight: number) => void;
     shadow: (drawingOperations: () => {}, options: DropShadowOptions) => void;
     dodge: (drawingOperations: () => {}) => void;
