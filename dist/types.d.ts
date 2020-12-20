@@ -34,7 +34,7 @@ export interface Mouse {
 export interface Terrain {
     name: string;
     type: number;
-    image: ImageBitmapSource;
+    image: CanvasImageSource;
     tiles: Tile[];
 }
 export interface Vec2 {
@@ -169,7 +169,7 @@ export interface Graphics {
     sprite: (sprite: Sprite) => void;
     subImage: (x: number, y: number, w: number, h: number, sx: number, sy: number, sw: number, sh: number, image: CanvasImageSource) => void;
     text: (x: number, y: number, text: string, colour: string, font: string) => void;
-    tiles: (positionX: number, positionY: number, tileGrid: number[][], spriteSheets: SpriteSheet[], scale: number, tileWidth: number, tileHeight: number) => void;
+    tiles: (position: Point, tileGrid: number[][], spriteSheets: Terrain[], scale: number, tileWidth: number, tileHeight: number) => void;
     shadow: (drawingOperations: () => {}, options: DropShadowOptions) => void;
     dodge: (drawingOperations: () => {}) => void;
     overlay: (drawingOperations: () => {}) => void;

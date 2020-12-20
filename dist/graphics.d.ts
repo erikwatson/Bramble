@@ -1,4 +1,4 @@
-import { SpriteSheet, DropShadowOptions, Graphics, Point, Sprite, RectangleOptions, CircleOptions, LineOptions } from './types';
+import { CircleOptions, DropShadowOptions, Graphics, LineOptions, Point, RectangleOptions, Sprite, Terrain } from './types';
 declare function clear(ctx: CanvasRenderingContext2D, colour: string): void;
 declare function square(ctx: CanvasRenderingContext2D, x: number, y: number, size: number, options?: RectangleOptions): void;
 declare function rect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, options?: RectangleOptions): void;
@@ -8,11 +8,11 @@ declare function image(ctx: CanvasRenderingContext2D, x: number, y: number, w: n
 declare function subImage(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, sx: number, sy: number, sw: number, sh: number, image: CanvasImageSource): void;
 declare function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite): void;
 declare function txt(ctx: CanvasRenderingContext2D, x?: number, y?: number, text?: string, colour?: string, font?: string): void;
-declare function tiles(ctx: CanvasRenderingContext2D, positionX: number, positionY: number, tileGrid: number[][], spriteSheets: SpriteSheet[], scale: number, tileWidth: number, tileHeight: number): void;
-declare function shadow(ctx: CanvasRenderingContext2D, drawingOperations: () => {}, options?: DropShadowOptions): void;
-declare function dodge(ctx: CanvasRenderingContext2D, drawingOperations: () => {}): void;
-declare function overlay(ctx: CanvasRenderingContext2D, drawingOperations: () => {}): void;
-declare function transparency(ctx: CanvasRenderingContext2D, drawingOperations: () => {}, alpha?: number): void;
+declare function tiles(ctx: CanvasRenderingContext2D, position: Point, tileGrid: number[][], spriteSheets: Terrain[], scale: number, tileWidth: number, tileHeight: number): void;
+declare function shadow(ctx: CanvasRenderingContext2D, drawingOperations: () => void, options?: DropShadowOptions): void;
+declare function dodge(ctx: CanvasRenderingContext2D, drawingOperations: () => void): void;
+declare function overlay(ctx: CanvasRenderingContext2D, drawingOperations: () => void): void;
+declare function transparency(ctx: CanvasRenderingContext2D, drawingOperations: () => void, alpha?: number): void;
 declare function create(ctx: CanvasRenderingContext2D): Graphics;
 declare const _default: {
     create: typeof create;
