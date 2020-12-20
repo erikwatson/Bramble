@@ -18,7 +18,7 @@ const create = (): Game => {
 
   canvas.id = 'bramble-game'
 
-  let mouseInput: Mouse = null //  mouse.create(canvas.element)
+  let mouseInput: Mouse = mouse.create(canvas)
 
   const setBackgroundColor = (color: string) => {
     backgroundColor = color

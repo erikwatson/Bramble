@@ -13,7 +13,7 @@ var create = function () {
     var ctx = canvas.getContext('2d');
     var graphics = graphics_1.default.create(ctx);
     canvas.id = 'bramble-game';
-    var mouseInput = null; //  mouse.create(canvas.element)
+    var mouseInput = input_1.mouse.create(canvas);
     var setBackgroundColor = function (color) {
         backgroundColor = color;
     };

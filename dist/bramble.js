@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.vec2 = exports.sprite = exports.mouse = exports.keyboard = exports.graphics = exports.grid = exports.game = exports.assets = void 0;
 var assets_1 = require("./assets");
 Object.defineProperty(exports, "assets", { enumerable: true, get: function () { return assets_1.default; } });
 var game_1 = require("./game");
@@ -13,7 +14,5 @@ Object.defineProperty(exports, "keyboard", { enumerable: true, get: function () 
 Object.defineProperty(exports, "mouse", { enumerable: true, get: function () { return input_1.mouse; } });
 var sprite_1 = require("./sprite");
 Object.defineProperty(exports, "sprite", { enumerable: true, get: function () { return sprite_1.default; } });
-var sound_1 = require("./sound");
-Object.defineProperty(exports, "sound", { enumerable: true, get: function () { return sound_1.default; } });
 var vec2_1 = require("./vec2");
 Object.defineProperty(exports, "vec2", { enumerable: true, get: function () { return vec2_1.default; } });

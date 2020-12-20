@@ -1,6 +1,4 @@
 import { Terrain, Tile } from './types'
-import terrain from './terrain'
-import sound from './sound'
 
 export function loadString(path: string): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -45,30 +43,6 @@ export function loadAllImages(
   return Promise.all(paths.map(x => loadImage(x)))
 }
 
-export function loadSound(path: string) {
-  return new Promise((resolve, reject) => {
-    window
-      .fetch(path)
-      .then(response => response.arrayBuffer())
-      .then(arrayBuffer => sound.decode(arrayBuffer))
-      .then(decoded => resolve(decoded))
-      .catch((err: ErrorEvent) => reject(err))
-  })
-}
-
-export function loadAllSounds(paths: string[] = []) {
-  return Promise.all(paths.map(x => loadSound(x)))
-}
-
-// TODO: I am not sure yet if/how these are meaningfully different to loadSound
-export function loadMusic(path: string) {
-  return new Promise((resolve, reject) => {})
-}
-
-export function loadAllMusic(paths: string[] = []) {
-  return Promise.all(paths.map(x => loadMusic(x)))
-}
-
 interface Description {
   path: string
   name: string
@@ -88,14 +62,12 @@ export function loadTerrain(path: string): Promise<Terrain> {
       description = JSON.parse(json)
       return loadImage(description.path)
     })
-    .then(image =>
-      terrain.create(
-        description.name,
-        description.type,
-        image,
-        description.tiles
-      )
-    )
+    .then(image => ({
+      name: description.name,
+      type: description.type,
+      image: image,
+      tiles: description.tiles
+    }))
 }
 
 export function loadAllTerrain(paths: string[] = []): Promise<Terrain[]> {
@@ -107,8 +79,6 @@ export default {
   loadString,
   loadAllText,
   loadAllImages,
-  loadSound,
-  loadAllSounds,
   loadTerrain,
   loadAllTerrain
 }
