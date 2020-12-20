@@ -5,20 +5,26 @@
     <style type="text/css">
       #wrapper {
         display: grid;
+        grid-auto-flow: column;
+      }
+
+      .example {
+        max-width: 100px;
+        max-height: 100px;
       }
     </style>
   </head>
   <body>
     <div id="wrapper">
-      <div id="a"></div>
-      <div id="b"></div>
-      <div id="c"></div>
-      <div id="d"></div>
-      <div id="e"></div>
-      <div id="f"></div>
-      <div id="g"></div>
-      <div id="h"></div>
-      <div id="i"></div>
+      <div class="example" id="a"></div>
+      <div class="example" id="b"></div>
+      <div class="example" id="c"></div>
+      <div class="example" id="d"></div>
+      <div class="example" id="e"></div>
+      <div class="example" id="f"></div>
+      <div class="example" id="g"></div>
+      <div class="example" id="h"></div>
+      <div class="example" id="i"></div>
     </div>
 
     <script type="text/javascript" src="./bramble.min.js"></script>
