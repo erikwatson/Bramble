@@ -1,7 +1,6 @@
 import number from './number'
 import {
   SpriteSheet,
-  TextBox,
   DropShadowOptions,
   Graphics,
   Point,
@@ -194,28 +193,6 @@ function txt(
   ctx.textAlign = 'left'
   ctx.textBaseline = 'top'
   ctx.fillText(text, x, y)
-}
-
-// TODO: Figure out word wrapping for these boxes.
-//
-//       I think we will probably have to split the text up into lines of
-//       appropriate width, then render each one of them individually.
-//
-//       This could probably be cached in the object itself as long as we update
-//       every time there's a change to the font, text, width or height.
-function textbox(ctx: CanvasRenderingContext2D, textbox: TextBox) {
-  ctx.fillStyle = '#ffffff'
-  ctx.font = '16pt sans-serif'
-  ctx.textAlign = 'left'
-  ctx.textBaseline = 'top'
-
-  const measurements = ctx.measureText(textbox.text)
-
-  if (measurements.width > textbox.width) {
-    textbox.text = textbox.text.substr(0, 10) + '\n' + textbox.text.substr(10)
-  }
-
-  ctx.fillText(textbox.text, textbox.x, textbox.y)
 }
 
 function tile(
@@ -428,9 +405,6 @@ function create(ctx: CanvasRenderingContext2D): Graphics {
     ) => {
       txt(ctx, x, y, text, colour, font)
     },
-    textbox: tb => {
-      textbox(ctx, tb)
-    },
     tiles: (
       positionX,
       positionY,
@@ -477,7 +451,6 @@ export default {
   square,
   subImage,
   text: txt,
-  textbox,
   tiles,
   shadow,
   dodge,

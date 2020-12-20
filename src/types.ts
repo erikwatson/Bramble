@@ -86,14 +86,6 @@ export interface Sprite {
   addFrame: (frame: Frame) => void
 }
 
-export interface TextBox {
-  x: number
-  y: number
-  width: number
-  height: number
-  text: string
-}
-
 export interface KeyState {
   code: number
   label: string
@@ -234,7 +226,6 @@ export interface Graphics {
     colour: string,
     font: string
   ) => void
-  textbox: (textbox: TextBox) => void
   tiles: (
     positionX: number,
     positionY: number,
