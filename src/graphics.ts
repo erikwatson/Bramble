@@ -1,14 +1,15 @@
 import number from './utils/number'
 import {
-  SpriteSheet,
+  CircleOptions,
   DropShadowOptions,
   Graphics,
-  Point,
-  Sprite,
   Grid,
+  LineOptions,
+  Point,
   RectangleOptions,
-  CircleOptions,
-  LineOptions
+  Sprite,
+  SpriteSheet,
+  Terrain
 } from './types'
 
 function clear(ctx: CanvasRenderingContext2D, colour: string) {
@@ -226,10 +227,9 @@ function tile(
 // spritesheets: An object, each key is the value that represents a tile from this sheet
 function tiles(
   ctx: CanvasRenderingContext2D,
-  positionX: number,
-  positionY: number,
+  position: Point,
   tileGrid: number[][],
-  spriteSheets: SpriteSheet[],
+  spriteSheets: Terrain[],
   scale: number,
   tileWidth: number,
   tileHeight: number
@@ -304,8 +304,8 @@ function tiles(
       if (selection) {
         tile(
           ctx,
-          positionX,
-          positionY,
+          position.x,
+          position.y,
           sheet.image,
           x,
           y,
@@ -331,7 +331,7 @@ const defaultDropShadow = {
 
 function shadow(
   ctx: CanvasRenderingContext2D,
-  drawingOperations: () => {},
+  drawingOperations: () => void,
   options: DropShadowOptions = defaultDropShadow
 ) {
   ctx.save()
@@ -345,14 +345,14 @@ function shadow(
   ctx.restore()
 }
 
-function dodge(ctx: CanvasRenderingContext2D, drawingOperations: () => {}) {
+function dodge(ctx: CanvasRenderingContext2D, drawingOperations: () => void) {
   ctx.save()
   ctx.globalCompositeOperation = 'colour-dodge'
   drawingOperations()
   ctx.restore()
 }
 
-function overlay(ctx: CanvasRenderingContext2D, drawingOperations: () => {}) {
+function overlay(ctx: CanvasRenderingContext2D, drawingOperations: () => void) {
   ctx.save()
   ctx.globalCompositeOperation = 'overlay'
   drawingOperations()
@@ -361,7 +361,7 @@ function overlay(ctx: CanvasRenderingContext2D, drawingOperations: () => {}) {
 
 function transparency(
   ctx: CanvasRenderingContext2D,
-  drawingOperations: () => {},
+  drawingOperations: () => void,
   alpha = 0.25
 ) {
   ctx.save()
@@ -405,25 +405,8 @@ function create(ctx: CanvasRenderingContext2D): Graphics {
     ) => {
       txt(ctx, x, y, text, colour, font)
     },
-    tiles: (
-      positionX,
-      positionY,
-      tileGrid,
-      spriteSheets,
-      scale,
-      tileWidth,
-      tileHeight
-    ) => {
-      tiles(
-        ctx,
-        positionX,
-        positionY,
-        tileGrid,
-        spriteSheets,
-        scale,
-        tileWidth,
-        tileHeight
-      )
+    tiles: (position, tileGrid, spriteSheets, scale, tileWidth, tileHeight) => {
+      tiles(ctx, position, tileGrid, spriteSheets, scale, tileWidth, tileHeight)
     },
     shadow: (drawingOperations, options = defaultDropShadow) => {
       shadow(ctx, drawingOperations, options)

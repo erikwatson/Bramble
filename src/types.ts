@@ -40,7 +40,7 @@ export interface Mouse {
 export interface Terrain {
   name: string
   type: number
-  image: ImageBitmapSource
+  image: CanvasImageSource
   tiles: Tile[]
 }
 
@@ -227,10 +227,9 @@ export interface Graphics {
     font: string
   ) => void
   tiles: (
-    positionX: number,
-    positionY: number,
+    position: Point,
     tileGrid: number[][],
-    spriteSheets: SpriteSheet[],
+    spriteSheets: Terrain[],
     scale: number,
     tileWidth: number,
     tileHeight: number
