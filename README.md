@@ -11,7 +11,7 @@ A little JavaScript library for making Video Games.
 - Tile Maps that Auto-Tile
 - Sprite Animations based on Sprite Sheets
 - 2D Vectors
-- Music and SFX playback
+- ~~Music and SFX playback~~
 
 ## Example
 
