@@ -49,14 +49,12 @@ function loadTerrain(path) {
         description = JSON.parse(json);
         return loadImage(description.path);
     })
-        .then(function (image) {
-        return ({
-            name: description.name,
-            type: description.type,
-            image: image,
-            tiles: description.tiles
-        });
-    });
+        .then(function (image) { return ({
+        name: description.name,
+        type: description.type,
+        image: image,
+        tiles: description.tiles
+    }); });
 }
 exports.loadTerrain = loadTerrain;
 function loadAllTerrain(paths) {

@@ -1,4 +1,4 @@
-import number from './number'
+import number from './utils/number'
 import {
   SpriteSheet,
   DropShadowOptions,

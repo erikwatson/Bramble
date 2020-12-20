@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var number_1 = require("./number");
+var number_1 = require("./utils/number");
 function clear(ctx, colour) {
     rect(ctx, 0, 0, ctx.canvas.width, ctx.canvas.height, {
         fill: {
