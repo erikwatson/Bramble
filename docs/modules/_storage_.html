@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;vec2&quot; | @erikwatson/bramble</title>
+	<title>&quot;storage&quot; | @erikwatson/bramble</title>
 	<meta name="description" content="Documentation for @erikwatson/bramble">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_vec2_.html">&quot;vec2&quot;</a>
+					<a href="_storage_.html">&quot;storage&quot;</a>
 				</li>
 			</ul>
-			<h1>Module &quot;vec2&quot;</h1>
+			<h1>Module &quot;storage&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -70,88 +70,106 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
+						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_vec2_.html#clone" class="tsd-kind-icon">clone</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_vec2_.html#create" class="tsd-kind-icon">create</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_vec2_.html#fromdegrees" class="tsd-kind-icon">from<wbr>Degrees</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_storage_.html#clear" class="tsd-kind-icon">clear</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_storage_.html#load" class="tsd-kind-icon">load</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_storage_.html#remove" class="tsd-kind-icon">remove</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_storage_.html#save" class="tsd-kind-icon">save</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-					<a name="clone" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> clone</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">clone<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.vec2.html" class="tsd-signature-type">Vec2</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.vec2.html" class="tsd-signature-type">Vec2</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="clear" class="tsd-anchor"></a>
+					<h3>clear</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">clear<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c5c239b/src/vec2.ts#L116">vec2.ts:116</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c5c239b/src/storage.ts#L13">storage.ts:13</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>v: <a href="../interfaces/_types_.vec2.html" class="tsd-signature-type">Vec2</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_types_.vec2.html" class="tsd-signature-type">Vec2</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-					<a name="create" class="tsd-anchor"></a>
-					<h3>create</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span>_x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, _y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.vec2.html" class="tsd-signature-type">Vec2</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="load" class="tsd-anchor"></a>
+					<h3>load</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">load<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c5c239b/src/vec2.ts#L3">vec2.ts:3</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c5c239b/src/storage.ts#L5">storage.ts:5</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>_x: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>_y: <span class="tsd-signature-type">number</span></h5>
+									<h5>key: <span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_types_.vec2.html" class="tsd-signature-type">Vec2</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-					<a name="fromdegrees" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> from<wbr>Degrees</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">from<wbr>Degrees<span class="tsd-signature-symbol">(</span>degrees<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.vec2.html" class="tsd-signature-type">Vec2</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="remove" class="tsd-anchor"></a>
+					<h3>remove</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">remove<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c5c239b/src/vec2.ts#L111">vec2.ts:111</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c5c239b/src/storage.ts#L9">storage.ts:9</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>degrees: <span class="tsd-signature-type">number</span></h5>
+									<h5>key: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_types_.vec2.html" class="tsd-signature-type">Vec2</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="save" class="tsd-anchor"></a>
+					<h3>save</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">save<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c5c239b/src/storage.ts#L1">storage.ts:1</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>key: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>value: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -196,7 +214,7 @@
 					<li class=" tsd-kind-module">
 						<a href="_sprite_.html">&quot;sprite&quot;</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="_storage_.html">&quot;storage&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -205,21 +223,24 @@
 					<li class=" tsd-kind-module">
 						<a href="_utils_number_.html">&quot;utils/number&quot;</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="_vec2_.html">&quot;vec2&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_vec2_.html#clone" class="tsd-kind-icon">clone</a>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_storage_.html#clear" class="tsd-kind-icon">clear</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_vec2_.html#create" class="tsd-kind-icon">create</a>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_storage_.html#load" class="tsd-kind-icon">load</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_vec2_.html#fromdegrees" class="tsd-kind-icon">from<wbr>Degrees</a>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_storage_.html#remove" class="tsd-kind-icon">remove</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_storage_.html#save" class="tsd-kind-icon">save</a>
 					</li>
 				</ul>
 			</nav>
