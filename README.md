@@ -6,8 +6,21 @@ A little JavaScript library for making Video Games.
 
 - [Level Editor](https://github.com/erikwatson/Level-Editor)
 - Asset Loading
+  - string
+  - image
+  - terrain
 - Input Handling
+  - keyboard
+  - mouse
 - Simple Canvas Drawing API
+  - circles
+  - rectangles
+  - lines
+  - images
+  - sprites
+  - text
+  - tilesheets
+  - effects (overlay, dodge, shadow, transparency)
 - Tile Maps that Auto-Tile
 - Sprite Animations based on Sprite Sheets
 - 2D Vectors
