@@ -5,3 +5,11 @@ export function save(key: string, value: string): void {
 export function load(key): string {
   return localStorage.getItem(key)
 }
+
+export function remove(key: string): void {
+  localStorage.removeItem(key)
+}
+
+export function clear(): void {
+  localStorage.clear()
+}
