@@ -17,12 +17,10 @@ A little JavaScript library for making Video Games.
   - rectangles
   - lines
   - images
-  - sprites
+  - animated sprites
   - text
-  - tilesheets
+  - tilesheets that auto-tile
   - effects (overlay, dodge, shadow, transparency)
-- Tile Maps that Auto-Tile
-- Sprite Animations based on Sprite Sheets
 - 2D Vectors
 - ~~Music and SFX playback~~
 
