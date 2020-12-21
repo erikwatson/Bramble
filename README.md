@@ -25,6 +25,8 @@ A little JavaScript library for making Video Games.
 - 2D Vectors
 - ~~Music and SFX playback~~
 
+* ~~Save Games~~
+
 ## Example
 
 There's no docs for this yet really, but this is what a really basic, barebones
