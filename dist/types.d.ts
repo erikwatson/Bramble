@@ -160,16 +160,16 @@ export interface SpriteSheet {
     image: CanvasImageSource;
 }
 export interface Graphics {
-    circle: (x: number, y: number, radius: number, options: CircleOptions) => void;
+    circle: (position: Point, radius: number, options: CircleOptions) => void;
     clear: (colour: string) => void;
-    square: (x: number, y: number, size: number, options: RectangleOptions) => void;
-    rect: (x: number, y: number, w: number, h: number, options: RectangleOptions) => void;
-    image: (x: number, y: number, w: number, h: number, image: CanvasImageSource) => void;
+    square: (position: Point, size: number, options: RectangleOptions) => void;
+    rect: (position: Point, size: Size, options: RectangleOptions) => void;
+    image: (position: Point, size: Size, image: CanvasImageSource) => void;
     line: (from: Point, to: Point, options: LineOptions) => void;
     sprite: (sprite: Sprite) => void;
-    subImage: (x: number, y: number, w: number, h: number, sx: number, sy: number, sw: number, sh: number, image: CanvasImageSource) => void;
-    text: (x: number, y: number, text: string, colour: string, font: string) => void;
-    tiles: (position: Point, tileGrid: number[][], spriteSheets: Terrain[], scale: number, tileWidth: number, tileHeight: number) => void;
+    subImage: (position: Point, size: Size, subPosition: Point, sibSize: Size, image: CanvasImageSource) => void;
+    text: (position: Point, text: string, colour: string, font: string) => void;
+    tiles: (position: Point, tileGrid: number[][], spriteSheets: Terrain[], scale: number, tileSize: Size) => void;
     shadow: (drawingOperations: () => {}, options: DropShadowOptions) => void;
     dodge: (drawingOperations: () => {}) => void;
     overlay: (drawingOperations: () => {}) => void;

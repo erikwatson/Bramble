@@ -308,15 +308,15 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", { value: true });
 var number_1 = __webpack_require__(/*! ./utils/number */ "./src/utils/number.ts");
 function clear(ctx, colour) {
-    rect(ctx, 0, 0, ctx.canvas.width, ctx.canvas.height, {
+    rect(ctx, { x: 0, y: 0 }, { width: ctx.canvas.width, height: ctx.canvas.height }, {
         fill: {
             colour: colour
         }
     });
 }
-function square(ctx, x, y, size, options) {
+function square(ctx, position, size, options) {
     if (options === void 0) { options = defaultRect; }
-    rect(ctx, x, y, size, size, options);
+    rect(ctx, { x: position.x, y: position.y }, { width: size, height: size }, options);
 }
 var defaultRect = {
     fill: {
@@ -329,16 +329,16 @@ var defaultRect = {
         opacity: 1
     }
 };
-function rect(ctx, x, y, w, h, options) {
+function rect(ctx, position, size, options) {
     if (options === void 0) { options = defaultRect; }
     if (typeof options.fill !== 'undefined') {
         ctx.fillStyle = options.fill.colour;
-        ctx.fillRect(x, y, w, h);
+        ctx.fillRect(position.x, position.y, size.width, size.height);
     }
     if (typeof options.line !== 'undefined') {
         ctx.strokeStyle = options.line.colour;
         ctx.lineWidth = options.line.width;
-        ctx.strokeRect(x, y, w, h);
+        ctx.strokeRect(position.x, position.y, size.width, size.height);
     }
 }
 var defaultLine = {
@@ -365,7 +365,7 @@ var defaultCircle = {
         width: 2
     }
 };
-function circle(ctx, x, y, radius, options) {
+function circle(ctx, position, radius, options) {
     if (options === void 0) { options = defaultCircle; }
     // not happy with this really, make another function i think
     if (typeof options.fill !== 'undefined') {
@@ -374,18 +374,18 @@ function circle(ctx, x, y, radius, options) {
     ctx.beginPath();
     ctx.strokeStyle = options.line.colour;
     ctx.lineWidth = options.line.width;
-    ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    ctx.arc(position.x, position.y, radius, 0, 2 * Math.PI);
     ctx.closePath();
     if (typeof options.fill !== 'undefined') {
         ctx.fill();
     }
     ctx.stroke();
 }
-function image(ctx, x, y, w, h, image) {
-    ctx.drawImage(image, x, y, w, h);
+function image(ctx, position, size, image) {
+    ctx.drawImage(image, position.x, position.y, size.width, size.height);
 }
-function subImage(ctx, x, y, w, h, sx, sy, sw, sh, image) {
-    ctx.drawImage(image, sx, sy, sw, sh, x, y, w, h);
+function subImage(ctx, position, size, subPosition, subSize, image) {
+    ctx.drawImage(image, subPosition.x, subPosition.y, subSize.width, subSize.height, position.x, position.y, size.width, size.height);
 }
 function sprite(ctx, sprite) {
     var halfWidth = sprite.width / 2;
@@ -394,16 +394,32 @@ function sprite(ctx, sprite) {
     ctx.translate(sprite.x + halfWidth, sprite.y + halfHeight);
     ctx.rotate(number_1.default.toRadians(sprite.rotation));
     if (sprite.frames.length > 1) {
-        subImage(ctx, -halfWidth, -halfHeight, sprite.width, sprite.height, sprite.frames[sprite.frame].x, sprite.frames[sprite.frame].y, sprite.frames[sprite.frame].width, sprite.frames[sprite.frame].height, sprite.texture);
+        subImage(ctx, {
+            x: -halfWidth,
+            y: -halfHeight
+        }, {
+            width: sprite.width,
+            height: sprite.height
+        }, {
+            x: sprite.frames[sprite.frame].x,
+            y: sprite.frames[sprite.frame].y
+        }, {
+            width: sprite.frames[sprite.frame].width,
+            height: sprite.frames[sprite.frame].height
+        }, sprite.texture);
     }
     else {
-        image(ctx, -halfWidth, -halfHeight, sprite.width, sprite.height, sprite.texture);
+        image(ctx, {
+            x: -halfWidth,
+            y: -halfHeight
+        }, {
+            width: sprite.width,
+            height: sprite.height,
+        }, sprite.texture);
     }
     ctx.restore();
 }
-function txt(ctx, x, y, text, colour, font) {
-    if (x === void 0) { x = 0; }
-    if (y === void 0) { y = 0; }
+function txt(ctx, position, text, colour, font) {
     if (text === void 0) { text = ''; }
     if (colour === void 0) { colour = '#000000'; }
     if (font === void 0) { font = '16pt sans-serif'; }
@@ -411,14 +427,26 @@ function txt(ctx, x, y, text, colour, font) {
     ctx.font = font;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
-    ctx.fillText(text, x, y);
+    ctx.fillText(text, position.x, position.y);
 }
-function tile(ctx, positionX, positionY, tilesheet, gridX, gridY, tileSheetX, tileSheetY, scale, tileWidth, tileHeight) {
-    subImage(ctx, positionX + scale * (gridX * tileWidth), positionY + scale * (gridY * tileHeight), scale * tileWidth, scale * tileHeight, tileWidth * tileSheetX, tileHeight * tileSheetY, tileWidth, tileHeight, tilesheet);
+function tile(ctx, position, tilesheet, gridPosition, tilesheetPosition, scale, tileSize) {
+    subImage(ctx, {
+        x: position.x + scale * (gridPosition.x * tileSize.width),
+        y: position.y + scale * (gridPosition.y * tileSize.height)
+    }, {
+        width: scale * tileSize.width,
+        height: scale * tileSize.height
+    }, {
+        x: tileSize.width * tilesheetPosition.x,
+        y: tileSize.height * tilesheetPosition.y
+    }, {
+        width: tileSize.width,
+        height: tileSize.height
+    }, tilesheet);
 }
 // tilegrid: a 2d array of numbers representing terrain types
 // spritesheets: An object, each key is the value that represents a tile from this sheet
-function tiles(ctx, position, tileGrid, spriteSheets, scale, tileWidth, tileHeight) {
+function tiles(ctx, position, tileGrid, spriteSheets, scale, tileSize) {
     var dirValues = {
         NW: 1,
         N: 2,
@@ -473,7 +501,7 @@ function tiles(ctx, position, tileGrid, spriteSheets, scale, tileWidth, tileHeig
             // Note: Just picking a random one of the variants every time we render for now
             var selection = selections[Math.floor(Math.random() * selections.length)];
             if (selection) {
-                tile(ctx, position.x, position.y, sheet.image, x, y, selection.position.x, selection.position.y, scale, selection.size.width, selection.size.height);
+                tile(ctx, position, sheet.image, { x: x, y: y }, selection.position, scale, selection.size);
             }
             else {
                 console.log("Tile not defined " + sum);
@@ -528,23 +556,23 @@ function transparency(ctx, drawingOperations, alpha) {
 }
 function create(ctx) {
     return {
-        circle: function (x, y, radius, options) {
+        circle: function (position, radius, options) {
             if (options === void 0) { options = defaultCircle; }
-            circle(ctx, x, y, radius, options);
+            circle(ctx, position, radius, options);
         },
         clear: function (colour) {
             clear(ctx, colour);
         },
-        square: function (x, y, size, options) {
+        square: function (position, size, options) {
             if (options === void 0) { options = defaultRect; }
-            square(ctx, x, y, size, options);
+            square(ctx, position, size, options);
         },
-        rect: function (x, y, w, h, options) {
+        rect: function (position, size, options) {
             if (options === void 0) { options = defaultRect; }
-            rect(ctx, x, y, w, h, options);
+            rect(ctx, position, size, options);
         },
-        image: function (x, y, w, h, img) {
-            image(ctx, x, y, w, h, img);
+        image: function (position, size, img) {
+            image(ctx, position, size, img);
         },
         line: function (from, to, options) {
             if (options === void 0) { options = defaultLine; }
@@ -553,19 +581,18 @@ function create(ctx) {
         sprite: function (spr) {
             sprite(ctx, spr);
         },
-        subImage: function (x, y, w, h, sx, sy, sw, sh, img) {
-            subImage(ctx, x, y, w, h, sx, sy, sw, sh, img);
+        subImage: function (position, size, subPosition, subSize, img) {
+            subImage(ctx, position, size, subPosition, subSize, img);
         },
-        text: function (x, y, text, colour, font) {
-            if (x === void 0) { x = 0; }
-            if (y === void 0) { y = 0; }
+        text: function (position, text, colour, font) {
+            if (position === void 0) { position = { x: 0, y: 0 }; }
             if (text === void 0) { text = ''; }
             if (colour === void 0) { colour = '#000000'; }
             if (font === void 0) { font = '16pt sans-serif'; }
-            txt(ctx, x, y, text, colour, font);
+            txt(ctx, position, text, colour, font);
         },
-        tiles: function (position, tileGrid, spriteSheets, scale, tileWidth, tileHeight) {
-            tiles(ctx, position, tileGrid, spriteSheets, scale, tileWidth, tileHeight);
+        tiles: function (position, tileGrid, spriteSheets, scale, tileSize) {
+            tiles(ctx, position, tileGrid, spriteSheets, scale, tileSize);
         },
         shadow: function (drawingOperations, options) {
             if (options === void 0) { options = defaultDropShadow; }

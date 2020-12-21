@@ -109,13 +109,13 @@
 					<a name="circle" class="tsd-anchor"></a>
 					<h3>circle</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">circle<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span>, x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, radius<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_types_.circleoptions.html" class="tsd-signature-type">CircleOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">circle<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span>, position<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a>, radius<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_types_.circleoptions.html" class="tsd-signature-type">CircleOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L98">graphics.ts:98</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L106">graphics.ts:106</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -124,10 +124,7 @@
 									<h5>ctx: <span class="tsd-signature-type">CanvasRenderingContext2D</span></h5>
 								</li>
 								<li>
-									<h5>x: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>y: <span class="tsd-signature-type">number</span></h5>
+									<h5>position: <a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a></h5>
 								</li>
 								<li>
 									<h5>radius: <span class="tsd-signature-type">number</span></h5>
@@ -150,7 +147,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L15">graphics.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L16">graphics.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -176,7 +173,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L373">graphics.ts:373</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L384">graphics.ts:384</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -199,7 +196,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L348">graphics.ts:348</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L359">graphics.ts:359</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -231,13 +228,13 @@
 					<a name="image" class="tsd-anchor"></a>
 					<h3>image</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">image<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span>, x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, w<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, h<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, image<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasImageSource</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">image<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span>, position<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a>, size<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.size.html" class="tsd-signature-type">Size</a>, image<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasImageSource</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L123">graphics.ts:123</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L130">graphics.ts:130</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -246,16 +243,10 @@
 									<h5>ctx: <span class="tsd-signature-type">CanvasRenderingContext2D</span></h5>
 								</li>
 								<li>
-									<h5>x: <span class="tsd-signature-type">number</span></h5>
+									<h5>position: <a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a></h5>
 								</li>
 								<li>
-									<h5>y: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>w: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>h: <span class="tsd-signature-type">number</span></h5>
+									<h5>size: <a href="../interfaces/_types_.size.html" class="tsd-signature-type">Size</a></h5>
 								</li>
 								<li>
 									<h5>image: <span class="tsd-signature-type">CanvasImageSource</span></h5>
@@ -275,7 +266,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L70">graphics.ts:70</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L78">graphics.ts:78</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -307,7 +298,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L355">graphics.ts:355</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L366">graphics.ts:366</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -339,13 +330,13 @@
 					<a name="rect" class="tsd-anchor"></a>
 					<h3>rect</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">rect<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span>, x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, w<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, h<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_types_.rectangleoptions.html" class="tsd-signature-type">RectangleOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">rect<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span>, position<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a>, size<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.size.html" class="tsd-signature-type">Size</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_types_.rectangleoptions.html" class="tsd-signature-type">RectangleOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L45">graphics.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L55">graphics.ts:55</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -354,16 +345,10 @@
 									<h5>ctx: <span class="tsd-signature-type">CanvasRenderingContext2D</span></h5>
 								</li>
 								<li>
-									<h5>x: <span class="tsd-signature-type">number</span></h5>
+									<h5>position: <a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a></h5>
 								</li>
 								<li>
-									<h5>y: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>w: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>h: <span class="tsd-signature-type">number</span></h5>
+									<h5>size: <a href="../interfaces/_types_.size.html" class="tsd-signature-type">Size</a></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> options: <a href="../interfaces/_types_.rectangleoptions.html" class="tsd-signature-type">RectangleOptions</a><span class="tsd-signature-symbol"> = defaultRect</span></h5>
@@ -383,7 +368,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L332">graphics.ts:332</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L343">graphics.ts:343</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -424,7 +409,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L149">graphics.ts:149</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L150">graphics.ts:150</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -444,13 +429,13 @@
 					<a name="square" class="tsd-anchor"></a>
 					<h3>square</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">square<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span>, x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, size<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_types_.rectangleoptions.html" class="tsd-signature-type">RectangleOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">square<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span>, position<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a>, size<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_types_.rectangleoptions.html" class="tsd-signature-type">RectangleOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L23">graphics.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L29">graphics.ts:29</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -459,10 +444,7 @@
 									<h5>ctx: <span class="tsd-signature-type">CanvasRenderingContext2D</span></h5>
 								</li>
 								<li>
-									<h5>x: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>y: <span class="tsd-signature-type">number</span></h5>
+									<h5>position: <a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a></h5>
 								</li>
 								<li>
 									<h5>size: <span class="tsd-signature-type">number</span></h5>
@@ -479,13 +461,13 @@
 					<a name="subimage" class="tsd-anchor"></a>
 					<h3>sub<wbr>Image</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">sub<wbr>Image<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span>, x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, w<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, h<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, sx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, sy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, sw<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, sh<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, image<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasImageSource</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">sub<wbr>Image<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span>, position<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a>, size<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.size.html" class="tsd-signature-type">Size</a>, subPosition<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a>, subSize<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.size.html" class="tsd-signature-type">Size</a>, image<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasImageSource</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L134">graphics.ts:134</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L139">graphics.ts:139</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -494,28 +476,16 @@
 									<h5>ctx: <span class="tsd-signature-type">CanvasRenderingContext2D</span></h5>
 								</li>
 								<li>
-									<h5>x: <span class="tsd-signature-type">number</span></h5>
+									<h5>position: <a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a></h5>
 								</li>
 								<li>
-									<h5>y: <span class="tsd-signature-type">number</span></h5>
+									<h5>size: <a href="../interfaces/_types_.size.html" class="tsd-signature-type">Size</a></h5>
 								</li>
 								<li>
-									<h5>w: <span class="tsd-signature-type">number</span></h5>
+									<h5>subPosition: <a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a></h5>
 								</li>
 								<li>
-									<h5>h: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>sx: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>sy: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>sw: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>sh: <span class="tsd-signature-type">number</span></h5>
+									<h5>subSize: <a href="../interfaces/_types_.size.html" class="tsd-signature-type">Size</a></h5>
 								</li>
 								<li>
 									<h5>image: <span class="tsd-signature-type">CanvasImageSource</span></h5>
@@ -529,13 +499,13 @@
 					<a name="tile" class="tsd-anchor"></a>
 					<h3>tile</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">tile<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span>, positionX<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, positionY<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, tilesheet<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasImageSource</span>, gridX<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, gridY<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, tileSheetX<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, tileSheetY<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, scale<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, tileWidth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, tileHeight<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">tile<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span>, position<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a>, tilesheet<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasImageSource</span>, gridPosition<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a>, tilesheetPosition<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a>, scale<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, tileSize<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.size.html" class="tsd-signature-type">Size</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L199">graphics.ts:199</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L211">graphics.ts:211</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -544,34 +514,22 @@
 									<h5>ctx: <span class="tsd-signature-type">CanvasRenderingContext2D</span></h5>
 								</li>
 								<li>
-									<h5>positionX: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>positionY: <span class="tsd-signature-type">number</span></h5>
+									<h5>position: <a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a></h5>
 								</li>
 								<li>
 									<h5>tilesheet: <span class="tsd-signature-type">CanvasImageSource</span></h5>
 								</li>
 								<li>
-									<h5>gridX: <span class="tsd-signature-type">number</span></h5>
+									<h5>gridPosition: <a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a></h5>
 								</li>
 								<li>
-									<h5>gridY: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>tileSheetX: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>tileSheetY: <span class="tsd-signature-type">number</span></h5>
+									<h5>tilesheetPosition: <a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a></h5>
 								</li>
 								<li>
 									<h5>scale: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
-									<h5>tileWidth: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>tileHeight: <span class="tsd-signature-type">number</span></h5>
+									<h5>tileSize: <a href="../interfaces/_types_.size.html" class="tsd-signature-type">Size</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -582,13 +540,13 @@
 					<a name="tiles" class="tsd-anchor"></a>
 					<h3>tiles</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">tiles<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span>, position<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a>, tileGrid<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span>, spriteSheets<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.terrain.html" class="tsd-signature-type">Terrain</a><span class="tsd-signature-symbol">[]</span>, scale<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, tileWidth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, tileHeight<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">tiles<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span>, position<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a>, tileGrid<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span>, spriteSheets<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.terrain.html" class="tsd-signature-type">Terrain</a><span class="tsd-signature-symbol">[]</span>, scale<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, tileSize<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.size.html" class="tsd-signature-type">Size</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L228">graphics.ts:228</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L244">graphics.ts:244</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -609,10 +567,7 @@
 									<h5>scale: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
-									<h5>tileWidth: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>tileHeight: <span class="tsd-signature-type">number</span></h5>
+									<h5>tileSize: <a href="../interfaces/_types_.size.html" class="tsd-signature-type">Size</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -629,7 +584,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L362">graphics.ts:362</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L373">graphics.ts:373</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -664,13 +619,13 @@
 					<a name="txt" class="tsd-anchor"></a>
 					<h3>txt</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">txt<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span>, x<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, text<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, colour<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, font<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">txt<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span>, position<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a>, text<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, colour<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, font<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L184">graphics.ts:184</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L197">graphics.ts:197</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -679,10 +634,7 @@
 									<h5>ctx: <span class="tsd-signature-type">CanvasRenderingContext2D</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> x: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> y: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></h5>
+									<h5>position: <a href="../interfaces/_types_.point.html" class="tsd-signature-type">Point</a></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> text: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;&quot;</span></h5>
@@ -707,7 +659,7 @@
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Circle<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L85">graphics.ts:85</a></li>
+							<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L93">graphics.ts:93</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal tsd-is-not-exported">
@@ -716,7 +668,7 @@
 						<div class="tsd-signature tsd-kind-icon">fill<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L86">graphics.ts:86</a></li>
+								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L94">graphics.ts:94</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
@@ -725,7 +677,7 @@
 							<div class="tsd-signature tsd-kind-icon">colour<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;#000000&quot;</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L87">graphics.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L95">graphics.ts:95</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -735,7 +687,7 @@
 							<div class="tsd-signature tsd-kind-icon">opacity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 1</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L88">graphics.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L96">graphics.ts:96</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -746,7 +698,7 @@
 						<div class="tsd-signature tsd-kind-icon">line<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L91">graphics.ts:91</a></li>
+								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L99">graphics.ts:99</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
@@ -755,7 +707,7 @@
 							<div class="tsd-signature tsd-kind-icon">colour<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;#ffffff&quot;</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L92">graphics.ts:92</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L100">graphics.ts:100</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -765,7 +717,7 @@
 							<div class="tsd-signature tsd-kind-icon">opacity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 1</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L93">graphics.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L101">graphics.ts:101</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -775,7 +727,7 @@
 							<div class="tsd-signature tsd-kind-icon">width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 2</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L94">graphics.ts:94</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L102">graphics.ts:102</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -787,7 +739,7 @@
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Drop<wbr>Shadow<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L325">graphics.ts:325</a></li>
+							<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L336">graphics.ts:336</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
@@ -796,7 +748,7 @@
 						<div class="tsd-signature tsd-kind-icon">shadow<wbr>Blur<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 6</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L327">graphics.ts:327</a></li>
+								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L338">graphics.ts:338</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -806,7 +758,7 @@
 						<div class="tsd-signature tsd-kind-icon">shadow<wbr>OffsetX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 4</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L328">graphics.ts:328</a></li>
+								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L339">graphics.ts:339</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -816,7 +768,7 @@
 						<div class="tsd-signature tsd-kind-icon">shadow<wbr>OffsetY<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 4</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L329">graphics.ts:329</a></li>
+								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L340">graphics.ts:340</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -826,7 +778,7 @@
 						<div class="tsd-signature tsd-kind-icon">shadowcolour<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;#000000&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L326">graphics.ts:326</a></li>
+								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L337">graphics.ts:337</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -837,7 +789,7 @@
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Line<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L65">graphics.ts:65</a></li>
+							<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L73">graphics.ts:73</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
@@ -846,7 +798,7 @@
 						<div class="tsd-signature tsd-kind-icon">colour<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;#000000&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L67">graphics.ts:67</a></li>
+								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L75">graphics.ts:75</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -856,7 +808,7 @@
 						<div class="tsd-signature tsd-kind-icon">width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 2</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L66">graphics.ts:66</a></li>
+								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L74">graphics.ts:74</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -867,7 +819,7 @@
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Rect<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L33">graphics.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L43">graphics.ts:43</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal tsd-is-not-exported">
@@ -876,7 +828,7 @@
 						<div class="tsd-signature tsd-kind-icon">fill<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L34">graphics.ts:34</a></li>
+								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L44">graphics.ts:44</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
@@ -885,7 +837,7 @@
 							<div class="tsd-signature tsd-kind-icon">colour<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;#ffffff&quot;</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L35">graphics.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L45">graphics.ts:45</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -895,7 +847,7 @@
 							<div class="tsd-signature tsd-kind-icon">opacity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 1</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L36">graphics.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L46">graphics.ts:46</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -906,7 +858,7 @@
 						<div class="tsd-signature tsd-kind-icon">line<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L38">graphics.ts:38</a></li>
+								<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L48">graphics.ts:48</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
@@ -915,7 +867,7 @@
 							<div class="tsd-signature tsd-kind-icon">colour<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;#000000&quot;</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L40">graphics.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L50">graphics.ts:50</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -925,7 +877,7 @@
 							<div class="tsd-signature tsd-kind-icon">opacity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 1</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L41">graphics.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L51">graphics.ts:51</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -935,7 +887,7 @@
 							<div class="tsd-signature tsd-kind-icon">width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 2</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/c1d5061/src/graphics.ts#L39">graphics.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/erikwatson/Bramble/blob/024b366/src/graphics.ts#L49">graphics.ts:49</a></li>
 								</ul>
 							</aside>
 						</section>
