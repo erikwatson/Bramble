@@ -12,6 +12,7 @@ A little JavaScript library for making Video Games.
 - Input Handling
   - keyboard
   - mouse
+  - ~~gamepad~~
 - Simple Drawing API
   - circles
   - rectangles
