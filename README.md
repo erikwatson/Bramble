@@ -25,7 +25,7 @@ A little JavaScript library for making Video Games.
   - effects (overlay, dodge, shadow, transparency)
 - 2D Vectors
 - ~~Music and SFX playback~~
-- ~~Save Games~~
+- Save/Load
 
 ## Example
 
