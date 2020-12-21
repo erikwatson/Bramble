@@ -2,9 +2,11 @@
 
 A little JavaScript library for making Video Games.
 
+- [Level Editor](https://github.com/erikwatson/Level-Editor)
+- [Type Docs](https://erikwatson.github.io/Bramble)
+
 ## Features
 
-- [Level Editor](https://github.com/erikwatson/Level-Editor)
 - Asset Loading
   - string
   - image
