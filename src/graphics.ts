@@ -158,11 +158,11 @@ function subImage(
 }
 
 function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
-  const halfWidth = sprite.width / 2
-  const halfHeight = sprite.height / 2
+  const halfWidth = sprite.size.width / 2
+  const halfHeight = sprite.size.height / 2
 
   ctx.save()
-  ctx.translate(sprite.x + halfWidth, sprite.y + halfHeight)
+  ctx.translate(sprite.position.x + halfWidth, sprite.position.y + halfHeight)
   ctx.rotate(number.toRadians(sprite.rotation))
 
   if (sprite.frames.length > 1) {
@@ -173,16 +173,16 @@ function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
         y: -halfHeight
       },
       {
-        width: sprite.width,
-        height: sprite.height
+        width: sprite.size.width,
+        height: sprite.size.height
       },
       {
-        x: sprite.frames[sprite.frame].x,
-        y: sprite.frames[sprite.frame].y
+        x: sprite.frames[sprite.frame].position.x,
+        y: sprite.frames[sprite.frame].position.y
       },
       {
-        width: sprite.frames[sprite.frame].width,
-        height: sprite.frames[sprite.frame].height
+        width: sprite.frames[sprite.frame].size.width,
+        height: sprite.frames[sprite.frame].size.height
       },
       sprite.texture
     )
@@ -194,8 +194,8 @@ function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
         y: -halfHeight
       },
       {
-        width: sprite.width,
-        height: sprite.height
+        width: sprite.size.width,
+        height: sprite.size.height
       },
       sprite.texture
     )

@@ -23,8 +23,7 @@ export interface WheelState extends ButtonState {
 }
 
 export interface MouseState {
-  x: number
-  y: number
+  position: Point
 
   left: ButtonState
   wheel: WheelState
@@ -66,18 +65,14 @@ export interface Vec2 {
 }
 
 export interface Frame {
-  x: number
-  y: number
-  width: number
-  height: number
+  position: Point
+  size: Size
 }
 
 export interface Sprite {
-  x: number
-  y: number
+  position: Point
   rotation: number
-  width: number
-  height: number
+  size: Size
   frames: Frame[]
   frame: number
   texture: CanvasImageSource
@@ -130,6 +125,7 @@ export interface GridOptions {
   scale: number
 }
 
+// NOTE: tileSize and tileWidth and tileHeight all together is weird
 export interface Grid {
   pos: Point
   visible: boolean
@@ -137,8 +133,7 @@ export interface Grid {
   tileWidth: number
   tileHeight: number
   tiles: number[][]
-  width: number
-  height: number
+  size: Size
   tileSize: number
   scale: number
 }

@@ -1,4 +1,4 @@
-import { Point, GridOptions, Grid } from './types'
+import { Point, GridOptions, Grid, Size } from './types'
 
 function make2DArray(
   width: number = 1,
@@ -88,14 +88,10 @@ function fill(
   return gridClone
 }
 
-function create(
-  width: number,
-  height: number,
-  options: GridOptions = defaultGrid
-): Grid {
+function create(size: Size, options: GridOptions = defaultGrid): Grid {
   options = { ...defaultGrid, ...options }
 
-  let tiles = make2DArray(width, height, 0)
+  let tiles = make2DArray(size.width, size.height, 0)
   let pos = { x: options.pos.x, y: options.pos.y }
   let visible = options.visible
   let divisions = options.divisions
@@ -111,8 +107,7 @@ function create(
     tiles,
     tileWidth,
     visible,
-    width,
-    height,
+    size,
     tileSize,
     scale
   }

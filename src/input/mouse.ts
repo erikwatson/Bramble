@@ -3,9 +3,7 @@ import { Mouse, MouseState, ButtonState, WheelState } from '../types'
 function create(canvas: HTMLCanvasElement): Mouse {
   const defaultState = (): MouseState => {
     return {
-      x: 0,
-      y: 0,
-
+      position: { x: 0, y: 0 },
       left: defaultButtonState(),
       wheel: defaultWheelState(),
       right: defaultButtonState()
@@ -48,9 +46,7 @@ function create(canvas: HTMLCanvasElement): Mouse {
 
   const move = (event: MouseEvent) => {
     const newPos = relative(event)
-
-    mouse.x = newPos.x
-    mouse.y = newPos.y
+    mouse.position = newPos
   }
 
   const down = (event: MouseEvent) => {
@@ -106,8 +102,8 @@ function create(canvas: HTMLCanvasElement): Mouse {
     canvas.addEventListener('wheel', wheel)
 
     // default mouse position, center of screen
-    mouse.x = canvas.width / 2
-    mouse.y = canvas.height / 2
+    mouse.position.x = canvas.width / 2
+    mouse.position.y = canvas.height / 2
   }
 
   return {
