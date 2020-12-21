@@ -9,25 +9,35 @@ import {
   RectangleOptions,
   Sprite,
   SpriteSheet,
-  Terrain
+  Terrain,
+  Size
 } from './types'
 
 function clear(ctx: CanvasRenderingContext2D, colour: string) {
-  rect(ctx, 0, 0, ctx.canvas.width, ctx.canvas.height, {
-    fill: {
-      colour
+  rect(
+    ctx,
+    { x: 0, y: 0 },
+    { width: ctx.canvas.width, height: ctx.canvas.height },
+    {
+      fill: {
+        colour
+      }
     }
-  })
+  )
 }
 
 function square(
   ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
+  position: Point,
   size: number,
   options: RectangleOptions = defaultRect
 ) {
-  rect(ctx, x, y, size, size, options)
+  rect(
+    ctx,
+    { x: position.x, y: position.y },
+    { width: size, height: size },
+    options
+  )
 }
 
 const defaultRect: RectangleOptions = {
@@ -44,21 +54,19 @@ const defaultRect: RectangleOptions = {
 
 function rect(
   ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  w: number,
-  h: number,
+  position: Point,
+  size: Size,
   options: RectangleOptions = defaultRect
 ) {
   if (typeof options.fill !== 'undefined') {
     ctx.fillStyle = options.fill.colour
-    ctx.fillRect(x, y, w, h)
+    ctx.fillRect(position.x, position.y, size.width, size.height)
   }
 
   if (typeof options.line !== 'undefined') {
     ctx.strokeStyle = options.line.colour
     ctx.lineWidth = options.line.width
-    ctx.strokeRect(x, y, w, h)
+    ctx.strokeRect(position.x, position.y, size.width, size.height)
   }
 }
 
@@ -97,8 +105,7 @@ const defaultCircle: CircleOptions = {
 
 function circle(
   ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
+  position: Point,
   radius: number,
   options: CircleOptions = defaultCircle
 ) {
@@ -110,7 +117,7 @@ function circle(
   ctx.beginPath()
   ctx.strokeStyle = options.line.colour
   ctx.lineWidth = options.line.width
-  ctx.arc(x, y, radius, 0, 2 * Math.PI)
+  ctx.arc(position.x, position.y, radius, 0, 2 * Math.PI)
   ctx.closePath()
 
   if (typeof options.fill !== 'undefined') {
@@ -122,28 +129,32 @@ function circle(
 
 function image(
   ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  w: number,
-  h: number,
+  position: Point,
+  size: Size,
   image: CanvasImageSource
 ) {
-  ctx.drawImage(image, x, y, w, h)
+  ctx.drawImage(image, position.x, position.y, size.width, size.height)
 }
 
 function subImage(
   ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  w: number,
-  h: number,
-  sx: number,
-  sy: number,
-  sw: number,
-  sh: number,
+  position: Point,
+  size: Size,
+  subPosition: Point,
+  subSize: Size,
   image: CanvasImageSource
 ) {
-  ctx.drawImage(image, sx, sy, sw, sh, x, y, w, h)
+  ctx.drawImage(
+    image,
+    subPosition.x,
+    subPosition.y,
+    subSize.width,
+    subSize.height,
+    position.x,
+    position.y,
+    size.width,
+    size.height
+  )
 }
 
 function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
@@ -157,23 +168,35 @@ function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
   if (sprite.frames.length > 1) {
     subImage(
       ctx,
-      -halfWidth,
-      -halfHeight,
-      sprite.width,
-      sprite.height,
-      sprite.frames[sprite.frame].x,
-      sprite.frames[sprite.frame].y,
-      sprite.frames[sprite.frame].width,
-      sprite.frames[sprite.frame].height,
+      {
+        x: -halfWidth,
+        y: -halfHeight
+      },
+      {
+        width: sprite.width,
+        height: sprite.height
+      },
+      {
+        x: sprite.frames[sprite.frame].x,
+        y: sprite.frames[sprite.frame].y
+      },
+      {
+        width: sprite.frames[sprite.frame].width,
+        height: sprite.frames[sprite.frame].height
+      },
       sprite.texture
     )
   } else {
     image(
       ctx,
-      -halfWidth,
-      -halfHeight,
-      sprite.width,
-      sprite.height,
+      {
+        x: -halfWidth,
+        y: -halfHeight
+      },
+      {
+        width: sprite.width,
+        height: sprite.height
+      },
       sprite.texture
     )
   }
@@ -183,8 +206,7 @@ function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
 
 function txt(
   ctx: CanvasRenderingContext2D,
-  x: number = 0,
-  y: number = 0,
+  position: Point,
   text: string = '',
   colour: string = '#000000',
   font: string = '16pt sans-serif'
@@ -193,32 +215,36 @@ function txt(
   ctx.font = font
   ctx.textAlign = 'left'
   ctx.textBaseline = 'top'
-  ctx.fillText(text, x, y)
+  ctx.fillText(text, position.x, position.y)
 }
 
 function tile(
   ctx: CanvasRenderingContext2D,
-  positionX: number,
-  positionY: number,
+  position: Point,
   tilesheet: CanvasImageSource,
-  gridX: number,
-  gridY: number,
-  tileSheetX: number,
-  tileSheetY: number,
+  gridPosition: Point,
+  tilesheetPosition: Point,
   scale: number,
-  tileWidth: number,
-  tileHeight: number
+  tileSize: Size
 ) {
   subImage(
     ctx,
-    positionX + scale * (gridX * tileWidth),
-    positionY + scale * (gridY * tileHeight),
-    scale * tileWidth,
-    scale * tileHeight,
-    tileWidth * tileSheetX,
-    tileHeight * tileSheetY,
-    tileWidth,
-    tileHeight,
+    {
+      x: position.x + scale * (gridPosition.x * tileSize.width),
+      y: position.y + scale * (gridPosition.y * tileSize.height)
+    },
+    {
+      width: scale * tileSize.width,
+      height: scale * tileSize.height
+    },
+    {
+      x: tileSize.width * tilesheetPosition.x,
+      y: tileSize.height * tilesheetPosition.y
+    },
+    {
+      width: tileSize.width,
+      height: tileSize.height
+    },
     tilesheet
   )
 }
@@ -231,8 +257,7 @@ function tiles(
   tileGrid: number[][],
   spriteSheets: Terrain[],
   scale: number,
-  tileWidth: number,
-  tileHeight: number
+  tileSize: Size
 ) {
   const dirValues = {
     NW: 1,
@@ -304,16 +329,12 @@ function tiles(
       if (selection) {
         tile(
           ctx,
-          position.x,
-          position.y,
+          position,
           sheet.image,
-          x,
-          y,
-          selection.position.x,
-          selection.position.y,
+          { x, y },
+          selection.position,
           scale,
-          selection.size.width,
-          selection.size.height
+          selection.size
         )
       } else {
         console.log(`Tile not defined ${sum}`)
@@ -372,20 +393,20 @@ function transparency(
 
 function create(ctx: CanvasRenderingContext2D): Graphics {
   return {
-    circle: (x, y, radius, options = defaultCircle) => {
-      circle(ctx, x, y, radius, options)
+    circle: (position, radius, options = defaultCircle) => {
+      circle(ctx, position, radius, options)
     },
     clear: colour => {
       clear(ctx, colour)
     },
-    square: (x, y, size, options = defaultRect) => {
-      square(ctx, x, y, size, options)
+    square: (position, size, options = defaultRect) => {
+      square(ctx, position, size, options)
     },
-    rect: (x, y, w, h, options = defaultRect) => {
-      rect(ctx, x, y, w, h, options)
+    rect: (position, size, options = defaultRect) => {
+      rect(ctx, position, size, options)
     },
-    image: (x, y, w, h, img) => {
-      image(ctx, x, y, w, h, img)
+    image: (position, size, img) => {
+      image(ctx, position, size, img)
     },
     line: (from, to, options = defaultLine) => {
       line(ctx, from, to, options)
@@ -393,20 +414,19 @@ function create(ctx: CanvasRenderingContext2D): Graphics {
     sprite: spr => {
       sprite(ctx, spr)
     },
-    subImage: (x, y, w, h, sx, sy, sw, sh, img) => {
-      subImage(ctx, x, y, w, h, sx, sy, sw, sh, img)
+    subImage: (position, size, subPosition, subSize, img) => {
+      subImage(ctx, position, size, subPosition, subSize, img)
     },
     text: (
-      x = 0,
-      y = 0,
+      position = { x: 0, y: 0 },
       text = '',
       colour = '#000000',
       font = '16pt sans-serif'
     ) => {
-      txt(ctx, x, y, text, colour, font)
+      txt(ctx, position, text, colour, font)
     },
-    tiles: (position, tileGrid, spriteSheets, scale, tileWidth, tileHeight) => {
-      tiles(ctx, position, tileGrid, spriteSheets, scale, tileWidth, tileHeight)
+    tiles: (position, tileGrid, spriteSheets, scale, tileSize) => {
+      tiles(ctx, position, tileGrid, spriteSheets, scale, tileSize)
     },
     shadow: (drawingOperations, options = defaultDropShadow) => {
       shadow(ctx, drawingOperations, options)
