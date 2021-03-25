@@ -1,3 +1,4 @@
+// testing that drawing tile maps with the auto tiler works
 ;(function start() {
   const container = document.querySelector('#e')
   const game = Bramble.game.create()

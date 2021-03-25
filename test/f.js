@@ -1,3 +1,4 @@
+// testing that the line drawing works
 ;(function start() {
   const container = document.querySelector('#f')
   const game = Bramble.game.create()

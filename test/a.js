@@ -1,3 +1,4 @@
+// Testing that gfx.clear() works
 ;(function start() {
   const container = document.querySelector('#a')
   const game = Bramble.game.create()
@@ -7,7 +8,7 @@
   game.setUpdate(dt => {})
   game.setRender(gfx => {
     // make a mess
-    gfx.circle(50, 50, 25)
+    gfx.circle({ x: 50, y: 50 }, 25)
 
     // clear it
     gfx.clear()

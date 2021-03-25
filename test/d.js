@@ -1,3 +1,4 @@
+// testing that drawing circles works
 ;(function start() {
   const container = document.querySelector('#d')
   const game = Bramble.game.create()
