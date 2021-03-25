@@ -61,8 +61,8 @@ const create = (): Game => {
     element.appendChild(canvas)
   }
 
-  // NOTE: Must be called AFTER anything that would change our context.
-  //       setSize for example.
+  // Smoothing must be re-applied if any of the following is called
+  //   - setSize
   const setSmoothing = (to = true) => {
     ctx.imageSmoothingEnabled = to
   }
