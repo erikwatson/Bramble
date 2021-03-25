@@ -42,12 +42,12 @@ function square(
 
 const defaultRect: RectangleOptions = {
   fill: {
-    colour: '#ffffff',
+    colour: '#000000',
     opacity: 1
   },
   line: {
     width: 2,
-    colour: '#000000',
+    colour: '#FFFFFF',
     opacity: 1
   }
 }
@@ -72,7 +72,7 @@ function rect(
 
 const defaultLine: LineOptions = {
   width: 2,
-  colour: '#000000'
+  colour: '#FFFFFF'
 }
 
 function line(
@@ -97,7 +97,7 @@ const defaultCircle: CircleOptions = {
   },
 
   line: {
-    colour: '#ffffff',
+    colour: '#FFFFFF',
     opacity: 1,
     width: 2
   }
@@ -126,7 +126,9 @@ function circle(
     ctx.fill()
   }
 
-  ctx.stroke()
+  if (typeof options.line !== 'undefined') {
+    ctx.stroke()
+  }
 }
 
 function image(
