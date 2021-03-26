@@ -69,6 +69,20 @@ test(
   }
 )
 
+// text testing
+
+// image testing
+
+// sub image testing
+
+// shadow testing
+
+// dodge testing
+
+// overlay testing
+
+// transparency testing
+
 // tile testing
 Bramble.assets.loadTerrain('./terrain/default.json').then(terrain => {
   test('auto tile', 'should auto tile a staircase pattern', gfx => {
