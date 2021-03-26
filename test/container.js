@@ -18,7 +18,6 @@ function createAndAttachToContainer(title, description, content) {
   info.appendChild(descriptionElement)
 
   container.appendChild(info)
-  wrapper.appendChild(container)
 
   return container
 }
@@ -30,4 +29,7 @@ function test(title, description, renderFunction) {
   game.setSize(100, 100)
   game.setRender(renderFunction)
   game.start()
+
+  const wrapper = document.querySelector('#wrapper')
+  wrapper.appendChild(container)
 }

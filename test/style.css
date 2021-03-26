@@ -6,7 +6,7 @@
 #wrapper {
   display: grid;
   grid-auto-flow: row;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto;
   grid-gap: 1rem;
   padding: 1rem;
