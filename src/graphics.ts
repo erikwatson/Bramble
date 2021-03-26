@@ -57,7 +57,7 @@ const defaultRect: RectangleOptions = {
     opacity: 1
   },
   line: {
-    width: 2,
+    width: 1,
     colour: '#FFFFFF',
     opacity: 1
   }
@@ -81,7 +81,7 @@ function rect(
 }
 
 const defaultLine: LineOptions = {
-  width: 2,
+  width: 1,
   colour: '#FFFFFF'
 }
 
@@ -109,7 +109,7 @@ const defaultCircle: CircleOptions = {
   line: {
     colour: '#FFFFFF',
     opacity: 1,
-    width: 2
+    width: 1
   }
 }
 
