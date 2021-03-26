@@ -124,13 +124,14 @@ function circle(
     ctx.fillStyle = options.fill.colour
   }
 
+  ctx.beginPath()
+
   if (typeof options.line !== 'undefined') {
-    ctx.beginPath()
     ctx.strokeStyle = options.line.colour
     ctx.lineWidth = options.line.width
-    ctx.arc(position.x, position.y, radius, 0, 2 * Math.PI)
-    ctx.closePath()
   }
+  ctx.arc(position.x, position.y, radius, 0, 2 * Math.PI)
+  ctx.closePath()
 
   if (typeof options.fill !== 'undefined') {
     ctx.fill()
