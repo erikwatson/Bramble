@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#wrapper {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: 1rem;
+  padding: 1rem;
+}
+
+.test-container {
+  display: grid;
+  grid-template-columns: 100px auto;
+  background-color: #e3e3e3;
+  line-height: 0;
+}
+
+.test-container h2 {
+  line-height: 1;
+  padding: 1rem;
+}
+
+.test-container p {
+  line-height: 1;
+  padding: 0rem 1rem 1rem 1rem;
+}

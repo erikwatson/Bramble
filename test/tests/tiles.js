@@ -1,11 +1,14 @@
 // testing that drawing tile maps with the auto tiler works
 ;(function start() {
-  const container = document.querySelector('#e')
   const game = Bramble.game.create()
+  const container = createAndAttachToContainer(
+    'Tiles',
+    'Draw an auto-tiling tile map in a staircase pattern',
+    game.canvas
+  )
 
   let t = null
 
-  game.attachTo(container)
   game.setSize(100, 100)
   game.setSmoothing(false)
   game.setUpdate(dt => {})

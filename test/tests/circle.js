@@ -1,13 +1,16 @@
 // testing that drawing circles works
 ;(function start() {
-  const container = document.querySelector('#d')
   const game = Bramble.game.create()
+  const container = createAndAttachToContainer(
+    'Circle',
+    'Draw a single Cirlce',
+    game.canvas
+  )
 
-  game.attachTo(container)
   game.setSize(100, 100)
   game.setUpdate(dt => {})
   game.setRender(gfx => {
-    gfx.rect(10, 50, 80, 10)
+    gfx.circle({ x: 50, y: 50 }, 25)
   })
   game.start()
 })()
