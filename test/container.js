@@ -22,11 +22,16 @@ function createAndAttachToContainer(title, description, content) {
   return container
 }
 
-function test(title, description, renderFunction) {
+function test(title, description, renderFunction, options) {
   const game = Bramble.game.create()
   const container = createAndAttachToContainer(title, description, game.canvas)
 
   game.setSize(100, 100)
+
+  if (options && options.smoothing !== undefined) {
+    game.setSmoothing(options.smoothing)
+  }
+
   game.setRender(renderFunction)
   game.start()
 
