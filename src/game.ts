@@ -57,10 +57,6 @@ const create = (): Game => {
     canvas.height = height
   }
 
-  const attachTo = (element: HTMLElement) => {
-    element.appendChild(canvas)
-  }
-
   // Smoothing must be re-applied if any of the following is called
   //   - setSize
   const setSmoothing = (to = true) => {
@@ -78,7 +74,7 @@ const create = (): Game => {
     setUpdate,
     setRender,
     setBackgroundColor,
-    attachTo,
+    canvas,
     disableContextMenu,
     setSmoothing,
     start,

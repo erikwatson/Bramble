@@ -1,5 +1,5 @@
 export interface Game {
-  attachTo: (element: HTMLElement) => void
+  canvas: HTMLCanvasElement
   disableContextMenu: () => void
   getMouseState: () => MouseState
   setBackgroundColor: (colour: string) => void
@@ -156,6 +156,13 @@ export interface LineOptions {
   colour?: string
 }
 
+export interface Rectangle {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
 export interface Point {
   x: number
   y: number
@@ -181,8 +188,9 @@ export interface SpriteSheet {
 export interface Graphics {
   circle: (position: Point, radius: number, options: CircleOptions) => void
   clear: (colour: string) => void
+  clearRect: (rectangle: Rectangle, colour: string) => void
   square: (position: Point, size: number, options: RectangleOptions) => void
-  rect: (position: Point, size: Size, options: RectangleOptions) => void
+  rect: (rectangle: Rectangle, options: RectangleOptions) => void
   image: (position: Point, size: Size, image: CanvasImageSource) => void
   line: (from: Point, to: Point, options: LineOptions) => void
   sprite: (sprite: Sprite) => void

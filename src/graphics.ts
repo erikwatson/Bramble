@@ -6,6 +6,7 @@ import {
   Grid,
   LineOptions,
   Point,
+  Rectangle,
   RectangleOptions,
   Sprite,
   SpriteSheet,
@@ -16,14 +17,25 @@ import {
 function clear(ctx: CanvasRenderingContext2D, colour: string) {
   rect(
     ctx,
-    { x: 0, y: 0 },
-    { width: ctx.canvas.width, height: ctx.canvas.height },
+    { x: 0, y: 0, width: ctx.canvas.width, height: ctx.canvas.height },
     {
       fill: {
         colour
       }
     }
   )
+}
+
+function clearRect(
+  ctx: CanvasRenderingContext2D,
+  rectangle: Rectangle,
+  colour: string
+) {
+  rect(ctx, rectangle, {
+    fill: {
+      colour
+    }
+  })
 }
 
 function square(
@@ -34,8 +46,7 @@ function square(
 ) {
   rect(
     ctx,
-    { x: position.x, y: position.y },
-    { width: size, height: size },
+    { x: position.x, y: position.y, width: size, height: size },
     options
   )
 }
@@ -54,19 +65,18 @@ const defaultRect: RectangleOptions = {
 
 function rect(
   ctx: CanvasRenderingContext2D,
-  position: Point,
-  size: Size,
+  rectangle: Rectangle,
   options: RectangleOptions = defaultRect
 ) {
   if (typeof options.fill !== 'undefined') {
     ctx.fillStyle = options.fill.colour
-    ctx.fillRect(position.x, position.y, size.width, size.height)
+    ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
   }
 
   if (typeof options.line !== 'undefined') {
     ctx.strokeStyle = options.line.colour
     ctx.lineWidth = options.line.width
-    ctx.strokeRect(position.x, position.y, size.width, size.height)
+    ctx.strokeRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
   }
 }
 
@@ -403,11 +413,14 @@ function create(ctx: CanvasRenderingContext2D): Graphics {
     clear: colour => {
       clear(ctx, colour)
     },
+    clearRect: (rectangle, colour) => {
+      clearRect(ctx, rectangle, colour)
+    },
     square: (position, size, options = defaultRect) => {
       square(ctx, position, size, options)
     },
-    rect: (position, size, options = defaultRect) => {
-      rect(ctx, position, size, options)
+    rect: (rectangle, options = defaultRect) => {
+      rect(ctx, rectangle, options)
     },
     image: (position, size, img) => {
       image(ctx, position, size, img)
@@ -451,6 +464,7 @@ export default {
   create,
   circle,
   clear,
+  clearRect,
   image,
   line,
   rect,
