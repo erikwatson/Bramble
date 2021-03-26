@@ -22,3 +22,12 @@ function createAndAttachToContainer(title, description, content) {
 
   return container
 }
+
+function gameTest(title, description, renderFunction) {
+  const game = Bramble.game.create()
+  const container = createAndAttachToContainer(title, description, game.canvas)
+
+  game.setSize(100, 100)
+  game.setRender(renderFunction)
+  game.start()
+}
