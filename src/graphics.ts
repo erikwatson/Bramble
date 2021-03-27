@@ -91,6 +91,8 @@ function line(
   to: Point,
   options: LineOptions = defaultLine
 ) {
+  options = { ...defaultLine, ...options }
+
   ctx.strokeStyle = options.colour
   ctx.lineWidth = options.width
 
