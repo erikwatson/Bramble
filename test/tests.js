@@ -1,19 +1,19 @@
 // clear testing
-test('clear', 'should just show black', gfx => {
+test('clear', 'should show black', gfx => {
   gfx.circle({ x: 50, y: 50 }, 25)
   gfx.clear()
 })
 
-test('Clear to a colour', 'this should show red', gfx => {
+test('clear to a colour', 'should show red', gfx => {
   gfx.clear('red')
 })
 
-test('Clear Rectangle', 'Should display half a circle', gfx => {
+test('clear rectangle', 'should display half a circle', gfx => {
   gfx.circle({ x: 50, y: 50 }, 25)
   gfx.clearRect({ x: 0, y: 0, width: 50, height: 100 })
 })
 
-test('Clear Rectangle to Colour', 'should display half a circle', gfx => {
+test('clear rectangle to colour', 'should display half a circle', gfx => {
   gfx.circle({ x: 50, y: 50 }, 25)
   gfx.clearRect({ x: 0, y: 0, width: 50, height: 100 }, 'red')
 })
@@ -107,12 +107,54 @@ test(
 // sub image testing
 
 // shadow testing
+test('shadow', 'should add a shadow to a circle', gfx => {
+  gfx.clear('white')
+  gfx.shadow(() => {
+    gfx.circle({ x: 50, y: 50 }, 25)
+  })
+})
 
 // dodge testing
+test('dodge', 'should draw a circle dodging a rectangle', gfx => {
+  gfx.clear('#666666')
+  gfx.rect(
+    { x: 15, y: 15, width: 50, height: 50 },
+    { fill: { colour: 'black' } }
+  )
+
+  gfx.dodge(() => {
+    gfx.circle({ x: 65, y: 65 }, 25, { fill: { colour: 'red' } })
+  })
+})
 
 // overlay testing
+test('overlay', 'should draw a circle overlayed on a rectangle', gfx => {
+  gfx.clear('#663399')
+  gfx.rect(
+    { x: 15, y: 15, width: 50, height: 50 },
+    { fill: { colour: 'green' } }
+  )
+
+  gfx.overlay(() => {
+    gfx.circle({ x: 65, y: 65 }, 25, { fill: { colour: 'white' } })
+  })
+})
 
 // transparency testing
+test(
+  'transparency',
+  'should draw a 25% transparent circle over an opaque rectangle',
+  gfx => {
+    gfx.rect(
+      { x: 15, y: 15, width: 50, height: 50 },
+      { fill: { colour: 'blue' } }
+    )
+
+    gfx.transparency(() => {
+      gfx.circle({ x: 65, y: 65 }, 25, { fill: { colour: 'red' } })
+    })
+  }
+)
 
 // tile testing
 Bramble.assets.loadTerrain('./terrain/default.json').then(terrain => {
