@@ -117,8 +117,32 @@ test('text font', 'should say hello in a serif font', gfx => {
 })
 
 // image testing
+Bramble.assets.loadImage('./images/panda.png').then(img => {
+  test(
+    'image',
+    'should display sky panda in headphones, scaled to fit',
+    gfx => {
+      gfx.image({ x: 0, y: 0 }, { width: 100, height: 100 }, img)
+    }
+  )
+})
 
 // sub image testing
+Bramble.assets.loadImage('./images/panda.png').then(img => {
+  test(
+    'sub image',
+    'should display just a part of the sky panda image',
+    gfx => {
+      gfx.subImage(
+        { x: 0, y: 0 },
+        { width: 100, height: 100 },
+        { x: 100, y: 100 },
+        { width: 100, height: 100 },
+        img
+      )
+    }
+  )
+})
 
 // shadow testing
 test('shadow', 'should add a shadow to a circle', gfx => {
