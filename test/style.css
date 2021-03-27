@@ -4,7 +4,7 @@
 }
 
 body {
-  background-color: #232323;
+  background-color: #0a0a0b;
   font-family: 'Lato', sans-serif;
 }
 
@@ -20,9 +20,12 @@ body {
 .test-container {
   display: grid;
   grid-template-columns: 100px auto;
-  background-color: #999999;
-  color: #232323;
+  background-color: #0e0e11;
+  color: #e3e3e3;
   line-height: 0;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #232323;
 }
 
 .test-container h2 {
