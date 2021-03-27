@@ -42,6 +42,19 @@ test('line colour', 'should draw lines in various colours', gfx => {
   gfx.line({ x: 25, y: 75 }, { x: 75, y: 75 }, { colour: 'blue' })
 })
 
+test(
+  'line thickness and colour',
+  'should draw lines in various colours and thicknesses',
+  gfx => {
+    gfx.line({ x: 25, y: 25 }, { x: 75, y: 25 })
+    gfx.line({ x: 25, y: 35 }, { x: 75, y: 35 }, { colour: 'red', width: 2 })
+    gfx.line({ x: 25, y: 45 }, { x: 75, y: 45 }, { colour: 'orange', width: 3 })
+    gfx.line({ x: 25, y: 55 }, { x: 75, y: 55 }, { colour: 'yellow', width: 4 })
+    gfx.line({ x: 25, y: 65 }, { x: 75, y: 65 }, { colour: 'green', width: 5 })
+    gfx.line({ x: 25, y: 75 }, { x: 75, y: 75 }, { colour: 'blue', width: 6 })
+  }
+)
+
 // circle testing
 test('default circle', 'draw a default circle', gfx => {
   gfx.clear('#663399')
