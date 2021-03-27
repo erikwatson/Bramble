@@ -38,6 +38,7 @@ body {
   border-style: solid;
   border-width: 1px;
   border-color: #232323;
+  box-shadow: 4px 4px 4px black;
 }
 
 .test-container h2 {
