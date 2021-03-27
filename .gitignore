@@ -6,3 +6,4 @@ dist/*.map
 ./index.html
 images/
 terrain/
+dist/
