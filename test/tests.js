@@ -219,3 +219,5 @@ Bramble.assets.loadTerrain('./terrain/default.json').then(terrain => {
     { smoothing: false }
   )
 })
+
+// sprite testing
