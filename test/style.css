@@ -17,6 +17,18 @@ body {
   padding: 1rem;
 }
 
+@media only screen and (max-width: 1280px) {
+  #wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  #wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
 .test-container {
   display: grid;
   grid-template-columns: 100px auto;
