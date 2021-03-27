@@ -385,7 +385,7 @@ function shadow(
 
 function dodge(ctx: CanvasRenderingContext2D, drawingOperations: () => void) {
   ctx.save()
-  ctx.globalCompositeOperation = 'colour-dodge'
+  ctx.globalCompositeOperation = 'color-dodge'
   drawingOperations()
   ctx.restore()
 }
