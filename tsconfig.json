@@ -10,7 +10,6 @@
     "lib": ["es2017", "dom"]
   },
   "typedocOptions": {
-    "mode": "modules",
     "out": "docs"
   },
   "include": ["./src/**/*"],
