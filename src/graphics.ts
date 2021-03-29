@@ -1,4 +1,5 @@
 import number from './utils/number'
+import { merge } from './utils/object'
 import {
   CircleOptions,
   DropShadowOptions,
@@ -19,9 +20,8 @@ function clear(ctx: CanvasRenderingContext2D, colour: string) {
     ctx,
     { x: 0, y: 0, width: ctx.canvas.width, height: ctx.canvas.height },
     {
-      fill: {
-        colour
-      }
+      fill: { colour },
+      line: { width: 0 }
     }
   )
 }
@@ -32,9 +32,8 @@ function clearRect(
   colour: string
 ) {
   rect(ctx, rectangle, {
-    fill: {
-      colour
-    }
+    fill: { colour },
+    line: { width: 0 }
   })
 }
 
@@ -68,12 +67,12 @@ function rect(
   rectangle: Rectangle,
   options: RectangleOptions = defaultRect
 ) {
-  if (typeof options.fill !== 'undefined') {
-    ctx.fillStyle = options.fill.colour
-    ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
-  }
+  options = merge(defaultRect, options)
 
-  if (typeof options.line !== 'undefined') {
+  ctx.fillStyle = options.fill.colour
+  ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
+
+  if (options.line.width !== 0) {
     ctx.strokeStyle = options.line.colour
     ctx.lineWidth = options.line.width
     ctx.strokeRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
@@ -91,7 +90,7 @@ function line(
   to: Point,
   options: LineOptions = defaultLine
 ) {
-  options = { ...defaultLine, ...options }
+  options = merge(defaultLine, options)
 
   ctx.strokeStyle = options.colour
   ctx.lineWidth = options.width
@@ -121,25 +120,19 @@ function circle(
   radius: number,
   options: CircleOptions = defaultCircle
 ) {
-  // not happy with this really, make another function i think
-  if (typeof options.fill !== 'undefined') {
-    ctx.fillStyle = options.fill.colour
-  }
+  options = merge(defaultCircle, options)
 
+  ctx.fillStyle = options.fill.colour
   ctx.beginPath()
 
-  if (typeof options.line !== 'undefined') {
-    ctx.strokeStyle = options.line.colour
-    ctx.lineWidth = options.line.width
-  }
+  ctx.strokeStyle = options.line.colour
+  ctx.lineWidth = options.line.width
   ctx.arc(position.x, position.y, radius, 0, 2 * Math.PI)
   ctx.closePath()
 
-  if (typeof options.fill !== 'undefined') {
-    ctx.fill()
-  }
+  ctx.fill()
 
-  if (typeof options.line !== 'undefined') {
+  if (options.line.width !== 0) {
     ctx.stroke()
   }
 }
@@ -372,6 +365,8 @@ function shadow(
   drawingOperations: () => void,
   options: DropShadowOptions = defaultDropShadow
 ) {
+  options = merge(defaultDropShadow, options)
+
   ctx.save()
 
   ctx.shadowColor = options.shadowcolour
