@@ -70,7 +70,10 @@ test('circle outline', 'draw a black outline circle, no fill', gfx => {
 
 test('filled circle', 'draw a red circle, no outline', gfx => {
   gfx.clear('#663399')
-  gfx.circle({ x: 50, y: 50 }, 25, { fill: { colour: 'red' } })
+  gfx.circle({ x: 50, y: 50 }, 25, {
+    fill: { colour: 'red' },
+    line: { width: 0 }
+  })
 })
 
 // rectangle testing
@@ -85,18 +88,73 @@ test(
 
 test('filled square', 'should draw a red square, no outline', gfx => {
   gfx.square({ x: 25, y: 25 }, 50, {
-    fill: { colour: 'red' }
+    fill: { colour: 'red' },
+    line: { width: 0 }
   })
 })
 
 test(
   'outlined square',
-  'should draw a red square, no fill, outlined in black',
+  'should draw a square, no fill, outlined in black',
   gfx => {
     gfx.clear('#663399')
     gfx.square({ x: 25, y: 25 }, 50, {
+      fill: { opacity: 0 },
       line: { colour: 'black' }
     })
+  }
+)
+
+test(
+  'default rectangle',
+  'should draw a black rectangle with a white border',
+  gfx => {
+    gfx.clear('#663399')
+    gfx.rect({ x: 25, y: 38, width: 50, height: 25 })
+  }
+)
+
+test(
+  'filled rectangle',
+  'should draw a black rectangle with no border',
+  gfx => {
+    gfx.clear('#663399')
+    gfx.rect(
+      { x: 25, y: 38, width: 50, height: 25 },
+      {
+        fill: { colour: 'black' },
+        line: { width: 0 }
+      }
+    )
+  }
+)
+
+test(
+  'outlined rectangle',
+  'should draw a white outline of a rectangle',
+  gfx => {
+    gfx.clear('#663399')
+    gfx.rect(
+      { x: 25, y: 38, width: 50, height: 25 },
+      {
+        fill: { opacity: 0 },
+        line: { colour: 'white' }
+      }
+    )
+  }
+)
+
+test(
+  'thick outline rectangle',
+  'should draw a black rectangle with a thick white border',
+  gfx => {
+    gfx.clear('#663399')
+    gfx.rect(
+      { x: 25, y: 38, width: 50, height: 25 },
+      {
+        line: { width: 4 }
+      }
+    )
   }
 )
 
