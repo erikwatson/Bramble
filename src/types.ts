@@ -1,4 +1,5 @@
 export interface Game {
+  attachTo: (element: Element) => void
   canvas: HTMLCanvasElement
   disableContextMenu: () => void
   getMouseState: () => MouseState

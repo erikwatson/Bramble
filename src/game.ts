@@ -23,6 +23,10 @@ const create = (): Game => {
     backgroundColor = color
   }
 
+  const attachTo = (element: Element) => {
+    element.appendChild(canvas)
+  }
+
   const setUpdate = (callback: (dt: number) => void) => {
     update = callback
   }
@@ -71,6 +75,7 @@ const create = (): Game => {
   }
 
   return {
+    attachTo,
     setSize: setSize,
     setUpdate,
     setRender,
