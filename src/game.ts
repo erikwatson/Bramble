@@ -8,9 +8,8 @@ const create = (): Game => {
   let update: (dt: number) => void = null
   let render: (gfx: Graphics) => void = null
 
-  // These are used for calculating the Delta Time for the Frame
+  // used for calculating the Delta Time for the Frame
   let prevTime = 0
-  let frameTime = 0
 
   const canvas: HTMLCanvasElement = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
@@ -34,7 +33,7 @@ const create = (): Game => {
 
   const step = () => {
     if (update) {
-      update(1 / 60) // TODO: fake it at 60fps for now
+      update((performance.now() - prevTime) / 1000)
     }
 
     if (render) {
@@ -44,6 +43,8 @@ const create = (): Game => {
 
     mouseInput.update()
     window.requestAnimationFrame(step)
+
+    prevTime = performance.now()
   }
 
   const start = () => {
