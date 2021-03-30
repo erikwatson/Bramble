@@ -69,13 +69,17 @@ function rect(
 ) {
   options = merge(defaultRect, options)
 
+  ctx.globalAlpha = options.fill.opacity
   ctx.fillStyle = options.fill.colour
   ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
+  ctx.globalAlpha = 1
 
   if (options.line.width !== 0) {
+    ctx.globalAlpha = options.line.opacity
     ctx.strokeStyle = options.line.colour
     ctx.lineWidth = options.line.width
     ctx.strokeRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
+    ctx.globalAlpha = 1
   }
 }
 
@@ -122,17 +126,20 @@ function circle(
 ) {
   options = merge(defaultCircle, options)
 
+  ctx.globalAlpha = options.fill.opacity
   ctx.fillStyle = options.fill.colour
   ctx.beginPath()
-
-  ctx.strokeStyle = options.line.colour
-  ctx.lineWidth = options.line.width
   ctx.arc(position.x, position.y, radius, 0, 2 * Math.PI)
   ctx.closePath()
-
   ctx.fill()
+  ctx.globalAlpha = 1
 
   if (options.line.width !== 0) {
+    ctx.globalAlpha = options.line.opacity
+    ctx.strokeStyle = options.line.colour
+    ctx.lineWidth = options.line.width
+    ctx.arc(position.x, position.y, radius, 0, 2 * Math.PI)
+    ctx.closePath()
     ctx.stroke()
   }
 }

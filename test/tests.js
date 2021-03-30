@@ -64,7 +64,8 @@ test('default circle', 'draw a default circle', gfx => {
 test('circle outline', 'draw a black outline circle, no fill', gfx => {
   gfx.clear('#663399')
   gfx.circle({ x: 50, y: 50 }, 25, {
-    line: { colour: 'black' }
+    line: { colour: 'black' },
+    fill: { opacity: 0 }
   })
 })
 
@@ -76,6 +77,16 @@ test('filled circle', 'draw a red circle, no outline', gfx => {
   })
 })
 
+test(
+  'circle with thick outline',
+  'should draw a circle with a thick outline',
+  gfx => {
+    gfx.clear('#663399')
+    gfx.circle({ x: 50, y: 50 }, 25, {
+      line: { width: 4 }
+    })
+  }
+)
 // rectangle testing
 test(
   'default square',
@@ -101,6 +112,17 @@ test(
     gfx.square({ x: 25, y: 25 }, 50, {
       fill: { opacity: 0 },
       line: { colour: 'black' }
+    })
+  }
+)
+
+test(
+  'thick outlined square',
+  'should draw a square, no fill, thick outline',
+  gfx => {
+    gfx.clear('#663399')
+    gfx.square({ x: 25, y: 25 }, 50, {
+      line: { width: 4 }
     })
   }
 )
