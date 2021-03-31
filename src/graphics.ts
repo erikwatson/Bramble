@@ -4,13 +4,11 @@ import {
   CircleOptions,
   DropShadowOptions,
   Graphics,
-  Grid,
   LineOptions,
   Point,
   Rectangle,
   RectangleOptions,
   Sprite,
-  SpriteSheet,
   Terrain,
   Size
 } from './types'
@@ -273,8 +271,7 @@ function tiles(
   position: Point,
   tileGrid: number[][],
   spriteSheets: Terrain[],
-  scale: number,
-  tileSize: Size
+  scale: number
 ) {
   const dirValues = {
     NW: 1,
@@ -447,8 +444,8 @@ function create(ctx: CanvasRenderingContext2D): Graphics {
     ) => {
       txt(ctx, position, text, colour, font)
     },
-    tiles: (position, tileGrid, spriteSheets, scale, tileSize) => {
-      tiles(ctx, position, tileGrid, spriteSheets, scale, tileSize)
+    tiles: (position, tileGrid, spriteSheets, scale) => {
+      tiles(ctx, position, tileGrid, spriteSheets, scale)
     },
     shadow: (drawingOperations, options = defaultDropShadow) => {
       shadow(ctx, drawingOperations, options)
