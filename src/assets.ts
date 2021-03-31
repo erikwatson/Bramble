@@ -4,7 +4,7 @@ export function loadString(path: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest()
 
-    request.addEventListener('load', event => {
+    request.addEventListener('load', _ => {
       resolve(request.responseText)
     })
 
@@ -25,7 +25,7 @@ export function loadImage(path: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image()
 
-    img.addEventListener('load', e => {
+    img.addEventListener('load', _ => {
       resolve(img)
     })
 
