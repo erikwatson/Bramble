@@ -1,6 +1,6 @@
 import gfx from './graphics'
 import { mouse, keyboard } from './input'
-import { Game, Mouse, MouseState, Graphics } from './types'
+import { Game, Mouse, Keyboard, Graphics } from './types'
 
 const create = (): Game => {
   let backgroundColor = '#000000'
@@ -18,6 +18,7 @@ const create = (): Game => {
   canvas.id = 'bramble-game'
 
   let mouseInput: Mouse = mouse.create(canvas)
+  let keyboardInput: Keyboard = keyboard.create()
 
   const setBackgroundColor = (color: string) => {
     backgroundColor = color
@@ -46,14 +47,16 @@ const create = (): Game => {
     }
 
     mouseInput.update()
+    keyboardInput.update()
+
     window.requestAnimationFrame(step)
 
     prevTime = performance.now()
   }
 
   const start = () => {
-    mouseInput = mouse.create(canvas)
     mouseInput.start()
+    keyboardInput.start()
     window.requestAnimationFrame(step)
   }
 
@@ -84,7 +87,8 @@ const create = (): Game => {
     disableContextMenu,
     setSmoothing,
     start,
-    getMouseState: () => mouseInput.getState()
+    getMouseState: () => mouseInput.getState(),
+    getKeyboardState: () => keyboardInput.getState()
   }
 }
 

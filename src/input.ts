@@ -1,29 +1,30 @@
 import Mouse from './input/mouse'
+import Keyboard from './input/keyboard'
 
-function create(canvas: HTMLCanvasElement) {
+function createMouse(canvas: HTMLCanvasElement) {
   const mouseInput = Mouse.create(canvas)
 
-  const start = () => {
-    mouseInput.start()
-  }
-
-  const update = () => {
-    mouseInput.update()
-  }
-
   return {
-    start,
-    update,
+    start: () => mouseInput.start(),
+    update: () => mouseInput.update(),
     getState: () => mouseInput.getState()
   }
 }
 
+function createKeyboard() {
+  const keyboardInput = Keyboard.create()
+
+  return {
+    start: () => keyboardInput.start(),
+    update: () => keyboardInput.update(),
+    getState: () => keyboardInput.getState()
+  }
+}
+
 export const mouse = {
-  create
+  create: createMouse
 }
 
 export const keyboard = {
-  create: () => {
-    console.log('keyboard input stub')
-  }
+  create: createKeyboard
 }

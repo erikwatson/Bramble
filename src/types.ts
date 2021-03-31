@@ -3,6 +3,7 @@ export interface Game {
   canvas: HTMLCanvasElement
   disableContextMenu: () => void
   getMouseState: () => MouseState
+  getKeyboardState: () => KeyboardState
   setBackgroundColor: (colour: string) => void
   setRender: (callback: (gfx: Graphics) => void) => void
   setSize: (width: number, height: number) => void
@@ -35,6 +36,12 @@ export interface Mouse {
   update: () => void
   start: () => void
   getState: () => MouseState
+}
+
+export interface Keyboard {
+  start: () => void
+  update: () => void
+  getState: () => KeyboardState
 }
 
 export interface Terrain {
@@ -83,8 +90,8 @@ export interface Sprite {
 }
 
 export interface KeyState {
-  code: number
-  label: string
+  code: string
+  name: string
   pressed: false
   justPressed: false
   released: false
@@ -96,8 +103,8 @@ export interface KeyboardState {
 }
 
 export interface Key {
-  code: number
-  label: string
+  code: string
+  name: string
   pressed: boolean
   justPressed: boolean
   released: boolean

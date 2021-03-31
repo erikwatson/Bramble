@@ -1,5 +1,5 @@
 import allKeys from './keys'
-import { Key, KeyState, KeyboardState } from '../types'
+import { Keyboard, Key, KeyState, KeyboardState } from '../types'
 
 let keys = defaultState()
 
@@ -12,7 +12,7 @@ function defaultState(): KeyboardState {
   }
 
   return allKeys.reduce((acc, key: Key) => {
-    const label = key.label
+    const label = key.name
     delete key['label']
 
     acc[label] = { ...key, ...defaultState }
@@ -34,9 +34,13 @@ function getKey(event: KeyboardEvent, keys: KeyboardState): Key {
   const objectKeys = Object.keys(keys)
 
   for (let i = 0; i < objectKeys.length; i++) {
-    if (keys[objectKeys[i]].code === event.keyCode) {
+    if (keys[objectKeys[i]].code === event.code) {
       result = keys[objectKeys[i]]
     }
+  }
+
+  if (!result) {
+    console.error(`No key definition found for ${event.code}`)
   }
 
   return result
@@ -64,8 +68,12 @@ function start() {
   document.addEventListener('keyup', up)
 }
 
-export default {
-  start,
-  update,
-  state: keys
+function create(): Keyboard {
+  return {
+    start,
+    update,
+    getState: () => keys
+  }
 }
+
+export default { create }
