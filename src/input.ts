@@ -1,5 +1,6 @@
 import Mouse from './input/mouse'
 import Keyboard from './input/keyboard'
+import Gamepad from './input/gamepad'
 
 function createMouse(canvas: HTMLCanvasElement) {
   const mouseInput = Mouse.create(canvas)
@@ -21,10 +22,24 @@ function createKeyboard() {
   }
 }
 
+function createGamepad() {
+  const gamepadInput = Gamepad.create()
+
+  return {
+    start: () => gamepadInput.start(),
+    update: () => gamepadInput.update(),
+    getState: () => gamepadInput.getState()
+  }
+}
+
 export const mouse = {
   create: createMouse
 }
 
 export const keyboard = {
   create: createKeyboard
+}
+
+export const gamepad = {
+  create: createGamepad
 }
