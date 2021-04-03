@@ -83,7 +83,8 @@ function rect(
 
 const defaultLine: LineOptions = {
   width: 1,
-  colour: '#FFFFFF'
+  colour: '#FFFFFF',
+  opacity: 1
 }
 
 function line(
@@ -94,6 +95,7 @@ function line(
 ) {
   options = merge(defaultLine, options)
 
+  ctx.globalAlpha = options.opacity
   ctx.strokeStyle = options.colour
   ctx.lineWidth = options.width
 
@@ -101,6 +103,7 @@ function line(
   ctx.moveTo(from.x, from.y)
   ctx.lineTo(to.x, to.y)
   ctx.stroke()
+  ctx.globalAlpha = 1
 }
 
 const defaultCircle: CircleOptions = {

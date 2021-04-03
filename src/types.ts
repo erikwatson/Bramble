@@ -112,16 +112,8 @@ export interface Key {
 }
 
 export interface RectangleOptions {
-  fill?: {
-    colour?: string
-    opacity?: number
-  }
-
-  line?: {
-    width?: number
-    colour?: string
-    opacity?: number
-  }
+  fill?: FillOptions
+  line?: LineOptions
 }
 
 export interface GridOptions {
@@ -146,22 +138,20 @@ export interface Grid {
   scale: number
 }
 
-export interface CircleOptions {
-  fill?: {
-    colour?: string
-    opacity?: number
-  }
+export interface FillOptions {
+  colour?: string
+  opacity?: number
+}
 
-  line?: {
-    colour?: string
-    opacity?: number
-    width?: number
-  }
+export interface CircleOptions {
+  fill?: FillOptions
+  line?: LineOptions
 }
 
 export interface LineOptions {
   width?: number
   colour?: string
+  opacity?: number
 }
 
 export interface Rectangle {
