@@ -1,6 +1,6 @@
 import { Terrain, Tile } from './types'
 
-export function loadString(path: string): Promise<string> {
+export function loadText(path: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest()
 
@@ -18,7 +18,7 @@ export function loadString(path: string): Promise<string> {
 }
 
 export function loadAllText(paths: string[] = []) {
-  return Promise.all(paths.map(x => loadString(x)))
+  return Promise.all(paths.map(x => loadText(x)))
 }
 
 export function loadImage(path: string): Promise<HTMLImageElement> {
@@ -57,7 +57,7 @@ interface Description {
 export function loadTerrain(path: string): Promise<Terrain> {
   let description: Description
 
-  return loadString(path)
+  return loadText(path)
     .then(json => {
       description = JSON.parse(json)
       return loadImage(description.path)
@@ -76,7 +76,7 @@ export function loadAllTerrain(paths: string[] = []): Promise<Terrain[]> {
 
 export default {
   loadImage,
-  loadString,
+  loadText,
   loadAllText,
   loadAllImages,
   loadTerrain,
