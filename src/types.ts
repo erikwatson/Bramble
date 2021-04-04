@@ -4,12 +4,12 @@ export interface Game {
   disableContextMenu: () => void
   getMouseState: () => MouseState
   getKeyboardState: () => KeyboardState
-  setBackgroundColor: (colour: string) => void
   setRender: (callback: (gfx: Graphics) => void) => void
   setSize: (width: number, height: number) => void
   setSmoothing: (to: boolean) => void
   setUpdate: (callback: (dt: number) => void) => void
   start: () => void
+  setFixedTimeStep: (to: boolean) => void
 }
 
 export interface ButtonState {

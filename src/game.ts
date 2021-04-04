@@ -11,6 +11,11 @@ const create = (): Game => {
   // used for calculating the Delta Time for the Frame
   let prevTime = 0
 
+  let fixedTimeStep = 1 / 12
+  let isFixed = false
+
+  let accumulator = 0
+
   const canvas: HTMLCanvasElement = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
   const graphics = gfx.create(ctx)
@@ -19,10 +24,6 @@ const create = (): Game => {
 
   let mouseInput: Mouse = mouse.create(canvas)
   let keyboardInput: Keyboard = keyboard.create()
-
-  const setBackgroundColor = (color: string) => {
-    backgroundColor = color
-  }
 
   const attachTo = (element: Element) => {
     element.appendChild(canvas)
@@ -37,8 +38,20 @@ const create = (): Game => {
   }
 
   const step = () => {
-    if (update) {
-      update((performance.now() - prevTime) / 1000)
+    const now = performance.now()
+    const frameTime = (now - prevTime) / 1000
+
+    if (isFixed) {
+      accumulator += frameTime
+
+      while (accumulator >= fixedTimeStep) {
+        update(fixedTimeStep)
+        accumulator -= fixedTimeStep
+      }
+    } else {
+      if (update) {
+        update(frameTime)
+      }
     }
 
     if (render) {
@@ -82,13 +95,13 @@ const create = (): Game => {
     setSize: setSize,
     setUpdate,
     setRender,
-    setBackgroundColor,
     canvas,
     disableContextMenu,
     setSmoothing,
     start,
     getMouseState: () => mouseInput.getState(),
-    getKeyboardState: () => keyboardInput.getState()
+    getKeyboardState: () => keyboardInput.getState(),
+    setFixedTimeStep: to => (isFixed = to)
   }
 }
 
