@@ -4,6 +4,7 @@ A little JavaScript library for making Video Games.
 
 - [Type Docs](https://erikwatson.github.io/Bramble)
 - [Instructions](https://github.com/erikwatson/Bramble/wiki)
+- [Level Editor](https://github.com/erikwatson/Level-Editor)
 
 ## Features
 
