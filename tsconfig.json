@@ -10,7 +10,7 @@
     "lib": ["es2017", "dom"]
   },
   "typedocOptions": {
-    "out": "docs"
+    "out": "../bramble-type-docs/docs/"
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules", "dist"]

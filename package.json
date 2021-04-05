@@ -29,7 +29,8 @@
     "build": "npm run build:prod && npm run build:dev",
     "build:prod": "npx webpack-cli --config webpack.prod.js",
     "build:dev": "npx webpack-cli --config webpack.dev.js",
-    "watch": "npm run build:dev --watch"
+    "watch": "npm run build:dev --watch",
+    "docs": "typedoc ./src/bramble.ts"
   },
   "dependencies": {
     "node-fetch": "^2.0.0"
