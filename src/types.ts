@@ -47,7 +47,7 @@ export interface Keyboard {
 export interface Terrain {
   name: string
   type: number
-  image: CanvasImageSource
+  image: HTMLImageElement
   tiles: Tile[]
 }
 
@@ -83,7 +83,7 @@ export interface Sprite {
   size: Size
   frames: Frame[]
   frame: number
-  texture: CanvasImageSource
+  texture: HTMLImageElement
   colour: string
   setFrames: (newFrames: Frame[]) => void
   addFrame: (frame: Frame) => void
@@ -189,15 +189,15 @@ export interface Graphics {
   clearRect: (rectangle: Rectangle, colour: string) => void
   square: (position: Point, size: number, options: RectangleOptions) => void
   rect: (rectangle: Rectangle, options: RectangleOptions) => void
-  image: (position: Point, size: Size, image: CanvasImageSource) => void
+  image: (image: HTMLImageElement, position: Point, size: Size) => void
   line: (from: Point, to: Point, options: LineOptions) => void
   sprite: (sprite: Sprite) => void
   subImage: (
+    image: HTMLImageElement,
     position: Point,
     size: Size,
     subPosition: Point,
-    sibSize: Size,
-    image: CanvasImageSource
+    subSize: Size
   ) => void
   text: (position: Point, text: string, colour: string, font: string) => void
   tiles: (

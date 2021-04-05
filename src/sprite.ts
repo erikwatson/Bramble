@@ -4,7 +4,7 @@ function create(
   position: Point,
   size: Size,
   rotation: number = 0,
-  texture: CanvasImageSource,
+  texture: HTMLImageElement,
   colour: string = '#ffffff'
 ): Sprite {
   let frames: Frame[] = []

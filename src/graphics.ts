@@ -147,20 +147,24 @@ function circle(
 
 function image(
   ctx: CanvasRenderingContext2D,
+  image: HTMLImageElement,
   position: Point,
-  size: Size,
-  image: CanvasImageSource
+  size?: Size
 ) {
-  ctx.drawImage(image, position.x, position.y, size.width, size.height)
+  if (size) {
+    ctx.drawImage(image, position.x, position.y, size.width, size.height)
+  } else {
+    ctx.drawImage(image, position.x, position.y, image.width, image.height)
+  }
 }
 
 function subImage(
   ctx: CanvasRenderingContext2D,
+  image: CanvasImageSource,
   position: Point,
   size: Size,
   subPosition: Point,
-  subSize: Size,
-  image: CanvasImageSource
+  subSize: Size
 ) {
   ctx.drawImage(
     image,
@@ -186,6 +190,7 @@ function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
   if (sprite.frames.length > 1) {
     subImage(
       ctx,
+      sprite.texture,
       {
         x: -halfWidth,
         y: -halfHeight
@@ -201,12 +206,12 @@ function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
       {
         width: sprite.frames[sprite.frame].size.width,
         height: sprite.frames[sprite.frame].size.height
-      },
-      sprite.texture
+      }
     )
   } else {
     image(
       ctx,
+      sprite.texture,
       {
         x: -halfWidth,
         y: -halfHeight
@@ -214,8 +219,7 @@ function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
       {
         width: sprite.size.width,
         height: sprite.size.height
-      },
-      sprite.texture
+      }
     )
   }
 
@@ -239,7 +243,7 @@ function txt(
 function tile(
   ctx: CanvasRenderingContext2D,
   position: Point,
-  tilesheet: CanvasImageSource,
+  tilesheet: HTMLImageElement,
   gridPosition: Point,
   tilesheetPosition: Point,
   scale: number,
@@ -247,6 +251,7 @@ function tile(
 ) {
   subImage(
     ctx,
+    tilesheet,
     {
       x: position.x + scale * (gridPosition.x * tileSize.width),
       y: position.y + scale * (gridPosition.y * tileSize.height)
@@ -262,8 +267,7 @@ function tile(
     {
       width: tileSize.width,
       height: tileSize.height
-    },
-    tilesheet
+    }
   )
 }
 
@@ -427,8 +431,8 @@ function create(ctx: CanvasRenderingContext2D): Graphics {
     rect: (rectangle, options = defaultRect) => {
       rect(ctx, rectangle, options)
     },
-    image: (position, size, img) => {
-      image(ctx, position, size, img)
+    image: (img, position, size) => {
+      image(ctx, img, position, size)
     },
     line: (from, to, options = defaultLine) => {
       line(ctx, from, to, options)
@@ -436,8 +440,8 @@ function create(ctx: CanvasRenderingContext2D): Graphics {
     sprite: spr => {
       sprite(ctx, spr)
     },
-    subImage: (position, size, subPosition, subSize, img) => {
-      subImage(ctx, position, size, subPosition, subSize, img)
+    subImage: (img, position, size, subPosition, subSize) => {
+      subImage(ctx, img, position, size, subPosition, subSize)
     },
     text: (
       position = { x: 0, y: 0 },
