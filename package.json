@@ -32,7 +32,8 @@
     "build:dev": "npx webpack-cli --config webpack.dev.js",
     "analyse": "npx webpack-cli --config webpack.analyse.js",
     "watch": "npx webpack-cli --config webpack.dev.js --watch",
-    "docs": "typedoc ./src/bramble.ts"
+    "docs": "typedoc ./src/bramble.ts",
+    "serve": "npx http-server ./test -o"
   },
   "dependencies": {
     "node-fetch": "^2.0.0"

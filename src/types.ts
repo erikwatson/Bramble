@@ -44,7 +44,7 @@ export interface Keyboard {
   getState: () => KeyboardState
 }
 
-export interface Terrain {
+export interface RuleTile {
   name: string
   type: number
   image: HTMLImageElement
