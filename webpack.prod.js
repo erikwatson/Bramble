@@ -1,4 +1,6 @@
 const merge = require('webpack-merge')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin
 
 const common = require('./webpack.common.js')
 
@@ -9,4 +11,6 @@ module.exports = merge(common, {
     filename: 'bramble.min.js',
     publicPath: '/js/'
   }
+
+  // plugins: [new BundleAnalyzerPlugin()]
 })
