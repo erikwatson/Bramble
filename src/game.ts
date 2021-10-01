@@ -3,7 +3,7 @@ import { mouse, keyboard } from './input'
 import { Game, Mouse, Keyboard, Graphics } from './types'
 
 const create = (): Game => {
-  let backgroundColor = '#000000'
+  let backgroundColor = null
 
   let update: (dt: number) => void = null
   let render: (gfx: Graphics) => void = null
@@ -42,7 +42,10 @@ const create = (): Game => {
     }
 
     if (render) {
-      graphics.clear(backgroundColor)
+      if (backgroundColor) {
+        // graphics.clear(backgroundColor)
+      }
+
       render(graphics)
     }
 
