@@ -7,3 +7,4 @@ dist/*.map
 images/
 terrain/
 dist/
+.DS_Store
