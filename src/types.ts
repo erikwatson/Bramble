@@ -117,12 +117,12 @@ export interface RectangleOptions {
 }
 
 export interface GridOptions {
-  pos: Point
-  visible: boolean
-  divisions: number
-  tileWidth: number
-  tileHeight: number
-  scale: number
+  pos?: Point
+  visible?: boolean
+  divisions?: number
+  tileWidth?: number
+  tileHeight?: number
+  scale?: number
 }
 
 // NOTE: tileSize and tileWidth and tileHeight all together is weird
@@ -207,10 +207,10 @@ export interface Graphics {
     scale: number,
     tileSize: Size
   ) => void
-  shadow: (drawingOperations: () => {}, options: DropShadowOptions) => void
-  dodge: (drawingOperations: () => {}) => void
-  overlay: (drawingOperations: () => {}) => void
-  transparency: (drawingOperations: () => {}) => void
+  shadow: (drawingOperations: () => void, options?: DropShadowOptions) => void
+  dodge: (drawingOperations: () => void) => void
+  overlay: (drawingOperations: () => void) => void
+  transparency: (drawingOperations: () => void) => void
 }
 
 export interface DropShadowOptions {
