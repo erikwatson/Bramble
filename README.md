@@ -1,3 +1,5 @@
+**WARNING:** This is not _yet_ a stable API. It is very likely to change between now and 1.0.0, so don't built anything _too_ ambitious on with it yet.
+
 # Bramble
 
 A little JavaScript library for making Video Games.

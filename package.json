@@ -1,7 +1,7 @@
 {
   "name": "@erikwatson/bramble",
   "version": "0.1.0",
-  "description": "A game engine built in JavaScript",
+  "description": "A game development library.",
   "main": "dist/bramble.js",
   "types": "./dist/bramble.d.ts",
   "author": "Erik Watson",
@@ -27,6 +27,7 @@
     "webpack-merge": "^4.2.1"
   },
   "scripts": {
+    "publish": "npm run build:prod && npm publish --access=public",
     "build": "npm run build:prod && npm run build:dev",
     "build:prod": "npx webpack-cli --config webpack.prod.js",
     "build:dev": "npx webpack-cli --config webpack.dev.js",
@@ -50,5 +51,5 @@
   "bugs": {
     "url": "https://github.com/championchap/Bramble/issues"
   },
-  "homepage": "https://github.com/championchap/Bramble#readme"
+  "homepage": "https://github.com/championchap/Bramble"
 }

@@ -1,4 +1,4 @@
-export interface Game {
+export type Game = {
   attachTo: (element: Element) => void
   canvas: HTMLCanvasElement
   disableContextMenu: () => void
@@ -24,7 +24,7 @@ export interface WheelState extends ButtonState {
   direction: string
 }
 
-export interface MouseState {
+export type MouseState = {
   position: Point
 
   left: ButtonState
@@ -32,26 +32,26 @@ export interface MouseState {
   right: ButtonState
 }
 
-export interface Mouse {
+export type Mouse = {
   update: () => void
   start: () => void
   getState: () => MouseState
 }
 
-export interface Keyboard {
+export type Keyboard = {
   start: () => void
   update: () => void
   getState: () => KeyboardState
 }
 
-export interface Terrain {
+export type Terrain = {
   name: string
   type: number
   image: HTMLImageElement
   tiles: Tile[]
 }
 
-export interface Vec2 {
+export type Vec2 = {
   add: (v: Vec2) => void
   addScalar: (s: number) => void
   clone: (v: Vec2) => Vec2
@@ -72,12 +72,12 @@ export interface Vec2 {
   y: number
 }
 
-export interface Frame {
+export type Frame = {
   position: Point
   size: Size
 }
 
-export interface Sprite {
+export type Sprite = {
   position: Point
   rotation: number
   size: Size
@@ -89,7 +89,7 @@ export interface Sprite {
   addFrame: (frame: Frame) => void
 }
 
-export interface KeyState {
+export type KeyState = {
   code: string
   name: string
   pressed: false
@@ -98,11 +98,11 @@ export interface KeyState {
   justReleased: false
 }
 
-export interface KeyboardState {
+export type KeyboardState = {
   [key: string]: KeyState
 }
 
-export interface Key {
+export type Key = {
   code: string
   name: string
   pressed: boolean
@@ -111,12 +111,12 @@ export interface Key {
   justReleased: boolean
 }
 
-export interface RectangleOptions {
+export type RectangleOptions = {
   fill?: FillOptions
   line?: LineOptions
 }
 
-export interface GridOptions {
+export type GridOptions = {
   pos?: Point
   visible?: boolean
   divisions?: number
@@ -126,7 +126,7 @@ export interface GridOptions {
 }
 
 // NOTE: tileSize and tileWidth and tileHeight all together is weird
-export interface Grid {
+export type Grid = {
   pos: Point
   visible: boolean
   divisions: number
@@ -138,52 +138,52 @@ export interface Grid {
   scale: number
 }
 
-export interface FillOptions {
+export type FillOptions = {
   colour?: string
   opacity?: number
 }
 
-export interface CircleOptions {
+export type CircleOptions = {
   fill?: FillOptions
   line?: LineOptions
 }
 
-export interface LineOptions {
+export type LineOptions = {
   width?: number
   colour?: string
   opacity?: number
 }
 
-export interface Rectangle {
+export type Rectangle = {
   x: number
   y: number
   width: number
   height: number
 }
 
-export interface Point {
+export type Point = {
   x: number
   y: number
 }
 
-export interface Size {
+export type Size = {
   width: number
   height: number
 }
 
-export interface Tile {
+export type Tile = {
   type: number
   position: Point
   size: Size
 }
 
-export interface SpriteSheet {
+export type SpriteSheet = {
   type: number
   tiles: Tile[]
   image: CanvasImageSource
 }
 
-export interface Graphics {
+export type Graphics = {
   circle: (position: Point, radius: number, options: CircleOptions) => void
   clear: (colour: string) => void
   clearRect: (rectangle: Rectangle, colour: string) => void
@@ -213,7 +213,7 @@ export interface Graphics {
   transparency: (drawingOperations: () => void) => void
 }
 
-export interface DropShadowOptions {
+export type DropShadowOptions = {
   shadowcolour?: string
   shadowBlur?: number
   shadowOffsetX?: number
