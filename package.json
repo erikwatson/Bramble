@@ -27,7 +27,7 @@
     "webpack-merge": "^4.2.1"
   },
   "scripts": {
-    "publish": "npm run build:prod && npm publish --access=public",
+    "release": "npm run build:prod && npm publish --access=public",
     "build": "npm run build:prod && npm run build:dev",
     "build:prod": "npx webpack-cli --config webpack.prod.js",
     "build:dev": "npx webpack-cli --config webpack.dev.js",
