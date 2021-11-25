@@ -1,4 +1,4 @@
-**WARNING:** This is not _yet_ a stable API. It is very likely to change between now and 1.0.0, so don't built anything _too_ ambitious on with it yet.
+**WARNING:** This is not _yet_ a stable API. It is very likely to change between now and 1.0.0, so don't build anything _too_ ambitious with it yet.
 
 # Bramble
 
