@@ -204,8 +204,7 @@ export type Graphics = {
     position: Point,
     tileGrid: number[][],
     spriteSheets: Terrain[],
-    scale: number,
-    tileSize: Size
+    scale: number
   ) => void
   shadow: (drawingOperations: () => void, options?: DropShadowOptions) => void
   dodge: (drawingOperations: () => void) => void
