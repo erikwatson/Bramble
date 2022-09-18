@@ -51,16 +51,31 @@ function down(event: KeyboardEvent) {
 
   const key = getKey(event, keys)
 
+  if (!key.pressed) {
+    key.justPressed = true
+  }
+
   key.pressed = true
 }
 
 function up(event: KeyboardEvent) {
   const key = getKey(event, keys)
 
+  if (!key.released) {
+    key.justReleased = true
+  }
+
   key.pressed = false
+  key.released = true
 }
 
-function update() {}
+function update() {
+  // reset the keys "just" properties
+  Object.keys(keys).forEach(key => {
+    keys[key].justPressed = false
+    keys[key].justReleased = false
+  })
+}
 
 function start() {
   // keyboard events

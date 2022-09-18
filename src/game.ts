@@ -43,7 +43,7 @@ const create = (): Game => {
 
     if (render) {
       if (backgroundColor) {
-        // graphics.clear(backgroundColor)
+        graphics.clear(backgroundColor)
       }
 
       render(graphics)
@@ -53,7 +53,6 @@ const create = (): Game => {
     keyboardInput.update()
 
     window.requestAnimationFrame(step)
-
     prevTime = performance.now()
   }
 

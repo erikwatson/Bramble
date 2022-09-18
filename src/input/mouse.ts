@@ -52,14 +52,26 @@ function create(canvas: HTMLCanvasElement): Mouse {
   const down = (event: MouseEvent) => {
     switch (event.which) {
       case 1:
+        if (!mouse.left.pressed) {
+          mouse.left.justPressed = true
+        }
+
         mouse.left.pressed = true
         break
 
       case 2:
+        if (!mouse.wheel.pressed) {
+          mouse.wheel.justPressed = true
+        }
+
         mouse.wheel.pressed = true
         break
 
       case 3:
+        if (!mouse.right.pressed) {
+          mouse.right.justPressed = true
+        }
+
         mouse.right.pressed = true
         break
     }
@@ -68,14 +80,29 @@ function create(canvas: HTMLCanvasElement): Mouse {
   const up = (event: MouseEvent) => {
     switch (event.which) {
       case 1:
+        if (!mouse.left.released) {
+          mouse.left.justReleased = true
+        }
+
+        mouse.left.released = true
         mouse.left.pressed = false
         break
 
       case 2:
+        if (!mouse.wheel.released) {
+          mouse.wheel.justReleased = true
+        }
+
+        mouse.wheel.released = true
         mouse.wheel.pressed = false
         break
 
       case 3:
+        if (!mouse.right.released) {
+          mouse.right.justReleased = true
+        }
+
+        mouse.right.released = true
         mouse.right.pressed = false
         break
     }
@@ -91,6 +118,14 @@ function create(canvas: HTMLCanvasElement): Mouse {
 
   const update = () => {
     mouse.wheel.moved = false
+
+    mouse.left.justPressed = false
+    mouse.right.justPressed = false
+    mouse.left.justReleased = false
+    mouse.right.justReleased = false
+    mouse.wheel.justPressed = false
+    mouse.wheel.justReleased = false
+
     prevMouse = clone(mouse)
   }
 
