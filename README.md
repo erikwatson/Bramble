@@ -26,6 +26,11 @@ A little JavaScript library for making Video Games.
   - text
   - tilesheets that auto-tile
   - effects (overlay, dodge, shadow, transparency)
+- Collision Detection
+  - Point vs Rectangle
+  - Line vs Rectangle
+  - Rectangle vs Rectangle
+  - Dynamic Rectangle vs Rectangle
 - 2D Vectors
 - ~~Music and SFX playback~~
 - Save/Load
