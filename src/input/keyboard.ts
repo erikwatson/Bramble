@@ -38,8 +38,16 @@ function getKey(event: KeyboardEvent, keys: KeyboardState): Key {
   return result
 }
 
+function preventDefaultArrows(event: KeyboardEvent) {
+  const keys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' ']
+
+  if (keys.includes(event.key)) {
+    event.preventDefault()
+  }
+}
+
 function down(event: KeyboardEvent) {
-  event.preventDefault()
+  preventDefaultArrows(event)
 
   const key = getKey(event, keys)
 
