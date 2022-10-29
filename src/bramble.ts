@@ -7,4 +7,4 @@ export { default as sprite } from './sprite'
 export { default as vec2 } from './vec2'
 export { save, load } from './storage'
 export { default as collisions } from './collision'
-export * as Types from './types';
+export * from './types';
