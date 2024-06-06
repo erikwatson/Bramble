@@ -104,6 +104,7 @@ function line(
   ctx.lineTo(to.x, to.y)
   ctx.stroke()
   ctx.globalAlpha = 1
+  ctx.closePath()
 }
 
 const defaultCircle: CircleOptions = {
