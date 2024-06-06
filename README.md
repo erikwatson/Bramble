@@ -1,4 +1,4 @@
-**WARNING:** This is not _yet_ a stable API. It is very likely to change between now and 1.0.0, so don't build anything _too_ ambitious with it yet.
+**WARNING:** This is not _yet_ a stable API. It is very likely to change between now and 1.0.0, so don't build anything ambitious with it yet.
 
 # Bramble
 
@@ -31,6 +31,7 @@ A little JavaScript library for making Video Games.
   - Line vs Rectangle
   - Rectangle vs Rectangle
   - Dynamic Rectangle vs Rectangle
+  - Line vs Quadratic Bezier curve
 - 2D Vectors
 - ~~Music and SFX playback~~
 - Save/Load
@@ -38,3 +39,14 @@ A little JavaScript library for making Video Games.
 ## Authors
 
 - [Erik Watson](http://erikwatson.me)
+
+
+# Package developers only
+
+## To publish
+
+1. Change and commit the code
+2. Run a production build with `npm run build:prod`
+3. Update the version number `npm version major` `npm version minor` or `npm version patch`
+4. `npm run publish`
+
