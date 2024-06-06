@@ -218,3 +218,15 @@ export type DropShadowOptions = {
   shadowOffsetX?: number
   shadowOffsetY?: number
 }
+
+// intersection between a line and a quadratic bezier curve
+// Define the result of an intersection
+export type LineVsCubicBezierCurveIntersection = {
+  point: Vec2
+  distance: number // Distance along the ray to the intersection
+  angleRadians: number // Angle of the curve at the intersection
+  angleDegrees: number
+  direction: Vec2
+  normal: Vec2
+  remainderLength: number
+}
