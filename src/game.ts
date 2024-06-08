@@ -43,8 +43,8 @@ const create = (): Game => {
   }
 
   const inputState: InputState = {
-    keyboard: null,
-    mouse: null,
+    keyboard: keyboardInput.getState(),
+    mouse: mouseInput.getState(),
   }
 
   const step = () => {
