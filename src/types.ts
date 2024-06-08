@@ -6,7 +6,7 @@ export type Game = {
   setRender: (callback: (gfx: Graphics) => void) => void
   setSize: (width: number, height: number) => void
   setSmoothing: (to: boolean) => void
-  setUpdate: (callback: (dt: number) => void) => void
+  setUpdate: (callback: (dt: number, input: InputState) => void) => void
   start: () => void
 }
 
