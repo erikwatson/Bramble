@@ -107,6 +107,65 @@ function line(
   ctx.closePath()
 }
 
+function bezier(
+  ctx: CanvasRenderingContext2D,
+  from: Point,
+  to: Point,
+  cp1: Point,
+  cp2: Point,
+  options: LineOptions = defaultLine
+) {
+  options = merge(defaultLine, options)
+
+  ctx.globalAlpha = options.opacity
+  ctx.strokeStyle = options.colour
+  ctx.lineWidth = options.width
+
+  ctx.beginPath()
+  ctx.moveTo(from.x, from.y)
+  ctx.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, to.x, to.y)
+  ctx.stroke()
+  ctx.globalAlpha = 1
+  ctx.closePath()
+}
+
+function quadratic(
+  ctx: CanvasRenderingContext2D,
+  from: Point,
+  to: Point,
+  cp: Point,
+  options: LineOptions = defaultLine
+) {
+  options = merge(defaultLine, options)
+
+  ctx.globalAlpha = options.opacity
+  ctx.strokeStyle = options.colour
+  ctx.lineWidth = options.width
+
+  ctx.beginPath()
+  ctx.moveTo(from.x, from.y)
+  ctx.quadraticCurveTo(cp.x, cp.y, to.x, to.y)
+  ctx.stroke()
+  ctx.globalAlpha = 1
+  ctx.closePath()
+}
+
+function curve(
+  ctx: CanvasRenderingContext2D,
+  from: Point,
+  to: Point,
+  controlPoints: { cp1?:Point, cp2?:Point },
+  options: LineOptions = defaultLine
+) {
+  if (controlPoints.cp1 && controlPoints.cp2) {
+    bezier(ctx, from, to, controlPoints.cp1, controlPoints.cp2, options)
+  } else if (controlPoints.cp1 && !controlPoints.cp2) {
+    quadratic(ctx, from, to, controlPoints.cp1, options)
+  } else {
+    line(ctx, from, to, options)
+  }
+}
+
 const defaultCircle: CircleOptions = {
   fill: {
     colour: '#000000',
@@ -471,20 +530,21 @@ function create(ctx: CanvasRenderingContext2D): Graphics {
 }
 
 export default {
-  create,
   circle,
   clear,
   clearRect,
+  create,
+  curve,
+  dodge,
   image,
   line,
+  overlay,
   rect,
+  shadow,
   sprite,
   square,
   subImage,
   text: txt,
   tiles,
-  shadow,
-  dodge,
-  overlay,
   transparency
 }
