@@ -190,6 +190,7 @@ export type Graphics = {
   circle: (position: Point, radius: number, options: CircleOptions) => void
   clear: (colour: string) => void
   clearRect: (rectangle: Rectangle, colour: string) => void
+  curve: (from: Point, to: Point, controlPoints: { cp1?: Point, cp2?: Point }, options: LineOptions) => void
   square: (position: Point, size: number, options: RectangleOptions) => void
   rect: (rectangle: Rectangle, options: RectangleOptions) => void
   image: (image: HTMLImageElement, position: Point, size: Size) => void
