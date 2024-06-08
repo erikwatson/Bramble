@@ -485,6 +485,9 @@ function create(ctx: CanvasRenderingContext2D): Graphics {
     clearRect: (rectangle, colour) => {
       clearRect(ctx, rectangle, colour)
     },
+    curve: (from, to, controlPoints, options) => {
+      curve(ctx, from, to, controlPoints, options)
+    },
     square: (position, size, options = defaultRect) => {
       square(ctx, position, size, options)
     },
