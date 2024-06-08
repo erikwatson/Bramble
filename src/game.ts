@@ -1,11 +1,17 @@
 import gfx from './graphics'
 import { mouse, keyboard } from './input'
-import { Game, Mouse, Keyboard, Graphics } from './types'
+import {
+  Game,
+  Mouse,
+  Keyboard,
+  Graphics,
+  InputState
+} from './types'
 
 const create = (): Game => {
   let backgroundColor = null
 
-  let update: (dt: number) => void = null
+  let update: (dt: number, input: InputState) => void = null
   let render: (gfx: Graphics) => void = null
 
   // used for calculating the Delta Time for the Frame
@@ -28,7 +34,7 @@ const create = (): Game => {
     element.appendChild(canvas)
   }
 
-  const setUpdate = (callback: (dt: number) => void) => {
+  const setUpdate = (callback: (dt: number, input: InputState) => void) => {
     update = callback
   }
 
@@ -36,9 +42,17 @@ const create = (): Game => {
     render = callback
   }
 
+  const inputState: InputState = {
+    keyboard: null,
+    mouse: null,
+  }
+
   const step = () => {
     if (update) {
-      update((performance.now() - prevTime) / 1000)
+      inputState.keyboard = keyboardInput.getState()
+      inputState.mouse = mouseInput.getState()
+
+      update((performance.now() - prevTime) / 1000, inputState)
     }
 
     if (render) {
@@ -81,16 +95,14 @@ const create = (): Game => {
 
   return {
     attachTo,
-    setSize: setSize,
+    setSize,
     setUpdate,
     setRender,
     setBackgroundColor,
     canvas,
     disableContextMenu,
     setSmoothing,
-    start,
-    getMouseState: () => mouseInput.getState(),
-    getKeyboardState: () => keyboardInput.getState()
+    start
   }
 }
 

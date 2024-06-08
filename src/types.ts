@@ -2,8 +2,6 @@ export type Game = {
   attachTo: (element: Element) => void
   canvas: HTMLCanvasElement
   disableContextMenu: () => void
-  getMouseState: () => MouseState
-  getKeyboardState: () => KeyboardState
   setBackgroundColor: (colour: string) => void
   setRender: (callback: (gfx: Graphics) => void) => void
   setSize: (width: number, height: number) => void
@@ -87,6 +85,11 @@ export type Sprite = {
   colour: string
   setFrames: (newFrames: Frame[]) => void
   addFrame: (frame: Frame) => void
+}
+
+export type InputState = {
+  keyboard: KeyboardState
+  mouse: MouseState
 }
 
 export type KeyState = {
@@ -219,12 +222,10 @@ export type DropShadowOptions = {
   shadowOffsetY?: number
 }
 
-// intersection between a line and a quadratic bezier curve
-// Define the result of an intersection
 export type LineVsCubicBezierCurveIntersection = {
   point: Vec2
-  distance: number // Distance along the ray to the intersection
-  angleRadians: number // Angle of the curve at the intersection
+  distance: number
+  angleRadians: number
   angleDegrees: number
   direction: Vec2
   normal: Vec2
