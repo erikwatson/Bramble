@@ -48,5 +48,5 @@ A little JavaScript library for making Video Games.
 1. Change and commit the code
 2. Run a production build with `npm run build:prod`
 3. Update the version number `npm version major` `npm version minor` or `npm version patch`
-4. `npm run publish`
+4. `npm run release`
 
