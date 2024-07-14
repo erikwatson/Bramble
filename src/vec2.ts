@@ -32,8 +32,8 @@ function create(_x: number, _y: number): Vec2 {
     return Math.sqrt(x * x + y * y)
   }
 
-  const getOpposite = (v: Vec2): Vec2 => {
-    return create(-v.x, -v.y)
+  const getOpposite = (): Vec2 => {
+    return create(-x, -y)
   }
 
   const getPerp = (): Vec2 => {
