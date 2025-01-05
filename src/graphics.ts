@@ -13,26 +13,34 @@ import {
   Size
 } from './types'
 
-function clear(ctx: CanvasRenderingContext2D, colour: string) {
-  rect(
-    ctx,
-    { x: 0, y: 0, width: ctx.canvas.width, height: ctx.canvas.height },
-    {
-      fill: { colour },
-      line: { width: 0 }
-    }
-  )
+function clear(ctx: CanvasRenderingContext2D, colour?: string) {
+  if (!colour) {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+  } else {
+    rect(
+      ctx,
+      { x: 0, y: 0, width: ctx.canvas.width, height: ctx.canvas.height },
+      {
+        fill: { colour },
+        line: { width: 0 }
+      }
+    )
+  }
 }
 
 function clearRect(
   ctx: CanvasRenderingContext2D,
   rectangle: Rectangle,
-  colour: string
+  colour?: string
 ) {
-  rect(ctx, rectangle, {
-    fill: { colour },
-    line: { width: 0 }
-  })
+  if (!colour) {
+    ctx.clearRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
+  } else {
+    rect(ctx, rectangle, {
+      fill: { colour },
+      line: { width: 0 }
+    })
+  }
 }
 
 function square(
@@ -479,10 +487,10 @@ function create(ctx: CanvasRenderingContext2D): Graphics {
     circle: (position, radius, options = defaultCircle) => {
       circle(ctx, position, radius, options)
     },
-    clear: colour => {
+    clear: (colour?) => {
       clear(ctx, colour)
     },
-    clearRect: (rectangle, colour) => {
+    clearRect: (rectangle, colour?) => {
       clearRect(ctx, rectangle, colour)
     },
     curve: (from, to, controlPoints, options) => {

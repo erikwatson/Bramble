@@ -12,8 +12,8 @@ function createMouse(canvas: HTMLCanvasElement) {
   }
 }
 
-function createKeyboard() {
-  const keyboardInput = Keyboard.create()
+function createKeyboard(canvas: HTMLCanvasElement) {
+  const keyboardInput = Keyboard.create(canvas)
 
   return {
     start: () => keyboardInput.start(),

@@ -296,8 +296,21 @@ Bramble.assets.loadTerrain('./terrain/default.json').then(terrain => {
         8
       )
     },
+    null,
     { smoothing: false }
   )
 })
 
-// sprite testing
+// curve testing
+test('curve', 'should draw a white curve with 2 control points', gfx => {
+  gfx.clear('#663399')
+  gfx.curve(
+    { x: 0, y: 50 },
+    { x: 100, y: 50 },
+    { cp1: { x: 25, y: 0 }, cp2: { x: 75, y: 100 } },
+    { width: 6, colour: 'white' }
+  )
+}, (dt, input) => {
+  console.log(input);
+})
+
