@@ -108,7 +108,8 @@ const allKeys: { code: string; name: string }[] = [
   { code: 'BracketLeft', name: 'openBracket' },
   { code: 'IntlBackslash', name: 'backSlash' },
   { code: 'BracketRight', name: 'closeBracket' },
-  { code: 'Quote', name: 'quote' }
+  { code: 'Quote', name: 'quote' },
+  { code: 'MetaLeft', name: 'metaLeft' }
 ]
 
 export default allKeys

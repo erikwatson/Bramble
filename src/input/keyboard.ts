@@ -77,13 +77,13 @@ function update() {
   })
 }
 
-function start() {
-  // keyboard events
-  document.addEventListener('keydown', down)
-  document.addEventListener('keyup', up)
-}
+function create(canvas: HTMLCanvasElement): Keyboard {
+  const start = () => {
+    // keyboard events
+    canvas.addEventListener('keydown', down)
+    canvas.addEventListener('keyup', up)
+  }
 
-function create(): Keyboard {
   return {
     start,
     update,

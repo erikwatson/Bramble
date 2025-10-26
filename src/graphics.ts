@@ -13,26 +13,40 @@ import {
   Size
 } from './types'
 
-function clear(ctx: CanvasRenderingContext2D, colour: string) {
-  rect(
-    ctx,
-    { x: 0, y: 0, width: ctx.canvas.width, height: ctx.canvas.height },
-    {
-      fill: { colour },
-      line: { width: 0 }
-    }
-  )
+function freshContext(ctx: CanvasRenderingContext2D, callback: () => void) {
+  ctx.save();
+  callback();
+  ctx.restore();
+}
+
+function clear(ctx: CanvasRenderingContext2D, colour?: string) {
+  if (!colour) {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+  } else {
+    rect(
+      ctx,
+      { x: 0, y: 0, width: ctx.canvas.width, height: ctx.canvas.height },
+      {
+        fill: { colour },
+        line: { width: 0 }
+      }
+    )
+  }
 }
 
 function clearRect(
   ctx: CanvasRenderingContext2D,
   rectangle: Rectangle,
-  colour: string
+  colour?: string
 ) {
-  rect(ctx, rectangle, {
-    fill: { colour },
-    line: { width: 0 }
-  })
+  if (!colour) {
+    ctx.clearRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
+  } else {
+    rect(ctx, rectangle, {
+      fill: { colour },
+      line: { width: 0 }
+    })
+  }
 }
 
 function square(
@@ -65,20 +79,22 @@ function rect(
   rectangle: Rectangle,
   options: RectangleOptions = defaultRect
 ) {
-  options = merge(defaultRect, options)
+  freshContext(ctx, () => {
+    options = merge(defaultRect, options)
 
-  ctx.globalAlpha = options.fill.opacity
-  ctx.fillStyle = options.fill.colour
-  ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
-  ctx.globalAlpha = 1
-
-  if (options.line.width !== 0) {
-    ctx.globalAlpha = options.line.opacity
-    ctx.strokeStyle = options.line.colour
-    ctx.lineWidth = options.line.width
-    ctx.strokeRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
+    ctx.globalAlpha = options.fill.opacity
+    ctx.fillStyle = options.fill.colour
+    ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
     ctx.globalAlpha = 1
-  }
+
+    if (options.line.width !== 0) {
+      ctx.globalAlpha = options.line.opacity
+      ctx.strokeStyle = options.line.colour
+      ctx.lineWidth = options.line.width
+      ctx.strokeRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
+      ctx.globalAlpha = 1
+    }
+  })
 }
 
 const defaultLine: LineOptions = {
@@ -93,18 +109,20 @@ function line(
   to: Point,
   options: LineOptions = defaultLine
 ) {
-  options = merge(defaultLine, options)
+  freshContext(ctx, () => {
+    options = merge(defaultLine, options)
 
-  ctx.globalAlpha = options.opacity
-  ctx.strokeStyle = options.colour
-  ctx.lineWidth = options.width
+    ctx.globalAlpha = options.opacity
+    ctx.strokeStyle = options.colour
+    ctx.lineWidth = options.width
 
-  ctx.beginPath()
-  ctx.moveTo(from.x, from.y)
-  ctx.lineTo(to.x, to.y)
-  ctx.stroke()
-  ctx.globalAlpha = 1
-  ctx.closePath()
+    ctx.beginPath()
+    ctx.moveTo(from.x, from.y)
+    ctx.lineTo(to.x, to.y)
+    ctx.stroke()
+    ctx.globalAlpha = 1
+    ctx.closePath()
+  })
 }
 
 function bezier(
@@ -115,18 +133,20 @@ function bezier(
   cp2: Point,
   options: LineOptions = defaultLine
 ) {
-  options = merge(defaultLine, options)
+  freshContext(ctx, () => {
+    options = merge(defaultLine, options)
 
-  ctx.globalAlpha = options.opacity
-  ctx.strokeStyle = options.colour
-  ctx.lineWidth = options.width
+    ctx.globalAlpha = options.opacity
+    ctx.strokeStyle = options.colour
+    ctx.lineWidth = options.width
 
-  ctx.beginPath()
-  ctx.moveTo(from.x, from.y)
-  ctx.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, to.x, to.y)
-  ctx.stroke()
-  ctx.globalAlpha = 1
-  ctx.closePath()
+    ctx.beginPath()
+    ctx.moveTo(from.x, from.y)
+    ctx.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, to.x, to.y)
+    ctx.stroke()
+    ctx.globalAlpha = 1
+    ctx.closePath()
+  });
 }
 
 function quadratic(
@@ -136,25 +156,27 @@ function quadratic(
   cp: Point,
   options: LineOptions = defaultLine
 ) {
-  options = merge(defaultLine, options)
+  freshContext(ctx, () => {
+    options = merge(defaultLine, options)
 
-  ctx.globalAlpha = options.opacity
-  ctx.strokeStyle = options.colour
-  ctx.lineWidth = options.width
+    ctx.globalAlpha = options.opacity
+    ctx.strokeStyle = options.colour
+    ctx.lineWidth = options.width
 
-  ctx.beginPath()
-  ctx.moveTo(from.x, from.y)
-  ctx.quadraticCurveTo(cp.x, cp.y, to.x, to.y)
-  ctx.stroke()
-  ctx.globalAlpha = 1
-  ctx.closePath()
+    ctx.beginPath()
+    ctx.moveTo(from.x, from.y)
+    ctx.quadraticCurveTo(cp.x, cp.y, to.x, to.y)
+    ctx.stroke()
+    ctx.globalAlpha = 1
+    ctx.closePath()
+  });
 }
 
 function curve(
   ctx: CanvasRenderingContext2D,
   from: Point,
   to: Point,
-  controlPoints: { cp1?:Point, cp2?:Point },
+  controlPoints: { cp1?: Point, cp2?: Point },
   options: LineOptions = defaultLine
 ) {
   if (controlPoints.cp1 && controlPoints.cp2) {
@@ -185,24 +207,27 @@ function circle(
   radius: number,
   options: CircleOptions = defaultCircle
 ) {
-  options = merge(defaultCircle, options)
+  freshContext(ctx, () => {
+    options = merge(defaultCircle, options)
 
-  ctx.globalAlpha = options.fill.opacity
-  ctx.fillStyle = options.fill.colour
-  ctx.beginPath()
-  ctx.arc(position.x, position.y, radius, 0, 2 * Math.PI)
-  ctx.closePath()
-  ctx.fill()
-  ctx.globalAlpha = 1
-
-  if (options.line.width !== 0) {
-    ctx.globalAlpha = options.line.opacity
-    ctx.strokeStyle = options.line.colour
-    ctx.lineWidth = options.line.width
+    ctx.globalAlpha = options.fill.opacity
+    ctx.fillStyle = options.fill.colour
+    ctx.beginPath()
     ctx.arc(position.x, position.y, radius, 0, 2 * Math.PI)
     ctx.closePath()
-    ctx.stroke()
-  }
+    ctx.fill()
+    ctx.globalAlpha = 1
+
+    if (options.line.width !== 0) {
+      ctx.globalAlpha = options.line.opacity
+      ctx.strokeStyle = options.line.colour
+      ctx.lineWidth = options.line.width
+      ctx.beginPath()
+      ctx.arc(position.x, position.y, radius, 0, 2 * Math.PI)
+      ctx.closePath()
+      ctx.stroke()
+    }
+  });
 }
 
 function image(
@@ -240,50 +265,49 @@ function subImage(
 }
 
 function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
-  const halfWidth = sprite.size.width / 2
-  const halfHeight = sprite.size.height / 2
+  freshContext(ctx, () => {
+    const halfWidth = sprite.size.width / 2
+    const halfHeight = sprite.size.height / 2
 
-  ctx.save()
-  ctx.translate(sprite.position.x + halfWidth, sprite.position.y + halfHeight)
-  ctx.rotate(number.toRadians(sprite.rotation))
+    ctx.translate(sprite.position.x + halfWidth, sprite.position.y + halfHeight)
+    ctx.rotate(number.toRadians(sprite.rotation))
 
-  if (sprite.frames.length > 1) {
-    subImage(
-      ctx,
-      sprite.texture,
-      {
-        x: -halfWidth,
-        y: -halfHeight
-      },
-      {
-        width: sprite.size.width,
-        height: sprite.size.height
-      },
-      {
-        x: sprite.frames[sprite.frame].position.x,
-        y: sprite.frames[sprite.frame].position.y
-      },
-      {
-        width: sprite.frames[sprite.frame].size.width,
-        height: sprite.frames[sprite.frame].size.height
-      }
-    )
-  } else {
-    image(
-      ctx,
-      sprite.texture,
-      {
-        x: -halfWidth,
-        y: -halfHeight
-      },
-      {
-        width: sprite.size.width,
-        height: sprite.size.height
-      }
-    )
-  }
-
-  ctx.restore()
+    if (sprite.frames.length > 1) {
+      subImage(
+        ctx,
+        sprite.texture,
+        {
+          x: -halfWidth,
+          y: -halfHeight
+        },
+        {
+          width: sprite.size.width,
+          height: sprite.size.height
+        },
+        {
+          x: sprite.frames[sprite.frame].position.x,
+          y: sprite.frames[sprite.frame].position.y
+        },
+        {
+          width: sprite.frames[sprite.frame].size.width,
+          height: sprite.frames[sprite.frame].size.height
+        }
+      )
+    } else {
+      image(
+        ctx,
+        sprite.texture,
+        {
+          x: -halfWidth,
+          y: -halfHeight
+        },
+        {
+          width: sprite.size.width,
+          height: sprite.size.height
+        }
+      )
+    }
+  });
 }
 
 function txt(
@@ -293,11 +317,13 @@ function txt(
   colour: string = '#000000',
   font: string = '16pt sans-serif'
 ) {
-  ctx.fillStyle = colour
-  ctx.font = font
-  ctx.textAlign = 'left'
-  ctx.textBaseline = 'top'
-  ctx.fillText(text, position.x, position.y)
+  freshContext(ctx, () => {
+    ctx.fillStyle = colour
+    ctx.font = font
+    ctx.textAlign = 'left'
+    ctx.textBaseline = 'top'
+    ctx.fillText(text, position.x, position.y)
+  })
 }
 
 function tile(
@@ -418,7 +444,7 @@ function tiles(
           selection.size
         )
       } else {
-        console.log(`Tile not defined ${sum}`)
+        console.error(`Tile not defined ${sum}`)
       }
     }
   }
@@ -436,31 +462,40 @@ function shadow(
   drawingOperations: () => void,
   options: DropShadowOptions = defaultDropShadow
 ) {
-  options = merge(defaultDropShadow, options)
-
-  ctx.save()
-
-  ctx.shadowColor = options.shadowcolour
-  ctx.shadowBlur = options.shadowBlur
-  ctx.shadowOffsetX = options.shadowOffsetX
-  ctx.shadowOffsetY = options.shadowOffsetY
-
-  drawingOperations()
-  ctx.restore()
+  freshContext(ctx, () => {
+    options = merge(defaultDropShadow, options)
+    
+    ctx.shadowColor = options.shadowcolour
+    ctx.shadowBlur = options.shadowBlur
+    ctx.shadowOffsetX = options.shadowOffsetX
+    ctx.shadowOffsetY = options.shadowOffsetY
+  
+    drawingOperations()
+  })
 }
 
 function dodge(ctx: CanvasRenderingContext2D, drawingOperations: () => void) {
-  ctx.save()
-  ctx.globalCompositeOperation = 'color-dodge'
-  drawingOperations()
-  ctx.restore()
+  freshContext(ctx, () => {
+    ctx.globalCompositeOperation = 'color-dodge'
+    drawingOperations()
+  })
 }
 
 function overlay(ctx: CanvasRenderingContext2D, drawingOperations: () => void) {
-  ctx.save()
-  ctx.globalCompositeOperation = 'overlay'
-  drawingOperations()
-  ctx.restore()
+  freshContext(ctx, () => {
+    ctx.globalCompositeOperation = 'overlay'
+    drawingOperations()
+  })
+}
+
+function rotation(ctx: CanvasRenderingContext2D, drawingOperations: () => void, rotation: number, around: Point) {
+  freshContext(ctx, () => {
+    ctx.translate(around.x, around.y); 
+    console.log('rotate', rotation, number.toRadians(rotation))
+    ctx.rotate(number.toRadians(rotation))
+    ctx.translate(-around.x, -around.y); 
+    drawingOperations();
+  })
 }
 
 function transparency(
@@ -468,10 +503,10 @@ function transparency(
   drawingOperations: () => void,
   alpha = 0.25
 ) {
-  ctx.save()
-  ctx.globalAlpha = alpha
-  drawingOperations()
-  ctx.restore()
+  freshContext(ctx, () => {
+    ctx.globalAlpha = alpha
+    drawingOperations()
+  })
 }
 
 function create(ctx: CanvasRenderingContext2D): Graphics {
@@ -479,10 +514,10 @@ function create(ctx: CanvasRenderingContext2D): Graphics {
     circle: (position, radius, options = defaultCircle) => {
       circle(ctx, position, radius, options)
     },
-    clear: colour => {
+    clear: (colour?) => {
       clear(ctx, colour)
     },
-    clearRect: (rectangle, colour) => {
+    clearRect: (rectangle, colour?) => {
       clearRect(ctx, rectangle, colour)
     },
     curve: (from, to, controlPoints, options) => {
@@ -528,6 +563,10 @@ function create(ctx: CanvasRenderingContext2D): Graphics {
     },
     transparency: (drawingOperations, alpha = 0.25) => {
       transparency(ctx, drawingOperations, alpha)
+    },
+    rotation: (drawingOperations, rotateBy = 0, around = { x: 0, y: 0 }) => {
+      rotation(ctx, drawingOperations, rotateBy, around)
+      // rotation()
     }
   }
 }
@@ -542,6 +581,7 @@ export default {
   image,
   line,
   overlay,
+  rotation,
   rect,
   shadow,
   sprite,

@@ -22,7 +22,7 @@ function createAndAttachToContainer(title, description, content) {
   return container
 }
 
-function test(title, description, renderFunction, options) {
+function test(title, description, renderFunction, updateFunction, options) {
   const game = Bramble.game.create()
   const container = createAndAttachToContainer(title, description, game.canvas)
 
@@ -33,6 +33,7 @@ function test(title, description, renderFunction, options) {
   }
 
   game.setRender(renderFunction)
+  game.setUpdate(updateFunction)
   game.start()
 
   const wrapper = document.querySelector('#wrapper')
