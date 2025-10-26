@@ -224,6 +224,7 @@ export type Graphics = {
   dodge: (drawingOperations: () => void) => void
   overlay: (drawingOperations: () => void) => void
   transparency: (drawingOperations: () => void) => void
+  rotation: (drawingOperations: () => void, rotation: number, around: Point) => void
 }
 
 export type DropShadowOptions = {
