@@ -491,7 +491,6 @@ function overlay(ctx: CanvasRenderingContext2D, drawingOperations: () => void) {
 function rotation(ctx: CanvasRenderingContext2D, drawingOperations: () => void, rotation: number, around: Point) {
   freshContext(ctx, () => {
     ctx.translate(around.x, around.y); 
-    console.log('rotate', rotation, number.toRadians(rotation))
     ctx.rotate(number.toRadians(rotation))
     ctx.translate(-around.x, -around.y); 
     drawingOperations();
