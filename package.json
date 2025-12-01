@@ -1,6 +1,6 @@
 {
   "name": "@erikwatson/bramble",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "A game development library.",
   "main": "dist/bramble.js",
   "types": "./dist/bramble.d.ts",
