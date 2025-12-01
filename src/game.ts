@@ -93,6 +93,10 @@ const create = (): Game => {
     })
   }
 
+  const stop = () => {
+    canvas.remove()
+  }
+
   return {
     attachTo,
     setSize,
@@ -102,7 +106,8 @@ const create = (): Game => {
     canvas,
     disableContextMenu,
     setSmoothing,
-    start
+    start,
+    stop
   }
 }
 

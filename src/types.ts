@@ -8,6 +8,7 @@ export type Game = {
   setSmoothing: (to: boolean) => void
   setUpdate: (callback: (dt: number, input: InputState) => void) => void
   start: () => void
+  stop: () => void
 }
 
 export interface ButtonState {
