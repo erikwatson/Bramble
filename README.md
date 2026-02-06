@@ -2,7 +2,7 @@
 
 # Bramble
 
-A little JavaScript library for making Video Games.
+A creative coding library for the web.
 
 - [Type Docs](https://erikwatson.github.io/bramble-type-docs/)
 - [Instructions](https://github.com/erikwatson/Bramble/wiki)
