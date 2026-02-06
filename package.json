@@ -1,6 +1,6 @@
 {
   "name": "@erikwatson/bramble",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "A creative coding library.",
   "main": "dist/bramble.js",
   "types": "./dist/bramble.d.ts",
