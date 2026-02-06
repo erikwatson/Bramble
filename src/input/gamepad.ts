@@ -2,11 +2,11 @@ function create() {
   const gamepad = {}
 
   const connected = (e: GamepadEvent) => {
-    console.log(e.gamepad)
+    console.info(e.gamepad)
   }
 
   const disconnected = (e: GamepadEvent) => {
-    console.log(e.gamepad)
+    console.info(e.gamepad)
   }
 
   const start = () => {

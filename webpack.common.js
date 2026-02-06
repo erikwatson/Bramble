@@ -1,5 +1,4 @@
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path')
 
 module.exports = {
@@ -16,7 +15,6 @@ module.exports = {
   },
 
   resolve: {
-    // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ['.webpack.js', '.web.js', '.ts', '.js']
   },
 
@@ -32,5 +30,16 @@ module.exports = {
         ]
       }
     ]
-  }
+  },
+
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'dist/bramble.js',
+          to: '../test/bramble.js',
+        },
+      ],
+    })
+  ]
 }

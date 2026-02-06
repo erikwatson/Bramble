@@ -4,12 +4,13 @@
   "description": "A game development library.",
   "main": "dist/bramble.js",
   "types": "./dist/bramble.d.ts",
-  "author": "Erik Watson",
+  "author": "Erik Watson <erik@erikwatson.me>",
   "license": "MIT",
   "files": [
     "dist/**/*"
   ],
   "devDependencies": {
+    "copy-webpack-plugin": "^6.4.1",
     "glob": "^7.1.3",
     "http-server": "^0.12.3",
     "husky": "^1.3.1",

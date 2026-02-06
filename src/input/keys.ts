@@ -4,9 +4,12 @@ const allKeys: { code: string; name: string }[] = [
 
   { code: 'Enter', name: 'enter' },
 
-  { code: 'ShiftLeft', name: 'shift' },
-  { code: 'ControlLeft', name: 'ctrl' },
-  { code: 'AltLeft', name: 'alt' },
+  { code: 'ShiftLeft', name: 'shiftLeft' },
+  { code: 'ShiftRight', name: 'shiftRight' },
+  { code: 'ControlLeft', name: 'ctrlLeft' },
+  { code: 'ControlRight', name: 'ctrlRight' },
+  { code: 'AltLeft', name: 'altLeft' },
+  { code: 'AltRight', name: 'altRight' },
 
   { code: 'CapsLock', name: 'caps' },
 
@@ -77,10 +80,11 @@ const allKeys: { code: string; name: string }[] = [
   { code: 'Numpad8', name: 'num8' },
   { code: 'Numpad9', name: 'num9' },
   { code: 'NumpadMultiply', name: 'multiply' },
-  { code: 'NumpaddAdd', name: 'add' },
-  { code: 'NumpaddDivide', name: 'divide' },
+  { code: 'NumpadAdd', name: 'add' },
+  { code: 'NumpadDivide', name: 'divide' },
   { code: 'NumpadDecimal', name: 'point' },
   { code: 'NumpadMinus', name: 'minus' },
+  { code: 'NumpadEnter', name: 'numEnter' },
 
   { code: 'F1', name: 'F1' },
   { code: 'F2', name: 'F2' },
@@ -103,13 +107,15 @@ const allKeys: { code: string; name: string }[] = [
   { code: 'Comma', name: 'comma' },
   { code: 'Minus', name: 'dash' },
   { code: 'Period', name: 'dot' },
-  { code: 'Slash', name: 'forewardSlash' },
-
+  { code: 'Slash', name: 'slash' },
+  { code: 'Backquote', name: 'backtick' },
+  { code: 'Backslash', name: 'backSlash' },
+  { code: 'IntlBackslash', name: 'intlBackslash' },
   { code: 'BracketLeft', name: 'openBracket' },
-  { code: 'IntlBackslash', name: 'backSlash' },
   { code: 'BracketRight', name: 'closeBracket' },
   { code: 'Quote', name: 'quote' },
-  { code: 'MetaLeft', name: 'metaLeft' }
+  { code: 'MetaLeft', name: 'metaLeft' },
+  { code: 'MetaRight', name: 'metaRight' }
 ]
 
 export default allKeys

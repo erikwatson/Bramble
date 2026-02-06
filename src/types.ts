@@ -209,12 +209,7 @@ export type Graphics = {
     subPosition: Point,
     subSize: Size
   ) => void
-  text: (
-    position: Point,
-    text: string,
-    colour: string,
-    font: string,
-  ) => void
+  text: (position: Point, text: string, options: TextOptions) => void
   tiles: (
     position: Point,
     tileGrid: number[][],
@@ -225,7 +220,23 @@ export type Graphics = {
   dodge: (drawingOperations: () => void) => void
   overlay: (drawingOperations: () => void) => void
   transparency: (drawingOperations: () => void) => void
-  rotation: (drawingOperations: () => void, rotation: number, around: Point) => void
+  rotation: (
+    drawingOperations: () => void,
+    rotation: number,
+    around: Point
+  ) => void
+  transform: (drawingOperations: () => void, options: TransformOptions) => void
+  multiply: (drawingOperations: () => void) => void
+  screen: (drawingOperations: () => void) => void
+  blur: (drawingOperations: () => void, radius?: number) => void
+  colourShift: (
+    drawingOperations: () => void,
+    options?: { hue?: number; saturate?: number }
+  ) => void
+  strokeGlow: (
+    drawingOperations: () => void,
+    options?: { color?: string; blur?: number }
+  ) => void
 }
 
 export type DropShadowOptions = {
@@ -243,4 +254,34 @@ export type LineVsCubicBezierCurveIntersection = {
   direction: Vec2
   normal: Vec2
   remainderLength: number
+}
+
+export type TextOptions = {
+  colour?: string
+  size?: string
+  family?: string
+  align?: 'center' | 'end' | 'left' | 'right' | 'start'
+  baseline?:
+    | 'alphabetic'
+    | 'top'
+    | 'hanging'
+    | 'middle'
+    | 'ideographic'
+    | 'bottom'
+}
+
+export type TransformOptions = {
+  rotation?: number
+  scale?: number | Point
+  around?: Point
+}
+
+export type ColourShiftOptions = {
+  hue?: number;
+  saturate?: number
+}
+
+export type StrokeGlowOptions = {
+  color?: string;
+  blur?: number
 }
