@@ -11,7 +11,7 @@ export function shadow(
   freshContext(ctx, () => {
     options = merge(defaultDropShadow, options)
 
-    ctx.shadowColor = options.shadowcolour
+    ctx.shadowColor = options.shadowColour
     ctx.shadowBlur = options.shadowBlur
     ctx.shadowOffsetX = options.shadowOffsetX
     ctx.shadowOffsetY = options.shadowOffsetY
@@ -70,10 +70,10 @@ export function blur(
   drawingOperations: () => void,
   radius = 4 // default blur radius in px
 ) {
-  freshContext(ctx, () => {
+  // freshContext(ctx, () => {
     ctx.filter = `blur(${radius}px)`
     drawingOperations()
-  })
+  // })
 }
 
 export const defaultColourShift = {

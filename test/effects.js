@@ -2,7 +2,7 @@
 test(
   'transparency',
   'should draw a 25% transparent circle over an opaque rectangle',
-  gfx => {
+ ({ gfx })=> {
     gfx.clear()
     gfx.rect(
       { x: 15, y: 15, width: 50, height: 50 },
@@ -27,7 +27,7 @@ test(
 )
 
 // shadow testing
-test('shadow', 'should add a shadow to a circle', gfx => {
+test('shadow', 'should add a shadow to a circle',({ gfx })=> {
   gfx.clear('white')
   gfx.shadow(() => {
     gfx.circle({ x: 50, y: 50 }, 25)
@@ -38,7 +38,7 @@ test('shadow', 'should add a shadow to a circle', gfx => {
 test(
   'dodge',
   'should draw two rectangles, the overlapping section should be brighter than the base colour of the leftmost rectangle',
-  gfx => {
+ ({ gfx })=> {
     gfx.clear('#663399')
 
     // darker base makes highlights pop more
@@ -59,7 +59,7 @@ test(
 
 
 // overlay testing
-test('overlay', 'should draw a circle overlayed on a rectangle', gfx => {
+test('overlay', 'should draw a circle overlayed on a rectangle',({ gfx })=> {
   gfx.clear('#663399')
   gfx.rect(
     { x: 15, y: 15, width: 50, height: 50 },
@@ -72,7 +72,7 @@ test('overlay', 'should draw a circle overlayed on a rectangle', gfx => {
 })
 
 // multiply testing
-test('multiply', 'should darken overlapping shapes using multiply', gfx => {
+test('multiply', 'should darken overlapping shapes using multiply',({ gfx })=> {
   gfx.clear('white')
 
   gfx.rect({ x: 10, y: 10, width: 40, height: 40 }, { fill: { colour: 'red' } })
@@ -83,7 +83,7 @@ test('multiply', 'should darken overlapping shapes using multiply', gfx => {
 })
 
 // screen testing
-test('screen', 'should brighten overlapping shapes using screen', gfx => {
+test('screen', 'should brighten overlapping shapes using screen',({ gfx })=> {
   gfx.clear('black')
 
   gfx.rect({ x: 10, y: 10, width: 40, height: 40 }, { fill: { colour: 'red' } })
@@ -94,7 +94,7 @@ test('screen', 'should brighten overlapping shapes using screen', gfx => {
 })
 
 // blur testing
-test('blur', 'should draw a blurred circle over a rectangle', gfx => {
+test('blur', 'should draw a blurred circle over a rectangle',({ gfx })=> {
   gfx.clear('white')
 
   gfx.rect(
@@ -108,7 +108,7 @@ test('blur', 'should draw a blurred circle over a rectangle', gfx => {
 })
 
 // colourShift testing
-test('colourShift', 'should draw 3 circles, a grey one, a green one, and a lighter green one', gfx => {
+test('colourShift', 'should draw 3 circles, a grey one, a green one, and a lighter green one',({ gfx })=> {
   gfx.clear('white')
 
   gfx.colourShift(
@@ -143,7 +143,7 @@ test('colourShift', 'should draw 3 circles, a grey one, a green one, and a light
 })
 
 // strokeGlow testing
-test('strokeGlow', 'should draw a circle with a glowing stroke', gfx => {
+test('strokeGlow', 'should draw a circle with a glowing stroke',({ gfx })=> {
   gfx.clear('black')
 
   gfx.strokeGlow(

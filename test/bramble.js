@@ -105,8 +105,44 @@ return /******/ (function(modules) { // webpackBootstrap
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loadAllTerrain = exports.loadTerrain = exports.loadAllImages = exports.loadImage = exports.loadAllText = exports.loadText = void 0;
+exports.loadAllSounds = exports.loadSound = exports.loadAllTerrain = exports.loadTerrain = exports.loadAllImages = exports.loadImage = exports.loadAllText = exports.loadText = void 0;
 function loadText(path) {
     return new Promise(function (resolve, reject) {
         var request = new XMLHttpRequest();
@@ -168,14 +204,77 @@ function loadAllTerrain(paths) {
     return Promise.all(paths.map(function (x) { return loadTerrain(x); }));
 }
 exports.loadAllTerrain = loadAllTerrain;
-exports.default = {
-    loadImage: loadImage,
-    loadText: loadText,
-    loadAllText: loadAllText,
-    loadAllImages: loadAllImages,
-    loadTerrain: loadTerrain,
-    loadAllTerrain: loadAllTerrain
-};
+function loadSound(path) {
+    return new Promise(function (resolve, reject) {
+        var request = new XMLHttpRequest();
+        request.responseType = 'arraybuffer';
+        request.addEventListener('load', function (_) {
+            resolve(request.response);
+        });
+        request.addEventListener('error', function (event) {
+            reject(event);
+        });
+        request.open('GET', path);
+        request.send();
+    });
+}
+exports.loadSound = loadSound;
+function loadAllSounds(paths) {
+    if (paths === void 0) { paths = []; }
+    return Promise.all(paths.map(function (x) { return loadSound(x); }));
+}
+exports.loadAllSounds = loadAllSounds;
+function create() {
+    var _this = this;
+    var store = {
+        images: new Map(),
+        sounds: new Map(),
+        data: new Map(),
+    };
+    var add = function (label, type, path) { return __awaiter(_this, void 0, void 0, function () {
+        var _a, img, snd, dta;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _a = type;
+                    switch (_a) {
+                        case 'image': return [3 /*break*/, 1];
+                        case 'sound': return [3 /*break*/, 3];
+                    }
+                    return [3 /*break*/, 5];
+                case 1: return [4 /*yield*/, loadImage(path)];
+                case 2:
+                    img = _b.sent();
+                    store.images.set(label, img);
+                    return [3 /*break*/, 7];
+                case 3: return [4 /*yield*/, loadSound(path)];
+                case 4:
+                    snd = _b.sent();
+                    store.sounds.set(label, snd);
+                    return [3 /*break*/, 7];
+                case 5: return [4 /*yield*/, loadText(path)];
+                case 6:
+                    dta = _b.sent();
+                    store.data.set(label, dta);
+                    _b.label = 7;
+                case 7: return [2 /*return*/];
+            }
+        });
+    }); };
+    var remove = function (label, type) {
+        switch (type) {
+            case 'image':
+                store.images.delete(label);
+                break;
+            case 'sound':
+                store.sounds.delete(label);
+                break;
+            default: store.data.delete(label);
+        }
+    };
+    return { add: add, remove: remove, assets: store };
+}
+exports.default = { create: create };
 
 
 /***/ }),
@@ -204,9 +303,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.collisions = exports.load = exports.save = exports.vec2 = exports.sprite = exports.mouse = exports.keyboard = exports.graphics = exports.grid = exports.game = exports.assets = void 0;
-var assets_1 = __webpack_require__(/*! ./assets */ "./src/assets.ts");
-Object.defineProperty(exports, "assets", { enumerable: true, get: function () { return assets_1.default; } });
+exports.collisions = exports.load = exports.save = exports.vec2 = exports.sprite = exports.mouse = exports.keyboard = exports.graphics = exports.grid = exports.game = void 0;
 var game_1 = __webpack_require__(/*! ./game */ "./src/game.ts");
 Object.defineProperty(exports, "game", { enumerable: true, get: function () { return game_1.default; } });
 var grid_1 = __webpack_require__(/*! ./grid */ "./src/grid.ts");
@@ -547,8 +644,11 @@ exports.default = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var assets_1 = __webpack_require__(/*! ./assets */ "./src/assets.ts");
 var graphics_1 = __webpack_require__(/*! ./graphics */ "./src/graphics.ts");
 var input_1 = __webpack_require__(/*! ./input */ "./src/input.ts");
+var renderer_1 = __webpack_require__(/*! ./renderer */ "./src/renderer.ts");
+var sounds_1 = __webpack_require__(/*! ./sounds */ "./src/sounds.ts");
 var create = function () {
     var backgroundColor = null;
     var update = null;
@@ -556,8 +656,12 @@ var create = function () {
     // used for calculating the Delta Time for the Frame
     var prevTime = 0;
     var canvas = document.createElement('canvas');
-    var ctx = canvas.getContext('2d');
-    var graphics = graphics_1.default.create(ctx);
+    var graphicsContext = canvas.getContext('2d');
+    var audioContext = new AudioContext();
+    var gfx = graphics_1.default.create(graphicsContext);
+    var sfx = sounds_1.default.create(audioContext);
+    var assetManager = assets_1.default.create();
+    var ren = renderer_1.default.create(graphicsContext);
     canvas.id = 'bramble-game';
     var mouseInput = input_1.mouse.create(canvas);
     var keyboardInput = input_1.keyboard.create(canvas);
@@ -581,13 +685,19 @@ var create = function () {
         if (update) {
             inputState.keyboard = keyboardInput.getState();
             inputState.mouse = mouseInput.getState();
-            update((performance.now() - prevTime) / 1000, inputState);
+            update({
+                dt: (performance.now() - prevTime) / 1000,
+                input: inputState,
+                sfx: sfx,
+                assets: assetManager.assets
+            });
         }
         if (render) {
             if (backgroundColor) {
-                graphics.clear(backgroundColor);
+                gfx.clear(backgroundColor);
             }
-            render(graphics);
+            render({ gfx: ren, assets: assetManager.assets });
+            ren.render();
         }
         mouseInput.update();
         keyboardInput.update();
@@ -607,7 +717,7 @@ var create = function () {
     //   - setSize
     var setSmoothing = function (to) {
         if (to === void 0) { to = true; }
-        ctx.imageSmoothingEnabled = to;
+        graphicsContext.imageSmoothingEnabled = to;
     };
     var disableContextMenu = function () {
         canvas.addEventListener('contextmenu', function (e) {
@@ -627,7 +737,8 @@ var create = function () {
         disableContextMenu: disableContextMenu,
         setSmoothing: setSmoothing,
         start: start,
-        stop: stop
+        stop: stop,
+        assets: assetManager
     };
 };
 exports.default = {
@@ -725,6 +836,9 @@ function create(ctx) {
             if (options === void 0) { options = defaults_1.defaultTransform; }
             (0, transforms_1.transform)(ctx, drawingOperations, options);
         },
+        scale: function (drawingOperations, options) {
+            (0, transforms_1.scale)(ctx, drawingOperations, options);
+        },
         multiply: function (drawingOperations) {
             (0, effects_1.multiply)(ctx, drawingOperations);
         },
@@ -763,7 +877,13 @@ exports.default = {
     subImage: images_1.subImage,
     text: text_1.txt,
     tiles: tiles_1.tiles,
-    transparency: effects_1.transparency
+    transparency: effects_1.transparency,
+    transform: transforms_1.transform,
+    multiply: effects_1.multiply,
+    screen: effects_1.screen,
+    blur: effects_1.blur,
+    colourShift: effects_1.colourShift,
+    strokeGlow: effects_1.strokeGlow
 };
 
 
@@ -842,7 +962,7 @@ exports.freshContext = freshContext;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.defaultTransform = exports.defaultText = exports.defaultCircle = exports.defaultLine = exports.defaultRect = exports.defaultDropShadow = void 0;
 exports.defaultDropShadow = {
-    shadowcolour: '#000000',
+    shadowColour: '#000000',
     shadowBlur: 6,
     shadowOffsetX: 4,
     shadowOffsetY: 4
@@ -908,7 +1028,7 @@ function shadow(ctx, drawingOperations, options) {
     if (options === void 0) { options = defaults_1.defaultDropShadow; }
     (0, common_1.freshContext)(ctx, function () {
         options = (0, object_1.merge)(defaults_1.defaultDropShadow, options);
-        ctx.shadowColor = options.shadowcolour;
+        ctx.shadowColor = options.shadowColour;
         ctx.shadowBlur = options.shadowBlur;
         ctx.shadowOffsetX = options.shadowOffsetX;
         ctx.shadowOffsetY = options.shadowOffsetY;
@@ -955,10 +1075,10 @@ exports.screen = screen;
 function blur(ctx, drawingOperations, radius // default blur radius in px
 ) {
     if (radius === void 0) { radius = 4; }
-    (0, common_1.freshContext)(ctx, function () {
-        ctx.filter = "blur(".concat(radius, "px)");
-        drawingOperations();
-    });
+    // freshContext(ctx, () => {
+    ctx.filter = "blur(".concat(radius, "px)");
+    drawingOperations();
+    // })
 }
 exports.blur = blur;
 exports.defaultColourShift = {
@@ -2020,6 +2140,379 @@ function create(canvas) {
     };
 }
 exports.default = { create: create };
+
+
+/***/ }),
+
+/***/ "./src/renderer.ts":
+/*!*************************!*\
+  !*** ./src/renderer.ts ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var defaults_1 = __webpack_require__(/*! ./graphics/defaults */ "./src/graphics/defaults.ts");
+var shapes_1 = __webpack_require__(/*! ./graphics/shapes */ "./src/graphics/shapes.ts");
+var clear_1 = __webpack_require__(/*! ./graphics/clear */ "./src/graphics/clear.ts");
+var effects_1 = __webpack_require__(/*! ./graphics/effects */ "./src/graphics/effects.ts");
+var images_1 = __webpack_require__(/*! ./graphics/images */ "./src/graphics/images.ts");
+var text_1 = __webpack_require__(/*! ./graphics/text */ "./src/graphics/text.ts");
+var tiles_1 = __webpack_require__(/*! ./graphics/tiles */ "./src/graphics/tiles.ts");
+var sprites_1 = __webpack_require__(/*! ./graphics/sprites */ "./src/graphics/sprites.ts");
+var object_1 = __webpack_require__(/*! ./utils/object */ "./src/utils/object.ts");
+function create(ctx) {
+    var commands = [];
+    var filterStack = [];
+    var compositeStack = [];
+    var transformStack = [];
+    var alphaStack = [];
+    function recomputeTransforms() {
+        ctx.setTransform(1, 0, 0, 1, 0, 0); // reset
+        for (var _i = 0, transformStack_1 = transformStack; _i < transformStack_1.length; _i++) {
+            var t = transformStack_1[_i];
+            var tr = t; // t itself is the transform object
+            if ('scale' in tr) {
+                var f = tr.scale;
+                ctx.translate(tr.around.x, tr.around.y);
+                if (typeof f === 'number')
+                    ctx.scale(f, f);
+                else
+                    ctx.scale(f.x, f.y);
+                ctx.translate(-tr.around.x, -tr.around.y);
+            }
+            if ('rotate' in tr) {
+                ctx.translate(tr.around.x, tr.around.y);
+                ctx.rotate((tr.rotate * Math.PI) / 180);
+                ctx.translate(-tr.around.x, -tr.around.y);
+            }
+        }
+    }
+    function recomputeAlpha() {
+        ctx.globalAlpha = alphaStack.reduce(function (acc, a) { return acc * a; }, 1);
+    }
+    function pushBlurFilter(px) {
+        commands.push({ type: 'push', filter: "blur(".concat(px, "px)") });
+    }
+    function pushColourShiftFilter(options) {
+        var hue = options.hue, saturate = options.saturate;
+        commands.push({
+            type: 'push',
+            filter: "hue-rotate(".concat(hue, "deg) saturate(").concat(saturate, ")")
+        });
+    }
+    function pushShadow(options) {
+        commands.push({ type: 'pushShadow', shadow: options });
+    }
+    function popShadow() {
+        commands.push({ type: 'popShadow' });
+    }
+    function popFilter() {
+        commands.push({ type: 'pop' });
+    }
+    function blur(drawingOperations, radius) {
+        if (radius === void 0) { radius = 4; }
+        pushBlurFilter(radius);
+        drawingOperations();
+        popFilter();
+    }
+    function colourShift(drawingOperations, options) {
+        if (options === void 0) { options = effects_1.defaultColourShift; }
+        pushColourShiftFilter(options);
+        drawingOperations();
+        popFilter();
+    }
+    function pushComposite(op) {
+        commands.push({ type: 'pushComposite', op: op });
+    }
+    function popComposite() {
+        commands.push({ type: 'popComposite' });
+    }
+    function pushRotationTransform(rotation, around) {
+        commands.push({
+            type: 'pushTransform',
+            transform: { rotate: rotation, around: around }
+        });
+    }
+    function popTransform() {
+        commands.push({ type: 'popTransform' });
+    }
+    function pushScale(factor, around) {
+        if (around === void 0) { around = { x: 0, y: 0 }; }
+        commands.push({
+            type: 'pushTransform',
+            transform: { scale: factor, around: around }
+        });
+    }
+    function popScale() {
+        commands.push({ type: 'popTransform' });
+    }
+    function pushStrokeGlow(options) {
+        var _a, _b;
+        if (options === void 0) { options = effects_1.defaultStrokeGlow; }
+        commands.push({
+            type: 'pushShadow',
+            shadow: {
+                shadowColour: (_a = options.color) !== null && _a !== void 0 ? _a : 'white',
+                shadowBlur: (_b = options.blur) !== null && _b !== void 0 ? _b : 8,
+                shadowOffsetX: 0,
+                shadowOffsetY: 0
+            }
+        });
+    }
+    function strokeGlow(drawingOperations, options) {
+        if (options === void 0) { options = effects_1.defaultStrokeGlow; }
+        pushStrokeGlow(options);
+        drawingOperations();
+        popShadow();
+    }
+    function scale(drawingOperations, factor, around) {
+        if (around === void 0) { around = { x: 0, y: 0 }; }
+        pushScale(factor, around);
+        drawingOperations();
+        popScale();
+    }
+    function rotation(drawingOperations, rotateBy, around) {
+        if (around === void 0) { around = { x: 0, y: 0 }; }
+        pushRotationTransform(rotateBy, around);
+        drawingOperations();
+        popTransform();
+    }
+    function dodge(drawingOperations) {
+        pushComposite('color-dodge');
+        drawingOperations();
+        popComposite();
+    }
+    function overlay(drawingOperations) {
+        pushComposite('overlay');
+        drawingOperations();
+        popComposite();
+    }
+    function pushAlpha(alpha) {
+        commands.push({ type: 'pushAlpha', alpha: alpha });
+    }
+    function popAlpha() {
+        commands.push({ type: 'popAlpha' });
+    }
+    function transparency(drawingOperations, alpha) {
+        if (alpha === void 0) { alpha = 0.25; }
+        pushAlpha(alpha);
+        drawingOperations();
+        popAlpha();
+    }
+    function circle(position, radius, options) {
+        if (options === void 0) { options = defaults_1.defaultCircle; }
+        commands.push({
+            type: 'draw',
+            fn: function () { return (0, shapes_1.circle)(ctx, position, radius, options); }
+        });
+    }
+    function clear(colour) {
+        commands.push({
+            type: 'draw',
+            fn: function () { return (0, clear_1.clear)(ctx, colour); }
+        });
+    }
+    function clearRect(rectangle, colour) {
+        commands.push({
+            type: 'draw',
+            fn: function () { return (0, clear_1.clearRect)(ctx, rectangle, colour); }
+        });
+    }
+    function curve(from, to, controlPoints, options) {
+        if (options === void 0) { options = defaults_1.defaultLine; }
+        commands.push({
+            type: 'draw',
+            fn: function () { return (0, shapes_1.curve)(ctx, from, to, controlPoints, options); }
+        });
+    }
+    function image(image, position, size) {
+        commands.push({
+            type: 'draw',
+            fn: function () { return (0, images_1.image)(ctx, image, position, size); }
+        });
+    }
+    function subImage(image, position, size, subPosition, subSize) {
+        commands.push({
+            type: 'draw',
+            fn: function () { return (0, images_1.subImage)(ctx, image, position, size, subPosition, subSize); }
+        });
+    }
+    function line(from, to, options) {
+        commands.push({
+            type: 'draw',
+            fn: function () { return (0, shapes_1.line)(ctx, from, to, options); }
+        });
+    }
+    function rect(rectangle, options) {
+        commands.push({
+            type: 'draw',
+            fn: function () { return (0, shapes_1.rect)(ctx, rectangle, options); }
+        });
+    }
+    function shadow(drawingOperations, options) {
+        if (options === void 0) { options = defaults_1.defaultDropShadow; }
+        var merged = (0, object_1.merge)(defaults_1.defaultDropShadow, options);
+        pushShadow(merged);
+        drawingOperations();
+        popShadow();
+    }
+    function sprite(spr) {
+        commands.push({
+            type: 'draw',
+            fn: function () { return (0, sprites_1.sprite)(ctx, spr); }
+        });
+    }
+    function square(position, size, options) {
+        commands.push({
+            type: 'draw',
+            fn: function () { return (0, shapes_1.square)(ctx, position, size, options); }
+        });
+    }
+    function txt(position, text, options) {
+        if (text === void 0) { text = ''; }
+        commands.push({
+            type: 'draw',
+            fn: function () { return (0, text_1.txt)(ctx, position, text, options); }
+        });
+    }
+    function tiles(position, tileGrid, spriteSheets, scale) {
+        commands.push({
+            type: 'draw',
+            fn: function () { return (0, tiles_1.tiles)(ctx, position, tileGrid, spriteSheets, scale); }
+        });
+    }
+    function transform(drawingOperations, options) {
+        if (options === void 0) { options = defaults_1.defaultTransform; }
+        var merged = (0, object_1.merge)(defaults_1.defaultTransform, options);
+        scale(function () {
+            rotation(drawingOperations, merged.rotation, merged.around);
+        }, merged.scale, merged.around);
+    }
+    function multiplyEffect(drawingOperations) {
+        pushComposite('multiply');
+        drawingOperations();
+        popComposite();
+    }
+    function screen(drawingOperations) {
+        pushComposite('screen');
+        drawingOperations();
+        popComposite();
+    }
+    function render() {
+        for (var _i = 0, commands_1 = commands; _i < commands_1.length; _i++) {
+            var cmd = commands_1[_i];
+            switch (cmd.type) {
+                case 'push': {
+                    filterStack.push(cmd.filter);
+                    ctx.filter = filterStack.join(' ');
+                    break;
+                }
+                case 'pop': {
+                    filterStack.pop();
+                    ctx.filter = filterStack.join(' ');
+                    break;
+                }
+                case 'pushAlpha':
+                    alphaStack.push(cmd.alpha);
+                    recomputeAlpha();
+                    break;
+                case 'popAlpha':
+                    alphaStack.pop();
+                    recomputeAlpha();
+                    break;
+                case 'pushComposite': {
+                    compositeStack.push(cmd.op);
+                    ctx.globalCompositeOperation =
+                        compositeStack[compositeStack.length - 1];
+                    break;
+                }
+                case 'popComposite': {
+                    compositeStack.pop();
+                    ctx.globalCompositeOperation =
+                        compositeStack[compositeStack.length - 1] || 'source-over';
+                    break;
+                }
+                case 'pushTransform':
+                    transformStack.push(cmd.transform);
+                    recomputeTransforms();
+                    break;
+                case 'popTransform':
+                    transformStack.pop();
+                    recomputeTransforms();
+                    break;
+                case 'draw': {
+                    cmd.fn();
+                    break;
+                }
+            }
+        }
+        commands = [];
+        filterStack = [];
+        compositeStack = [];
+        transformStack = [];
+        alphaStack = [];
+    }
+    return {
+        circle: circle,
+        clear: clear,
+        clearRect: clearRect,
+        curve: curve,
+        dodge: dodge,
+        image: image,
+        line: line,
+        overlay: overlay,
+        rotation: rotation,
+        rect: rect,
+        shadow: shadow,
+        sprite: sprite,
+        scale: scale,
+        square: square,
+        subImage: subImage,
+        text: txt,
+        tiles: tiles,
+        transparency: transparency,
+        transform: transform,
+        multiply: multiplyEffect,
+        screen: screen,
+        blur: blur,
+        colourShift: colourShift,
+        strokeGlow: strokeGlow,
+        render: render
+    };
+}
+exports.default = { create: create };
+
+
+/***/ }),
+
+/***/ "./src/sounds.ts":
+/*!***********************!*\
+  !*** ./src/sounds.ts ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function create(ctx) {
+    return {
+        play: function (id) {
+        },
+        pause: function (id) {
+        },
+        mute: function (id) {
+        },
+        volume: function (id, level) {
+        },
+    };
+}
+exports.default = {
+    create: create
+};
 
 
 /***/ }),

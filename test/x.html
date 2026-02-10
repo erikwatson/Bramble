@@ -1,0 +1,61 @@
+<html>
+  <head></head>
+  <body>
+    <canvas id="c" width="400" height="200"></canvas>
+    <script>
+      const canvas = document.getElementById('c')
+      const ctx = canvas.getContext('2d')
+
+      // --- Command buffer and stack system ---
+      const commands = []
+      const filterStack = []
+
+      function pushBlur(px) {
+        commands.push({ type: 'push', filter: `blur(${px}px)` })
+      }
+
+      function popFilter() {
+        commands.push({ type: 'pop' })
+      }
+
+      function drawCircle(x, y, r, color) {
+        commands.push({
+          type: 'draw',
+          fn: () => {
+            ctx.beginPath()
+            ctx.arc(x, y, r, 0, Math.PI * 2)
+            ctx.fillStyle = color
+            ctx.fill()
+          }
+        })
+      }
+
+      // --- Scene construction ---
+      pushBlur(10) // outer blur
+      drawCircle(100, 100, 40, 'red') // outer circle, blur 5
+
+      pushBlur(20) // inner blur on top
+      drawCircle(300, 100, 40, 'blue') // inner circle, blur 5+5
+      popFilter() // remove inner blur
+
+      popFilter() // remove outer blur
+
+      // --- Executor ---
+      for (const cmd of commands) {
+        switch (cmd.type) {
+          case 'push':
+            filterStack.push(cmd.filter)
+            ctx.filter = filterStack.join(' ')
+            break
+          case 'pop':
+            filterStack.pop()
+            ctx.filter = filterStack.join(' ')
+            break
+          case 'draw':
+            cmd.fn()
+            break
+        }
+      }
+    </script>
+  </body>
+</html>

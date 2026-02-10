@@ -1,4 +1,4 @@
-import { Terrain, Tile } from './types'
+import { AssetManager, AssetType, Terrain, Tile } from "./types"
 
 export function loadText(path: string): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -74,11 +74,64 @@ export function loadAllTerrain(paths: string[] = []): Promise<Terrain[]> {
   return Promise.all(paths.map(x => loadTerrain(x)))
 }
 
-export default {
-  loadImage,
-  loadText,
-  loadAllText,
-  loadAllImages,
-  loadTerrain,
-  loadAllTerrain
+export function loadSound(path: string): Promise<ArrayBuffer> {
+  return new Promise((resolve, reject) => {
+    const request = new XMLHttpRequest()
+
+    request.responseType = 'arraybuffer'
+
+    request.addEventListener('load', _ => {
+      resolve(request.response)
+    })
+
+    request.addEventListener('error', event => {
+      reject(event)
+    })
+
+    request.open('GET', path)
+    request.send()
+  })
 }
+
+export function loadAllSounds(paths: string[] = []): Promise<ArrayBuffer[]> {
+  return Promise.all(paths.map(x => loadSound(x)))
+}
+
+function create(): AssetManager {
+  const store = {
+    images: new Map<string, HTMLImageElement>(),
+    sounds: new Map<string, ArrayBuffer>(),
+    data: new Map<string, string>(),
+  }
+
+  const add = async (label: string, type: AssetType, path: string) => {
+    switch(type) {
+      case 'image': {
+        const img = await loadImage(path)
+        store.images.set(label, img)
+        break
+      }
+      case 'sound': {
+        const snd = await loadSound(path)
+        store.sounds.set(label, snd)
+        break
+      }
+      default: {
+        const dta = await loadText(path)
+        store.data.set(label, dta)
+      }
+    }
+  }
+
+  const remove = (label: string, type: AssetType) => {
+    switch(type) {
+      case 'image': store.images.delete(label); break
+      case 'sound': store.sounds.delete(label); break
+      default: store.data.delete(label)
+    }
+  }
+
+  return { add, remove, assets: store }
+}
+
+export default { create }

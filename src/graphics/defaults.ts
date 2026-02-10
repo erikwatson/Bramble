@@ -1,7 +1,7 @@
 import { CircleOptions, DropShadowOptions, LineOptions, RectangleOptions, TextOptions, TransformOptions } from "../types";
 
 export const defaultDropShadow: DropShadowOptions = {
-  shadowcolour: '#000000',
+  shadowColour: '#000000',
   shadowBlur: 6,
   shadowOffsetX: 4,
   shadowOffsetY: 4

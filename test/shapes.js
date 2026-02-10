@@ -1,11 +1,11 @@
 // line testing
-test('lines', 'should draw an x', gfx => {
+test('lines', 'should draw an x',({ gfx })=> {
   gfx.clear()
   gfx.line({ x: 25, y: 25 }, { x: 75, y: 75 })
   gfx.line({ x: 75, y: 25 }, { x: 25, y: 75 })
 })
 
-test('line thickness', 'should draw lines at various thicknesses', gfx => {
+test('line thickness', 'should draw lines at various thicknesses',({ gfx })=> {
   gfx.clear()
   gfx.line({ x: 25, y: 25 }, { x: 75, y: 25 })
   gfx.line({ x: 25, y: 35 }, { x: 75, y: 35 }, { width: 2 })
@@ -15,7 +15,7 @@ test('line thickness', 'should draw lines at various thicknesses', gfx => {
   gfx.line({ x: 25, y: 75 }, { x: 75, y: 75 }, { width: 6 })
 })
 
-test('line colour', 'should draw lines in various colours', gfx => {
+test('line colour', 'should draw lines in various colours',({ gfx })=> {
   gfx.clear()
   gfx.line({ x: 25, y: 25 }, { x: 75, y: 25 })
   gfx.line({ x: 25, y: 35 }, { x: 75, y: 35 }, { colour: 'red' })
@@ -28,7 +28,7 @@ test('line colour', 'should draw lines in various colours', gfx => {
 test(
   'line thickness and colour',
   'should draw lines in various colours and thicknesses',
-  gfx => {
+ ({ gfx })=> {
     gfx.clear()
     gfx.line({ x: 25, y: 25 }, { x: 75, y: 25 })
     gfx.line({ x: 25, y: 35 }, { x: 75, y: 35 }, { colour: 'red', width: 2 })
@@ -40,12 +40,12 @@ test(
 )
 
 // circle testing
-test('default circle', 'draw a default circle', gfx => {
+test('default circle', 'draw a default circle',({ gfx })=> {
   gfx.clear('#663399')
   gfx.circle({ x: 50, y: 50 }, 25)
 })
 
-test('circle outline', 'draw a black outline circle, no fill', gfx => {
+test('circle outline', 'draw a black outline circle, no fill',({ gfx })=> {
   gfx.clear('#663399')
   gfx.circle({ x: 50, y: 50 }, 25, {
     line: { colour: 'black' },
@@ -53,7 +53,7 @@ test('circle outline', 'draw a black outline circle, no fill', gfx => {
   })
 })
 
-test('filled circle', 'draw a red circle, no outline', gfx => {
+test('filled circle', 'draw a red circle, no outline',({ gfx })=> {
   gfx.clear('#663399')
   gfx.circle({ x: 50, y: 50 }, 25, {
     fill: { colour: 'red' },
@@ -64,7 +64,7 @@ test('filled circle', 'draw a red circle, no outline', gfx => {
 test(
   'circle with thick outline',
   'should draw a circle with a thick outline',
-  gfx => {
+ ({ gfx })=> {
     gfx.clear('#663399')
     gfx.circle({ x: 50, y: 50 }, 25, {
       line: { width: 4 }
@@ -75,13 +75,13 @@ test(
 test(
   'default square',
   'should draw a black square with a white border',
-  gfx => {
+ ({ gfx })=> {
     gfx.clear('#663399')
     gfx.square({ x: 25, y: 25 }, 50)
   }
 )
 
-test('filled square', 'should draw a red square, no outline', gfx => {
+test('filled square', 'should draw a red square, no outline',({ gfx })=> {
   gfx.clear()
   gfx.square({ x: 25, y: 25 }, 50, {
     fill: { colour: 'red' },
@@ -92,7 +92,7 @@ test('filled square', 'should draw a red square, no outline', gfx => {
 test(
   'outlined square',
   'should draw a square, no fill, outlined in black',
-  gfx => {
+ ({ gfx })=> {
     gfx.clear('#663399')
     gfx.square({ x: 25, y: 25 }, 50, {
       fill: { opacity: 0 },
@@ -104,7 +104,7 @@ test(
 test(
   'thick outlined square',
   'should draw a square, no fill, thick outline',
-  gfx => {
+ ({ gfx })=> {
     gfx.clear('#663399')
     gfx.square({ x: 25, y: 25 }, 50, {
       line: { width: 4 }
@@ -115,7 +115,7 @@ test(
 test(
   'default rectangle',
   'should draw a black rectangle with a white border',
-  gfx => {
+ ({ gfx })=> {
     gfx.clear('#663399')
     gfx.rect({ x: 25, y: 38, width: 50, height: 25 })
   }
@@ -124,7 +124,7 @@ test(
 test(
   'filled rectangle',
   'should draw a black rectangle with no border',
-  gfx => {
+ ({ gfx })=> {
     gfx.clear('#663399')
     gfx.rect(
       { x: 25, y: 38, width: 50, height: 25 },
@@ -139,7 +139,7 @@ test(
 test(
   'outlined rectangle',
   'should draw a white outline of a rectangle',
-  gfx => {
+ ({ gfx })=> {
     gfx.clear('#663399')
     gfx.rect(
       { x: 25, y: 38, width: 50, height: 25 },
@@ -154,7 +154,7 @@ test(
 test(
   'thick outline rectangle',
   'should draw a black rectangle with a thick white border',
-  gfx => {
+ ({ gfx })=> {
     gfx.clear('#663399')
     gfx.rect(
       { x: 25, y: 38, width: 50, height: 25 },
@@ -166,7 +166,7 @@ test(
 )
 
 // curve testing
-test('curve', 'should draw a white curve with 2 control points', gfx => {
+test('curve', 'should draw a white curve with 2 control points',({ gfx })=> {
   gfx.clear('#663399')
   gfx.curve(
     { x: 0, y: 50 },

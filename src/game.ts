@@ -1,25 +1,33 @@
-import gfx from './graphics'
+import assets from './assets'
+import graphics from './graphics'
 import { mouse, keyboard } from './input'
+import renderer from './renderer'
+import sounds from './sounds'
 import {
   Game,
   Mouse,
   Keyboard,
-  Graphics,
-  InputState
+  InputState,
+  UpdateCallbackOptions,
+  RenderCallbackOptions
 } from './types'
 
 const create = (): Game => {
   let backgroundColor = null
 
-  let update: (dt: number, input: InputState) => void = null
-  let render: (gfx: Graphics) => void = null
+  let update: (options: UpdateCallbackOptions) => void = null
+  let render: (options: RenderCallbackOptions) => void = null
 
   // used for calculating the Delta Time for the Frame
   let prevTime = 0
 
   const canvas: HTMLCanvasElement = document.createElement('canvas')
-  const ctx = canvas.getContext('2d')
-  const graphics = gfx.create(ctx)
+  const graphicsContext = canvas.getContext('2d')
+  const audioContext = new AudioContext()
+  const gfx = graphics.create(graphicsContext)
+  const sfx = sounds.create(audioContext)
+  const assetManager = assets.create()
+  const ren = renderer.create(graphicsContext)
 
   canvas.id = 'bramble-game'
 
@@ -34,11 +42,11 @@ const create = (): Game => {
     element.appendChild(canvas)
   }
 
-  const setUpdate = (callback: (dt: number, input: InputState) => void) => {
+  const setUpdate = (callback: (options: UpdateCallbackOptions) => void) => {
     update = callback
   }
 
-  const setRender = (callback: (gfx: Graphics) => void) => {
+  const setRender = (callback: (options: RenderCallbackOptions) => void) => {
     render = callback
   }
 
@@ -52,15 +60,21 @@ const create = (): Game => {
       inputState.keyboard = keyboardInput.getState()
       inputState.mouse = mouseInput.getState()
 
-      update((performance.now() - prevTime) / 1000, inputState)
+      update({
+        dt: (performance.now() - prevTime) / 1000,
+        input: inputState,
+        sfx,
+        assets: assetManager.assets
+      })
     }
 
     if (render) {
       if (backgroundColor) {
-        graphics.clear(backgroundColor)
+        gfx.clear(backgroundColor)
       }
 
-      render(graphics)
+      render({ gfx: ren, assets: assetManager.assets })
+      ren.render()
     }
 
     mouseInput.update()
@@ -84,7 +98,7 @@ const create = (): Game => {
   // Smoothing must be re-applied if any of the following is called
   //   - setSize
   const setSmoothing = (to = true) => {
-    ctx.imageSmoothingEnabled = to
+    graphicsContext.imageSmoothingEnabled = to
   }
 
   const disableContextMenu = () => {
@@ -107,7 +121,8 @@ const create = (): Game => {
     disableContextMenu,
     setSmoothing,
     start,
-    stop
+    stop,
+    assets: assetManager
   }
 }
 

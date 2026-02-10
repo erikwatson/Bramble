@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tests</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      ul {
+        display: flex;
+        list-style-type: none;
+        padding: 1rem 0 0 1rem;
+      }
+
+      ul li {
+        color: white;
+        margin-right: 0.56rem;
+      }
+
+      a {
+        display: block;
+        text-decoration: none;
+        color: black;
+        padding: 1rem;
+        border-radius: 0.56rem;
+        background-color: white;
+      }
+
+      a:hover {
+        background-color: powderblue;
+      }
+
+      #bramble-container {
+        height: 500px;
+        width: 500px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="bramble-container"></div>
+
+    <script type="text/javascript" src="./bramble.js"></script>
+    <script type="text/javascript">
+      ;(async () => {
+        const game = Bramble.game.create()
+        const container = document.getElementById('bramble-container')
+
+        game.attachTo(container)
+        game.setSize(500, 500)
+
+        await game.assets.add(
+          'test',
+          'image',
+          'https://avatars.githubusercontent.com/u/4023639?v=4'
+        )
+
+        let position = { x: 0, y: 0 }
+        const size = { width: 500, height: 500 }
+
+        game.setUpdate(({ dt, input, sfx, assets }) => {
+          position = input.mouse.position
+        })
+
+        game.setRender(({ gfx, assets }) => {
+          gfx.clear('black')
+
+          gfx.clear('black')
+
+          gfx.transparency(() => {
+            gfx.multiply(() => {
+              gfx.circle({ x: 250, y: 300 }, 100, {
+                fill: { colour: 'red' },
+                line: { colour: 'white', width: 3 }
+              })
+            }, 0.8)
+
+            gfx.overlay(() => {
+              gfx.circle({ x: 350, y: 300 }, 100, {
+                fill: { colour: 'blue' },
+                line: { colour: 'white', width: 3 }
+              })
+            })
+          }, 0.6)
+
+          gfx.render()
+        })
+
+        game.start()
+      })()
+    </script>
+  </body>
+</html>

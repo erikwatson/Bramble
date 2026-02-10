@@ -19,13 +19,14 @@ import {
   colourShift as shift,
   strokeGlow,
   defaultColourShift,
-  defaultStrokeGlow
+  defaultStrokeGlow,
+  colourShift
 } from './graphics/effects'
 import { image, subImage } from './graphics/images'
 import { circle, curve, square, rect, line } from './graphics/shapes'
 import { txt } from './graphics/text'
 import { tiles } from './graphics/tiles'
-import { rotation, transform } from './graphics/transforms'
+import { rotation, scale, transform } from './graphics/transforms'
 import { sprite } from './graphics/sprites'
 import { clear } from './graphics/clear'
 
@@ -85,6 +86,9 @@ function create(ctx: CanvasRenderingContext2D): Graphics {
     transform: (drawingOperations, options = defaultTransform) => {
       transform(ctx, drawingOperations, options)
     },
+    scale: (drawingOperations, options) => {
+      scale(ctx, drawingOperations, options)
+    },
     multiply: drawingOperations => {
       multiplyEffect(ctx, drawingOperations)
     },
@@ -121,5 +125,11 @@ export default {
   subImage,
   text: txt,
   tiles,
-  transparency
+  transparency,
+  transform,
+  multiply: multiplyEffect,
+  screen,
+  blur,
+  colourShift,
+  strokeGlow
 }

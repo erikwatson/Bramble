@@ -1,4 +1,3 @@
-export { default as assets } from './assets'
 export { default as game } from './game'
 export { default as grid } from './grid'
 export { default as graphics } from './graphics'

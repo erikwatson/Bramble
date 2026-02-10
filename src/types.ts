@@ -3,12 +3,46 @@ export type Game = {
   canvas: HTMLCanvasElement
   disableContextMenu: () => void
   setBackgroundColor: (colour: string) => void
-  setRender: (callback: (gfx: Graphics) => void) => void
+  setRender: (callback: (options: RenderCallbackOptions) => void) => void
   setSize: (width: number, height: number) => void
   setSmoothing: (to: boolean) => void
-  setUpdate: (callback: (dt: number, input: InputState) => void) => void
+  setUpdate: (callback: (options: UpdateCallbackOptions) => void) => void
   start: () => void
   stop: () => void
+  assets: AssetManager
+}
+
+export type RenderCallbackOptions = {
+  gfx: Renderer
+  assets: AssetStore
+}
+
+export type UpdateCallbackOptions = {
+  dt: number
+  input: InputState
+  sfx: Sound
+  assets: AssetStore
+}
+
+export type AssetType = 'image' | 'sound' | 'data'
+
+export type AssetStore = {
+  images: Map<string, HTMLImageElement>
+  sounds: Map<string, ArrayBuffer>
+  data: Map<string, string>
+}
+
+export type AssetManager = {
+  add: (label: string, type: AssetType, path: string) => Promise<void>
+  remove: (label: string, type: AssetType) => void
+  assets: AssetStore
+}
+
+export type Sound = {
+  play: (id: string) => void
+  pause: (id: string) => void
+  volume: (id: string, level: number) => void
+  mute: (id: string) => void
 }
 
 export interface ButtonState {
@@ -187,7 +221,7 @@ export type SpriteSheet = {
   image: CanvasImageSource
 }
 
-export type Graphics = {
+export interface Graphics {
   circle: (position: Point, radius: number, options: CircleOptions) => void
   clear: (colour?: string) => void
   clearRect: (rectangle: Rectangle, colour?: string) => void
@@ -226,6 +260,7 @@ export type Graphics = {
     around: Point
   ) => void
   transform: (drawingOperations: () => void, options: TransformOptions) => void
+  scale: (drawingOperations: () => void, factor: number | Point, around?: Point) => void
   multiply: (drawingOperations: () => void) => void
   screen: (drawingOperations: () => void) => void
   blur: (drawingOperations: () => void, radius?: number) => void
@@ -239,8 +274,12 @@ export type Graphics = {
   ) => void
 }
 
+export interface Renderer extends Graphics {
+  render: () => void
+}
+
 export type DropShadowOptions = {
-  shadowcolour?: string
+  shadowColour?: string
   shadowBlur?: number
   shadowOffsetX?: number
   shadowOffsetY?: number
