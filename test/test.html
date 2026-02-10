@@ -52,41 +52,32 @@
         game.attachTo(container)
         game.setSize(500, 500)
 
-        await game.assets.add(
-          'test',
-          'image',
-          'https://avatars.githubusercontent.com/u/4023639?v=4'
-        )
-
-        let position = { x: 0, y: 0 }
-        const size = { width: 500, height: 500 }
+        const hero = {
+          size: 50,
+          position: { x: 0, y: 0 },
+          hue: 1
+        }
 
         game.setUpdate(({ dt, input, sfx, assets }) => {
-          position = input.mouse.position
+          hero.position = input.mouse.position
+          hero.hue += 1
         })
 
-        game.setRender(({ gfx, assets }) => {
-          gfx.clear('black')
+        game.setRender(({ gfx }) => {
+          gfx.clear('grey')
 
-          gfx.clear('black')
-
-          gfx.transparency(() => {
-            gfx.multiply(() => {
-              gfx.circle({ x: 250, y: 300 }, 100, {
-                fill: { colour: 'red' },
-                line: { colour: 'white', width: 3 }
-              })
-            }, 0.8)
-
-            gfx.overlay(() => {
-              gfx.circle({ x: 350, y: 300 }, 100, {
-                fill: { colour: 'blue' },
-                line: { colour: 'white', width: 3 }
-              })
-            })
-          }, 0.6)
-
-          gfx.render()
+          for (let i = 0; i < 15; i++) {
+            gfx.blur(() => {
+              gfx.circle(
+                { x: i * (25 + 10), y: i * (25 + 10) },
+                25,
+                {
+                  fill: { colour: 'red' },
+                  line: { width: 0 }
+                }
+              )
+            }, i * 2)
+          }
         })
 
         game.start()

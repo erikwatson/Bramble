@@ -321,6 +321,6 @@ export type ColourShiftOptions = {
 }
 
 export type StrokeGlowOptions = {
-  color?: string;
+  colour?: string;
   blur?: number
 }

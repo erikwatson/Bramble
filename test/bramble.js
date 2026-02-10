@@ -1026,50 +1026,50 @@ var common_1 = __webpack_require__(/*! ./common */ "./src/graphics/common.ts");
 var defaults_1 = __webpack_require__(/*! ./defaults */ "./src/graphics/defaults.ts");
 function shadow(ctx, drawingOperations, options) {
     if (options === void 0) { options = defaults_1.defaultDropShadow; }
-    (0, common_1.freshContext)(ctx, function () {
-        options = (0, object_1.merge)(defaults_1.defaultDropShadow, options);
-        ctx.shadowColor = options.shadowColour;
-        ctx.shadowBlur = options.shadowBlur;
-        ctx.shadowOffsetX = options.shadowOffsetX;
-        ctx.shadowOffsetY = options.shadowOffsetY;
-        drawingOperations();
-    });
+    // freshContext(ctx, () => {
+    options = (0, object_1.merge)(defaults_1.defaultDropShadow, options);
+    ctx.shadowColor = options.shadowColour;
+    ctx.shadowBlur = options.shadowBlur;
+    ctx.shadowOffsetX = options.shadowOffsetX;
+    ctx.shadowOffsetY = options.shadowOffsetY;
+    drawingOperations();
+    // })
 }
 exports.shadow = shadow;
 function dodge(ctx, drawingOperations) {
-    (0, common_1.freshContext)(ctx, function () {
-        ctx.globalCompositeOperation = 'color-dodge';
-        drawingOperations();
-    });
+    // freshContext(ctx, () => {
+    ctx.globalCompositeOperation = 'color-dodge';
+    drawingOperations();
+    // })
 }
 exports.dodge = dodge;
 function overlay(ctx, drawingOperations) {
-    (0, common_1.freshContext)(ctx, function () {
-        ctx.globalCompositeOperation = 'overlay';
-        drawingOperations();
-    });
+    // freshContext(ctx, () => {
+    ctx.globalCompositeOperation = 'overlay';
+    drawingOperations();
+    // })
 }
 exports.overlay = overlay;
 function transparency(ctx, drawingOperations, alpha) {
     if (alpha === void 0) { alpha = 0.25; }
-    (0, common_1.freshContext)(ctx, function () {
-        ctx.globalAlpha *= alpha;
-        drawingOperations();
-    });
+    // freshContext(ctx, () => {
+    ctx.globalAlpha *= alpha;
+    drawingOperations();
+    // })
 }
 exports.transparency = transparency;
 function multiply(ctx, drawingOperations) {
-    (0, common_1.freshContext)(ctx, function () {
-        ctx.globalCompositeOperation = 'multiply';
-        drawingOperations();
-    });
+    // freshContext(ctx, () => {
+    ctx.globalCompositeOperation = 'multiply';
+    drawingOperations();
+    // })
 }
 exports.multiply = multiply;
 function screen(ctx, drawingOperations) {
-    (0, common_1.freshContext)(ctx, function () {
-        ctx.globalCompositeOperation = 'screen';
-        drawingOperations();
-    });
+    // freshContext(ctx, () => {
+    ctx.globalCompositeOperation = 'screen';
+    drawingOperations();
+    // })
 }
 exports.screen = screen;
 function blur(ctx, drawingOperations, radius // default blur radius in px
@@ -1087,11 +1087,11 @@ exports.defaultColourShift = {
 };
 function colourShift(ctx, drawingOperations, options) {
     if (options === void 0) { options = exports.defaultColourShift; }
-    (0, common_1.freshContext)(ctx, function () {
-        var hue = options.hue, saturate = options.saturate;
-        ctx.filter = "hue-rotate(".concat(hue, "deg) saturate(").concat(saturate, ")");
-        drawingOperations();
-    });
+    // freshContext(ctx, () => {
+    var hue = options.hue, saturate = options.saturate;
+    ctx.filter = "hue-rotate(".concat(hue, "deg) saturate(").concat(saturate, ")");
+    drawingOperations();
+    // })
 }
 exports.colourShift = colourShift;
 exports.defaultStrokeGlow = {
@@ -1102,7 +1102,7 @@ function strokeGlow(ctx, drawingOperations, options) {
     if (options === void 0) { options = exports.defaultStrokeGlow; }
     (0, common_1.freshContext)(ctx, function () {
         var _a, _b;
-        ctx.shadowColor = (_a = options.color) !== null && _a !== void 0 ? _a : 'white';
+        ctx.shadowColor = (_a = options.colour) !== null && _a !== void 0 ? _a : 'white';
         ctx.shadowBlur = (_b = options.blur) !== null && _b !== void 0 ? _b : 8;
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 0;
@@ -2169,6 +2169,23 @@ function create(ctx) {
     var compositeStack = [];
     var transformStack = [];
     var alphaStack = [];
+    var shadowStack = [];
+    function reset() {
+        commands = [];
+        filterStack = [];
+        compositeStack = [];
+        transformStack = [];
+        alphaStack = [];
+        shadowStack = [];
+        ctx.shadowColor = 'transparent';
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.filter = 'none';
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+    }
     function recomputeTransforms() {
         ctx.setTransform(1, 0, 0, 1, 0, 0); // reset
         for (var _i = 0, transformStack_1 = transformStack; _i < transformStack_1.length; _i++) {
@@ -2192,6 +2209,20 @@ function create(ctx) {
     }
     function recomputeAlpha() {
         ctx.globalAlpha = alphaStack.reduce(function (acc, a) { return acc * a; }, 1);
+    }
+    function recomputeShadow() {
+        var top = shadowStack[shadowStack.length - 1];
+        if (!top) {
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+            return;
+        }
+        ctx.shadowColor = top.shadowColour;
+        ctx.shadowBlur = top.shadowBlur;
+        ctx.shadowOffsetX = top.shadowOffsetX;
+        ctx.shadowOffsetY = top.shadowOffsetY;
     }
     function pushBlurFilter(px) {
         commands.push({ type: 'push', filter: "blur(".concat(px, "px)") });
@@ -2255,7 +2286,7 @@ function create(ctx) {
         commands.push({
             type: 'pushShadow',
             shadow: {
-                shadowColour: (_a = options.color) !== null && _a !== void 0 ? _a : 'white',
+                shadowColour: (_a = options.colour) !== null && _a !== void 0 ? _a : 'white',
                 shadowBlur: (_b = options.blur) !== null && _b !== void 0 ? _b : 8,
                 shadowOffsetX: 0,
                 shadowOffsetY: 0
@@ -2443,17 +2474,21 @@ function create(ctx) {
                     transformStack.pop();
                     recomputeTransforms();
                     break;
+                case 'pushShadow':
+                    shadowStack.push(cmd.shadow);
+                    recomputeShadow();
+                    break;
+                case 'popShadow':
+                    shadowStack.pop();
+                    recomputeShadow();
+                    break;
                 case 'draw': {
                     cmd.fn();
                     break;
                 }
             }
         }
-        commands = [];
-        filterStack = [];
-        compositeStack = [];
-        transformStack = [];
-        alphaStack = [];
+        reset();
     }
     return {
         circle: circle,

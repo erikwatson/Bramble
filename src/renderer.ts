@@ -41,6 +41,25 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
   let compositeStack = []
   let transformStack = []
   let alphaStack = []
+  let shadowStack = []
+
+  function reset() {
+    commands = []
+    filterStack = []
+    compositeStack = []
+    transformStack = []
+    alphaStack = []
+    shadowStack = []
+
+    ctx.shadowColor = 'transparent'
+    ctx.shadowBlur = 0
+    ctx.shadowOffsetX = 0
+    ctx.shadowOffsetY = 0
+    ctx.filter = 'none'
+    ctx.globalAlpha = 1
+    ctx.globalCompositeOperation = 'source-over'
+    ctx.setTransform(1, 0, 0, 1, 0, 0)
+  }
 
   function recomputeTransforms() {
     ctx.setTransform(1, 0, 0, 1, 0, 0) // reset
@@ -66,6 +85,23 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
 
   function recomputeAlpha() {
     ctx.globalAlpha = alphaStack.reduce((acc, a) => acc * a, 1)
+  }
+
+  function recomputeShadow() {
+    const top = shadowStack[shadowStack.length - 1]
+
+    if (!top) {
+      ctx.shadowColor = 'transparent'
+      ctx.shadowBlur = 0
+      ctx.shadowOffsetX = 0
+      ctx.shadowOffsetY = 0
+      return
+    }
+
+    ctx.shadowColor = top.shadowColour
+    ctx.shadowBlur = top.shadowBlur
+    ctx.shadowOffsetX = top.shadowOffsetX
+    ctx.shadowOffsetY = top.shadowOffsetY
   }
 
   function pushBlurFilter(px: number) {
@@ -138,10 +174,11 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
   }
 
   function pushStrokeGlow(options: StrokeGlowOptions = defaultStrokeGlow) {
+
     commands.push({
       type: 'pushShadow',
       shadow: {
-        shadowColour: options.color ?? 'white',
+        shadowColour: options.colour ?? 'white',
         shadowBlur: options.blur ?? 8,
         shadowOffsetX: 0,
         shadowOffsetY: 0
@@ -392,6 +429,16 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
           recomputeTransforms()
           break
 
+        case 'pushShadow':
+          shadowStack.push(cmd.shadow)
+          recomputeShadow()
+          break
+
+        case 'popShadow':
+          shadowStack.pop()
+          recomputeShadow()
+          break
+
         case 'draw': {
           cmd.fn()
           break
@@ -399,11 +446,7 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
       }
     }
 
-    commands = []
-    filterStack = []
-    compositeStack = []
-    transformStack = []
-    alphaStack = []
+    reset();
   }
 
   return {

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas Arc</title>
+  <style>
+    body {
+      margin: 0;
+      background: white;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="600" height="600"></canvas>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.shadowColor = 'red';
+    ctx.shadowBlur = 20;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+    ctx.arc(300, 300, 80, 0, Math.PI * 2);
+    ctx.stroke();
+  </script>
+</body>
+</html>

@@ -8,7 +8,7 @@ export function shadow(
   drawingOperations: () => void,
   options: DropShadowOptions = defaultDropShadow
 ) {
-  freshContext(ctx, () => {
+  // freshContext(ctx, () => {
     options = merge(defaultDropShadow, options)
 
     ctx.shadowColor = options.shadowColour
@@ -17,21 +17,21 @@ export function shadow(
     ctx.shadowOffsetY = options.shadowOffsetY
 
     drawingOperations()
-  })
+  // })
 }
 
 export function dodge(ctx: CanvasRenderingContext2D, drawingOperations: () => void) {
-  freshContext(ctx, () => {
+  // freshContext(ctx, () => {
     ctx.globalCompositeOperation = 'color-dodge'
     drawingOperations()
-  })
+  // })
 }
 
 export function overlay(ctx: CanvasRenderingContext2D, drawingOperations: () => void) {
-  freshContext(ctx, () => {
+  // freshContext(ctx, () => {
     ctx.globalCompositeOperation = 'overlay'
     drawingOperations()
-  })
+  // })
 }
 
 export function transparency(
@@ -39,30 +39,30 @@ export function transparency(
   drawingOperations: () => void,
   alpha = 0.25
 ) {
-  freshContext(ctx, () => {
+  // freshContext(ctx, () => {
     ctx.globalAlpha *= alpha
     drawingOperations()
-  })
+  // })
 }
 
 export function multiply(
   ctx: CanvasRenderingContext2D,
   drawingOperations: () => void
 ) {
-  freshContext(ctx, () => {
+  // freshContext(ctx, () => {
     ctx.globalCompositeOperation = 'multiply'
     drawingOperations()
-  })
+  // })
 }
 
 export function screen(
   ctx: CanvasRenderingContext2D,
   drawingOperations: () => void
 ) {
-  freshContext(ctx, () => {
+  // freshContext(ctx, () => {
     ctx.globalCompositeOperation = 'screen'
     drawingOperations()
-  })
+  // })
 }
 
 export function blur(
@@ -86,11 +86,11 @@ export function colourShift(
   drawingOperations: () => void,
   options: ColourShiftOptions = defaultColourShift
 ) {
-  freshContext(ctx, () => {
+  // freshContext(ctx, () => {
     const { hue, saturate } = options
     ctx.filter = `hue-rotate(${hue}deg) saturate(${saturate})`
     drawingOperations()
-  })
+  // })
 }
 
 export const defaultStrokeGlow = {
@@ -104,7 +104,7 @@ export function strokeGlow(
   options: StrokeGlowOptions = defaultStrokeGlow
 ) {
   freshContext(ctx, () => {
-    ctx.shadowColor = options.color ?? 'white'
+    ctx.shadowColor = options.colour ?? 'white'
     ctx.shadowBlur = options.blur ?? 8
     ctx.shadowOffsetX = 0
     ctx.shadowOffsetY = 0
