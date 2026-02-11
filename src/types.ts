@@ -28,7 +28,7 @@ export type AssetType = 'image' | 'sound' | 'data'
 
 export type AssetStore = {
   images: Map<string, HTMLImageElement>
-  sounds: Map<string, ArrayBuffer>
+  sounds: Map<string, AudioBuffer>
   data: Map<string, string>
 }
 
@@ -39,8 +39,8 @@ export type AssetManager = {
 }
 
 export type Sound = {
-  play: (id: string) => void
-  pause: (id: string) => void
+  play: (id: string, buffer: AudioBuffer) => void
+  stop: (id: string) => void
   volume: (id: string, level: number) => void
   mute: (id: string) => void
 }

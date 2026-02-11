@@ -1,4 +1,4 @@
-import { AssetManager, AssetType, Terrain, Tile } from "./types"
+import { AssetManager, AssetStore, AssetType, Terrain, Tile } from "./types"
 
 export function loadText(path: string): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -97,10 +97,10 @@ export function loadAllSounds(paths: string[] = []): Promise<ArrayBuffer[]> {
   return Promise.all(paths.map(x => loadSound(x)))
 }
 
-function create(): AssetManager {
+function create(ctx: AudioContext): AssetManager {
   const store = {
     images: new Map<string, HTMLImageElement>(),
-    sounds: new Map<string, ArrayBuffer>(),
+    sounds: new Map<string, AudioBuffer>(),
     data: new Map<string, string>(),
   }
 
@@ -111,9 +111,10 @@ function create(): AssetManager {
         store.images.set(label, img)
         break
       }
-      case 'sound': {
-        const snd = await loadSound(path)
-        store.sounds.set(label, snd)
+     case 'sound': {
+        const arrayBuffer = await loadSound(path)
+        const audioBuffer = await ctx.decodeAudioData(arrayBuffer)
+        store.sounds.set(label, audioBuffer)
         break
       }
       default: {

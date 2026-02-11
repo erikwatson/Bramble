@@ -8,3 +8,5 @@ images/
 terrain/
 dist/
 .DS_Store
+*.mp3
+test/bramble.js

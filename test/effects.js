@@ -156,3 +156,148 @@ test('strokeGlow', 'should draw a circle with a glowing stroke',({ gfx })=> {
     { color: 'cyan', blur: 8 }
   )
 })
+
+test(
+  'blur + colourShift',
+  'draw a circle with blur and colourShift',
+  ({ gfx }) => {
+    gfx.clear('white')
+    gfx.blur(() => {
+      gfx.colourShift(() => {
+        gfx.circle({ x: 50, y: 50 }, 25, { fill: { colour: 'red' } })
+      }, { hue: 180, saturate: 2 })
+    }, 5)
+  }
+)
+
+test(
+  'blur + colourShift + shadow',
+  'draw a circle with blur, colourShift, and shadow',
+  ({ gfx }) => {
+    gfx.clear('white')
+    gfx.shadow(() => {
+      gfx.blur(() => {
+        gfx.colourShift(() => {
+          gfx.circle({ x: 50, y: 50 }, 25, { fill: { colour: 'blue' } })
+        }, { hue: 90, saturate: 1.5 })
+      }, 4)
+    }, { shadowColour: 'black', shadowBlur: 6 })
+  }
+)
+
+test(
+  'strokeGlow + blur + transparency',
+  'draw a circle with strokeGlow, blur, and transparency',
+  ({ gfx }) => {
+    gfx.clear('black')
+    gfx.transparency(() => {
+      gfx.blur(() => {
+        gfx.strokeGlow(() => {
+          gfx.circle({ x: 50, y: 50 }, 25, { fill: { colour: 'white' }, line: { colour: 'cyan', width: 3 } })
+        }, { color: 'cyan', blur: 6 })
+      }, 4)
+    }, 0.5)
+  }
+)
+
+// blur + shadow
+test(
+  'blur + shadow',
+  'draw a circle with a soft blur and a shadow behind it',
+  ({ gfx }) => {
+    gfx.clear('white')
+    gfx.blur(() =>
+      gfx.shadow(() => gfx.circle({ x: 50, y: 50 }, 25, { fill: { colour: 'orange' } })),
+    8)
+  }
+)
+
+// colourShift + shadow
+test(
+  'colourShift + shadow',
+  'draw a circle with hue/saturation shift and a shadow',
+  ({ gfx }) => {
+    // TODO: implement
+  }
+)
+
+// blur + transparency
+test(
+  'blur + transparency',
+  'draw a partially transparent circle with blurred edges',
+  ({ gfx }) => {
+    // TODO: implement
+  }
+)
+
+// colourShift + transparency
+test(
+  'colourShift + transparency',
+  'draw a partially transparent circle with hue and saturation changes',
+  ({ gfx }) => {
+    // TODO: implement
+  }
+)
+
+// shadow + transparency
+test(
+  'shadow + transparency',
+  'draw a semi-transparent circle with a shadow cast behind it',
+  ({ gfx }) => {
+    // TODO: implement
+  }
+)
+
+// blur + colourShift + strokeGlow
+test(
+  'blur + colourShift + strokeGlow',
+  'draw a circle with blur, colour adjustment, and a glowing stroke',
+  ({ gfx }) => {
+    // TODO: implement
+  }
+)
+
+// blur + shadow + strokeGlow
+test(
+  'blur + shadow + strokeGlow',
+  'draw a circle with blur, shadow, and a glowing outline',
+  ({ gfx }) => {
+    // TODO: implement
+  }
+)
+
+// colourShift + shadow + strokeGlow
+test(
+  'colourShift + shadow + strokeGlow',
+  'draw a circle with hue/saturation change, shadow, and glowing stroke',
+  ({ gfx }) => {
+    // TODO: implement
+  }
+)
+
+// transparency + strokeGlow
+test(
+  'transparency + strokeGlow',
+  'draw a semi-transparent circle with a glowing outline',
+  ({ gfx }) => {
+    // TODO: implement
+  }
+)
+
+// transparency + shadow + strokeGlow
+test(
+  'transparency + shadow + strokeGlow',
+  'draw a semi-transparent circle with shadow and glowing stroke',
+  ({ gfx }) => {
+    // TODO: implement
+  }
+)
+
+// transparency + blur + strokeGlow
+test(
+  'transparency + blur + strokeGlow',
+  'draw a semi-transparent circle with blurred edges and glowing stroke',
+  ({ gfx }) => {
+    // TODO: implement
+  }
+)

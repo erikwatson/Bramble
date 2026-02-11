@@ -37,6 +37,10 @@
         height: 500px;
         width: 500px;
       }
+
+      body {
+        background-color: black;
+      }
     </style>
   </head>
 
@@ -55,28 +59,51 @@
         const hero = {
           size: 50,
           position: { x: 0, y: 0 },
-          hue: 1
+          hue: 1,
+          rotation: 0
         }
+
+        await game.assets.add('song', 'sound', 'test.mp3')
+
+        let isPlaying = false
 
         game.setUpdate(({ dt, input, sfx, assets }) => {
           hero.position = input.mouse.position
           hero.hue += 1
+          hero.rotation += 1
+
+          if (input.mouse.left.justPressed) {
+            if (isPlaying) {
+              isPlaying = false
+              sfx.stop('song')
+            } else {
+              isPlaying = true
+              sfx.play('song')
+            }
+          }
+
+          // console.log(assets.sounds.get('song'))
+          // exit
         })
 
         game.setRender(({ gfx }) => {
-          gfx.clear('grey')
+          gfx.clear('black')
 
           for (let i = 0; i < 15; i++) {
-            gfx.blur(() => {
-              gfx.circle(
-                { x: i * (25 + 10), y: i * (25 + 10) },
-                25,
-                {
-                  fill: { colour: 'red' },
-                  line: { width: 0 }
-                }
-              )
-            }, i * 2)
+            gfx.rotation(
+              () => {
+                gfx.blur(() => {
+                  gfx.rotation(() => {
+                    gfx.circle({ x: i * (25 + 10), y: i * (25 + 10) }, 25, {
+                      fill: { colour: 'red' },
+                      line: { width: 0 }
+                    })
+                  }, hero.rotation)
+                }, i * 2)
+              },
+              (hero.rotation + ( i)) / 10,
+              { x: 250, y: 250 }
+            )
           }
         })
 

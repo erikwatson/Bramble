@@ -25,8 +25,8 @@ const create = (): Game => {
   const graphicsContext = canvas.getContext('2d')
   const audioContext = new AudioContext()
   const gfx = graphics.create(graphicsContext)
-  const sfx = sounds.create(audioContext)
-  const assetManager = assets.create()
+  const assetManager = assets.create(audioContext)
+  const sfx = sounds.create(audioContext, assetManager.assets)
   const ren = renderer.create(graphicsContext)
 
   canvas.id = 'bramble-game'
