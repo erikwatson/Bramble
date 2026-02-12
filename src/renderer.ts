@@ -35,8 +35,71 @@ import { tiles as gfxTiles } from './graphics/tiles'
 import { sprite as gfxSprite } from './graphics/sprites'
 import { merge } from './utils/object'
 
+type DrawCommand = {
+  type: 'draw'
+  fn: () => void
+}
+
+type PushFilter = {
+  type: 'pushFilter'
+  filter: string
+}
+
+type PopFilter = {
+  type: 'popFilter'
+}
+
+type PushShadow = {
+  type: 'pushShadow'
+  shadow: DropShadowOptions
+}
+
+type PopShadow = {
+  type: 'popShadow'
+}
+
+type PushComposite = {
+  type: 'pushComposite'
+  op: GlobalCompositeOperation
+}
+
+type PopComposite = {
+  type: 'popComposite'
+}
+
+type PushTransform = {
+  type: 'pushTransform'
+  transform: { rotate?: number; around?: Point; scale?: number | Point }
+}
+
+type PopTransform = {
+  type: 'popTransform'
+}
+
+type PushAlpha = {
+  type: 'pushAlpha'
+  alpha: number
+}
+
+type PopAlpha = {
+  type: 'popAlpha'
+}
+
+type Command =
+  | DrawCommand
+  | PushFilter
+  | PopFilter
+  | PushShadow
+  | PopShadow
+  | PushComposite
+  | PopComposite
+  | PushTransform
+  | PopTransform
+  | PushAlpha
+  | PopAlpha
+
 function create(ctx: CanvasRenderingContext2D): Renderer {
-  let commands = []
+  let commands: Command[] = []
   let filterStack = []
   let compositeStack = []
   let transformStack = []
@@ -105,13 +168,13 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
   }
 
   function pushBlurFilter(px: number) {
-    commands.push({ type: 'push', filter: `blur(${px}px)` })
+    commands.push({ type: 'pushFilter', filter: `blur(${px}px)` })
   }
 
   function pushColourShiftFilter(options: ColourShiftOptions) {
     const { hue, saturate } = options
     commands.push({
-      type: 'push',
+      type: 'pushFilter',
       filter: `hue-rotate(${hue}deg) saturate(${saturate})`
     })
   }
@@ -125,7 +188,7 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
   }
 
   function popFilter() {
-    commands.push({ type: 'pop' })
+    commands.push({ type: 'popFilter' })
   }
 
   function blur(drawingOperations: () => void, radius = 4) {
@@ -174,7 +237,6 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
   }
 
   function pushStrokeGlow(options: StrokeGlowOptions = defaultStrokeGlow) {
-
     commands.push({
       type: 'pushShadow',
       shadow: {
@@ -385,13 +447,13 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
   function render() {
     for (const cmd of commands) {
       switch (cmd.type) {
-        case 'push': {
+        case 'pushFilter': {
           filterStack.push(cmd.filter)
           ctx.filter = filterStack.join(' ')
           break
         }
 
-        case 'pop': {
+        case 'popFilter': {
           filterStack.pop()
           ctx.filter = filterStack.join(' ')
           break
@@ -446,7 +508,7 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
       }
     }
 
-    reset();
+    reset()
   }
 
   return {
