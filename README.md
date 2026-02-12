@@ -9,38 +9,83 @@ A creative coding library for the web.
 
 ## Features
 
-- Asset Loading
-  - string
+- Asset loading
+  - data
   - image
-  - terrain
-- Input Handling
+  - sound
+- Input handling
   - keyboard
   - mouse
   - ~~gamepad~~
-- Simple Drawing API
-  - circles
-  - rectangles
-  - lines
-  - images
-  - animated sprites
+- Simple drawing API
   - text
-  - tilesheets that auto-tile
-  - effects (overlay, dodge, shadow, transparency)
-- Collision Detection
-  - Point vs Rectangle
-  - Line vs Rectangle
-  - Rectangle vs Rectangle
-  - Dynamic Rectangle vs Rectangle
-  - Line vs Quadratic Bezier curve
-- 2D Vectors
-- ~~Music and SFX playback~~
-- Save/Load
+  - lines
+  - shapes
+  - images
+  - effects
+- Simple audio API
+- Save/load persistent state
+- Math
+  - 2D vectors
+  - Collision detection
 
+## Example
+
+```js
+const game = Bramble.game.create()
+const container = document.getElementById('bramble-container')
+
+game.attachTo(container)
+game.setSize(500, 500)
+
+const id = 'song'
+const assetType = 'sound'
+const assetPath = 'test.mp3'
+
+await game.assets.add(id, assetType, assetPath)
+
+let hero = {
+  position: { x: 0, y: 0 },
+  size: 50,
+  colour: 'white'
+}
+
+let isPlaying = false
+
+game.setUpdate(({ input, sfx }) => {
+  hero.position = input.mouse.position
+
+  // start / stop the music
+  if (input.mouse.left.justPressed || input.keyboard.space.justPressed) {
+    if (isPlaying) {
+      sfx.stop(id)
+    } else {
+      sfx.play(id)
+    }
+
+    isPlaying = !isPlaying
+  }
+})
+
+const blurAmount = 8
+
+game.setRender(({ gfx }) => {
+  gfx.clear('black')
+
+  gfx.blur(() => {
+    gfx.circle(hero.position, hero.size, {
+      fill: { colour: hero.colour },
+      line: { width: 0 }
+    })
+  }, blurAmount)
+})
+
+game.start()
+```
 
 ## Authors
 
 - [Erik Watson](http://erikwatson.me)
-
 
 # Package developers only
 
@@ -50,4 +95,3 @@ A creative coding library for the web.
 2. Run a production build with `npm run build:prod`
 3. Update the version number `npm version major` `npm version minor` or `npm version patch`
 4. `npm run release`
-
