@@ -56,55 +56,35 @@
         game.attachTo(container)
         game.setSize(500, 500)
 
-        const hero = {
-          size: 50,
-          position: { x: 0, y: 0 },
-          hue: 1,
-          rotation: 0
-        }
-
-        await game.assets.add('song', 'sound', 'test.mp3')
-
-        let isPlaying = false
+        let r = 1
 
         game.setUpdate(({ dt, input, sfx, assets }) => {
-          hero.position = input.mouse.position
-          hero.hue += 1
-          hero.rotation += 1
-
-          if (input.mouse.left.justPressed) {
-            if (isPlaying) {
-              isPlaying = false
-              sfx.stop('song')
-            } else {
-              isPlaying = true
-              sfx.play('song')
-            }
-          }
-
-          // console.log(assets.sounds.get('song'))
-          // exit
+          r += 1 * dt
         })
 
         game.setRender(({ gfx }) => {
-          gfx.clear('black')
+          gfx.clear('white')
 
-          for (let i = 0; i < 15; i++) {
-            gfx.rotation(
-              () => {
+          gfx.shadow(() => {
+            for (let i = 0; i < 10; i++) {
+              gfx.rotation(() => {
                 gfx.blur(() => {
-                  gfx.rotation(() => {
-                    gfx.circle({ x: i * (25 + 10), y: i * (25 + 10) }, 25, {
-                      fill: { colour: 'red' },
-                      line: { width: 0 }
-                    })
-                  }, hero.rotation)
-                }, i * 2)
-              },
-              (hero.rotation + ( i)) / 10,
-              { x: 250, y: 250 }
-            )
-          }
+                  gfx.colourShift(
+                    () => {
+                      gfx.circle({ x: 250 + i * 50, y: 50 + i * 50 }, 25, {
+                        fill: { colour: 'red' },
+                        line: { width: 0 }
+                      })
+                    },
+                    {
+                      saturate: 1,
+                      hue: i * 25
+                    }
+                  )
+                }, 10 * i)
+              }, i * r)
+            }
+          })
         })
 
         game.start()

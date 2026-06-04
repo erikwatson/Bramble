@@ -1,6 +1,6 @@
 import { Vec2 } from './types'
 
-function create(_x: number, _y: number): Vec2 {
+export function create(_x: number, _y: number): Vec2 {
   let x = _x
   let y = _y
 
@@ -108,17 +108,23 @@ function create(_x: number, _y: number): Vec2 {
   }
 }
 
-const fromDegrees = (degrees: number): Vec2 => {
+export function degreesToRadians(degrees: number): number {
+  return degrees * (Math.PI / 180)
+}
+
+export const vec2FromDegrees = (degrees: number): Vec2 => {
   const rad = degrees * (Math.PI / 180)
   return create(Math.cos(rad), Math.sin(rad))
 }
 
-const clone = (v: Vec2): Vec2 => {
-  return create(v.x, v.y)
+export const vec2ToDegrees = (v: Vec2): number => {
+  return Math.atan2(v.y, v.x) * (180 / Math.PI)
 }
 
-export default {
-  clone,
-  create,
-  fromDegrees
+export function radiansToDegrees(radians: number): number {
+  return radians * (180 / Math.PI)
+}
+
+export const clone = (v: Vec2): Vec2 => {
+  return create(v.x, v.y)
 }

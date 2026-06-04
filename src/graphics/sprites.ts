@@ -1,5 +1,5 @@
 import { Sprite } from "../types";
-import number from "../utils/number";
+import { vec2 } from "../bramble";
 import { freshContext } from "./common";
 import { subImage, image } from "./images";
 
@@ -9,7 +9,7 @@ export function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
     const halfHeight = sprite.size.height / 2
 
     ctx.translate(sprite.position.x + halfWidth, sprite.position.y + halfHeight)
-    ctx.rotate(number.toRadians(sprite.rotation))
+    ctx.rotate(vec2.degreesToRadians(sprite.rotation))
 
     if (sprite.frames.length > 1) {
       subImage(

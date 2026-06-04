@@ -307,7 +307,7 @@ function lineVsCubicBezierCurve(
     const angleRadians = Math.atan2(tangent.y, tangent.x)
     const angleDegrees = angleRadians * (180 / Math.PI)
 
-    const tempvec = vec2.fromDegrees(angleDegrees)
+    const tempvec = vec2.vec2FromDegrees(angleDegrees)
     const normal = vec2.create(tempvec.y, -tempvec.x)
 
     // Calculate the distance along the ray
@@ -330,7 +330,7 @@ function lineVsCubicBezierCurve(
         remainderLength,
         angleRadians,
         angleDegrees,
-        direction: vec2.fromDegrees(angleDegrees),
+        direction: vec2.vec2FromDegrees(angleDegrees),
         normal
       })
     }
