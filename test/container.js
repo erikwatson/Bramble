@@ -23,7 +23,6 @@ function createAndAttachToContainer(title, description, content) {
 }
 
 function test(title, description, renderFunction, updateFunction, options) {
-  console.log('Bramble', Bramble)
   const game = Bramble.game.create()
   const container = createAndAttachToContainer(title, description, game.canvas)
 

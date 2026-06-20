@@ -6,7 +6,6 @@ export function image(
   position: Point,
   size?: Size
 ) {
-  console.log(image)
   if (size) {
     ctx.drawImage(image, position.x, position.y, size.width, size.height)
   } else {
