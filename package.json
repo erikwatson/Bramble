@@ -1,6 +1,6 @@
 {
   "name": "@erikwatson/bramble",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "A creative coding library.",
   "main": "dist/bramble.js",
   "types": "./dist/bramble.d.ts",
@@ -36,8 +36,7 @@
     "watch": "npx webpack-cli --config webpack.dev.js --watch",
     "docs": "npx typedoc ./src/bramble.ts"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/erikwatson/Bramble.git"
