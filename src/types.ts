@@ -253,7 +253,7 @@ export interface Graphics {
   shadow: (drawingOperations: () => void, options?: DropShadowOptions) => void
   dodge: (drawingOperations: () => void) => void
   overlay: (drawingOperations: () => void) => void
-  transparency: (drawingOperations: () => void) => void
+  transparency: (drawingOperations: () => void, alpha: number) => void
   rotation: (
     drawingOperations: () => void,
     rotation: number,
