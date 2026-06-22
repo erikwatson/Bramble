@@ -189,7 +189,8 @@ export type CircleOptions = {
 export type LineOptions = {
   width?: number
   colour?: string
-  opacity?: number
+  opacity?: number,
+  cap?: 'round' | 'butt' | 'square'
 }
 
 export type Rectangle = {

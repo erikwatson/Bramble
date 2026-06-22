@@ -22,7 +22,8 @@ export const defaultRect: RectangleOptions = {
 export const defaultLine: LineOptions = {
   width: 1,
   colour: '#FFFFFF',
-  opacity: 1
+  opacity: 1,
+  cap: 'round'
 }
 
 export const defaultCircle: CircleOptions = {

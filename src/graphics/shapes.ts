@@ -71,6 +71,7 @@ export function line(
     transparency(ctx, () => {
       ctx.strokeStyle = options.colour
       ctx.lineWidth = options.width
+      ctx.lineCap = options.cap
       ctx.beginPath()
       ctx.moveTo(from.x, from.y)
       ctx.lineTo(to.x, to.y)
