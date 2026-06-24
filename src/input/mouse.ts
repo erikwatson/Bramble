@@ -24,7 +24,8 @@ function create(canvas: HTMLCanvasElement): Mouse {
     return {
       ...buttonState,
       moved: false,
-      direction: 'up'
+      direction: 'up',
+      delta: 0
     }
   }
 
@@ -114,6 +115,8 @@ function create(canvas: HTMLCanvasElement): Mouse {
     if (mouse.wheel.moved !== false) {
       mouse.wheel.direction = event.deltaY < 0 ? 'up' : 'down'
     }
+
+    mouse.wheel.delta = event.DOM_DELTA_PIXEL
   }
 
   const update = () => {

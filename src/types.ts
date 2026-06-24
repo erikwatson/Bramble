@@ -55,6 +55,7 @@ export interface ButtonState {
 export interface WheelState extends ButtonState {
   moved: boolean
   direction: string
+  delta: number
 }
 
 export type MouseState = {
