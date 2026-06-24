@@ -116,7 +116,7 @@ function create(canvas: HTMLCanvasElement): Mouse {
       mouse.wheel.direction = event.deltaY < 0 ? 'up' : 'down'
     }
 
-    mouse.wheel.delta = event.DOM_DELTA_PIXEL
+    mouse.wheel.delta = event.deltaY
   }
 
   const update = () => {
