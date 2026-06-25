@@ -145,7 +145,7 @@ function create(canvas: HTMLCanvasElement): Mouse {
     canvas.addEventListener('mousemove', move)
     canvas.addEventListener('mousedown', down)
     canvas.addEventListener('mouseup', up)
-    canvas.addEventListener('wheel', wheel)
+    window.addEventListener('wheel', wheel)
 
     // default mouse position, center of screen
     mouse.position.x = canvas.width / 2
