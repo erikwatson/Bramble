@@ -110,13 +110,20 @@ function create(canvas: HTMLCanvasElement): Mouse {
   }
 
   const wheel = (event: WheelEvent) => {
-    mouse.wheel.moved = event.deltaY === 0 ? false : true
+    let delta = event.deltaY
 
-    if (mouse.wheel.moved !== false) {
-      mouse.wheel.direction = event.deltaY < 0 ? 'up' : 'down'
+    if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) {
+      delta *= 16
+    } else if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) {
+      delta *= window.innerHeight
     }
 
-    mouse.wheel.delta = event.deltaY
+    mouse.wheel.delta += delta
+    mouse.wheel.moved = delta !== 0
+
+    if (mouse.wheel.moved) {
+      mouse.wheel.direction = delta < 0 ? 'up' : 'down'
+    }
   }
 
   const update = () => {
@@ -128,6 +135,7 @@ function create(canvas: HTMLCanvasElement): Mouse {
     mouse.right.justReleased = false
     mouse.wheel.justPressed = false
     mouse.wheel.justReleased = false
+    mouse.wheel.delta = 0
 
     prevMouse = clone(mouse)
   }
