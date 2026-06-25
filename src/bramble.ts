@@ -3,7 +3,8 @@ export { default as grid } from './grid'
 export { default as graphics } from './graphics'
 export { keyboard, mouse } from './input'
 export { default as sprite } from './sprite'
-export * as vec2 from './vec2'
+import * as vec2 from './vec2'
+export { vec2 }
 export { save, load } from './storage'
 export { default as collisions } from './collision'
 export * from './types';
