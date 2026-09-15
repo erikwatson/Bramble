@@ -10,3 +10,4 @@ dist/
 .DS_Store
 *.mp3
 test/bramble.js
+test/bramble.js.LICENSE.txt

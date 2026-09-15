@@ -11,25 +11,26 @@ export default [
     mode: 'production',
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'bramble.esm.js',
+      filename: 'bramble.js',
+      publicPath: '/js/',
       library: {
-        type: 'module'
+        name: 'Bramble',
+        type: 'umd'
       },
-      module: true
-    },
-    experiments: {
-      outputModule: true
+      globalObject: 'this'
     }
   }),
-
   merge(common, {
     mode: 'production',
     output: {
-      path: path.resolve(__dirname, 'dist'),
-      filename: 'bramble.cjs',
+      path: path.resolve(__dirname, 'test'),
+      filename: 'bramble.js',
+      publicPath: '/js/',
       library: {
-        type: 'commonjs2'
-      }
+        name: 'Bramble',
+        type: 'umd'
+      },
+      globalObject: 'this'
     }
   })
 ];

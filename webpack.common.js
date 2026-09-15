@@ -1,21 +1,10 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const path = require('path')
-
-module.exports = {
+export default {
   entry: './src/bramble.ts',
 
   target: 'web',
 
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bramble.js',
-    publicPath: '/js/',
-    library: 'Bramble',
-    libraryTarget: 'umd'
-  },
-
   resolve: {
-    extensions: ['.webpack.js', '.web.js', '.ts', '.js']
+    extensions: ['.ts', '.js']
   },
 
   module: {
@@ -23,23 +12,13 @@ module.exports = {
       {
         test: /\.ts$/,
         exclude: /(node_modules|dist)/,
-        use: [
-          {
-            loader: 'ts-loader'
+        use: {
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true
           }
-        ]
+        }
       }
     ]
-  },
-
-  plugins: [
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: 'dist/bramble.js',
-          to: '../test/bramble.js',
-        },
-      ],
-    })
-  ]
-}
+  }
+};
