@@ -32,5 +32,18 @@ export default [
       },
       globalObject: 'this'
     }
+  }),
+  merge(common, {
+    mode: 'production',
+    output: {
+      path: path.resolve(__dirname, 'examples'),
+      filename: 'bramble.js',
+      publicPath: '/js/',
+      library: {
+        name: 'Bramble',
+        type: 'umd'
+      },
+      globalObject: 'this'
+    }
   })
 ];

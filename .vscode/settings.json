@@ -2,5 +2,6 @@
     "cSpell.words": [
         "colour",
         "normalise"
-    ]
+    ],
+    "js/ts.tsdk.path": "node_modules/typescript/lib"
 }

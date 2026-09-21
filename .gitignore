@@ -11,3 +11,6 @@ dist/
 *.mp3
 test/bramble.js
 test/bramble.js.LICENSE.txt
+examples/bramble.js
+test/bramble.esm.js
+test/bramble.cjs
