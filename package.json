@@ -45,10 +45,16 @@
     "url": "git+https://github.com/erikwatson/Bramble.git"
   },
   "keywords": [
-    "Multimedia",
-    "Graphics",
-    "Sound",
-    "Games"
+    "creative-coding",
+    "game-development",
+    "2d",
+    "graphics",
+    "canvas",
+    "typescript",
+    "javascript",
+    "html5",
+    "browser",
+    "interactive"
   ],
   "bugs": {
     "url": "https://github.com/erikwatson/Bramble/issues"
