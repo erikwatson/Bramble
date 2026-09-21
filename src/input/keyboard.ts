@@ -80,8 +80,8 @@ function update() {
 function create(canvas: HTMLCanvasElement): Keyboard {
   const start = () => {
     // keyboard events
-    canvas.addEventListener('keydown', down)
-    canvas.addEventListener('keyup', up)
+    window.addEventListener('keydown', down)
+    window.addEventListener('keyup', up)
   }
 
   return {

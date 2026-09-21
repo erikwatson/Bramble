@@ -1,15 +1,14 @@
 import { Sprite } from "../types";
 import { vec2 } from "../bramble";
-import { freshContext } from "./common";
 import { subImage, image } from "./images";
 
 export function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
-  freshContext(ctx, () => {
+  // freshContext(ctx, () => {
     const halfWidth = sprite.size.width / 2
     const halfHeight = sprite.size.height / 2
 
     ctx.translate(sprite.position.x + halfWidth, sprite.position.y + halfHeight)
-    ctx.rotate(vec2.degreesToRadians(sprite.rotation))
+    ctx.rotate(vec2.degreesToRadians(sprite.angle))
 
     if (sprite.frames.length > 1) {
       subImage(
@@ -46,5 +45,5 @@ export function sprite(ctx: CanvasRenderingContext2D, sprite: Sprite) {
         }
       )
     }
-  });
+  // });
 }

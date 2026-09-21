@@ -48,7 +48,7 @@ export const defaultText: TextOptions = {
 }
 
 export const defaultTransform: TransformOptions = {
-  rotation: 0,
+  angle: 0,
   scale: 1,
   around: { x: 0, y: 0 }
 }

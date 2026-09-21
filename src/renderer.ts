@@ -214,7 +214,7 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
     commands.push({ type: 'popComposite' })
   }
 
-  function pushRotationTransform(rotation: number, around: Point) {
+  function pushRotateTransform(rotation: number, around: Point) {
     commands.push({
       type: 'pushTransform',
       transform: { rotate: rotation, around }
@@ -267,12 +267,12 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
     popScale()
   }
 
-  function rotation(
+  function rotate(
     drawingOperations: () => void,
     rotateBy: number,
     around: Point = { x: 0, y: 0 }
   ) {
-    pushRotationTransform(rotateBy, around)
+    pushRotateTransform(rotateBy, around)
     drawingOperations()
     popTransform()
   }
@@ -297,7 +297,7 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
     commands.push({ type: 'popAlpha' })
   }
 
-  function transparency(drawingOperations: () => void, alpha = 0.25) {
+  function opacity(drawingOperations: () => void, alpha = 0.25) {
     pushAlpha(alpha)
     drawingOperations()
     popAlpha()
@@ -425,7 +425,7 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
 
     scale(
       () => {
-        rotation(drawingOperations, merged.rotation, merged.around)
+        rotate(drawingOperations, merged.angle, merged.around)
       },
       merged.scale,
       merged.around
@@ -455,7 +455,9 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
 
         case 'popFilter': {
           filterStack.pop()
-          ctx.filter = filterStack.join(' ')
+          ctx.filter = filterStack.length
+           ? filterStack.join(' ')
+           : 'none'
           break
         }
 
@@ -502,6 +504,7 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
           break
 
         case 'draw': {
+          // console.log('DRAW FILTER:', ctx.filter)
           cmd.fn()
           break
         }
@@ -520,7 +523,7 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
     image,
     line,
     overlay,
-    rotation,
+    rotate,
     rect,
     shadow,
     sprite,
@@ -529,7 +532,7 @@ function create(ctx: CanvasRenderingContext2D): Renderer {
     subImage,
     text: txt,
     tiles,
-    transparency,
+    opacity,
     transform,
     multiply: multiplyEffect,
     screen,

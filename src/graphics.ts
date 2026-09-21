@@ -12,7 +12,7 @@ import {
   shadow,
   dodge,
   overlay,
-  transparency,
+  opacity,
   multiply as multiplyEffect,
   screen,
   blur,
@@ -26,7 +26,7 @@ import { image, subImage } from './graphics/images'
 import { circle, curve, square, rect, line } from './graphics/shapes'
 import { txt } from './graphics/text'
 import { tiles } from './graphics/tiles'
-import { rotation, scale, transform } from './graphics/transforms'
+import { rotate, scale, transform } from './graphics/transforms'
 import { sprite } from './graphics/sprites'
 import { clear } from './graphics/clear'
 
@@ -77,11 +77,11 @@ function create(ctx: CanvasRenderingContext2D): Graphics {
     overlay: drawingOperations => {
       overlay(ctx, drawingOperations)
     },
-    transparency: (drawingOperations, alpha = 0.25) => {
-      transparency(ctx, drawingOperations, alpha)
+    opacity: (drawingOperations, alpha = 0.25) => {
+      opacity(ctx, drawingOperations, alpha)
     },
-    rotation: (drawingOperations, rotateBy = 0, around = { x: 0, y: 0 }) => {
-      rotation(ctx, drawingOperations, rotateBy, around)
+    rotate: (drawingOperations, rotateBy = 0, around = { x: 0, y: 0 }) => {
+      rotate(ctx, drawingOperations, rotateBy, around)
     },
     transform: (drawingOperations, options = defaultTransform) => {
       transform(ctx, drawingOperations, options)
@@ -117,7 +117,7 @@ export default {
   image,
   line,
   overlay,
-  rotation,
+  rotate,
   rect,
   shadow,
   sprite,
@@ -125,7 +125,7 @@ export default {
   subImage,
   text: txt,
   tiles,
-  transparency,
+  opacity,
   transform,
   multiply: multiplyEffect,
   screen,

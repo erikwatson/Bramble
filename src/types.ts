@@ -2,7 +2,7 @@ export type Game = {
   attachTo: (element: Element) => void
   canvas: HTMLCanvasElement
   disableContextMenu: () => void
-  setBackgroundColor: (colour: string) => void
+  setBackgroundColour: (colour: string) => void
   setRender: (callback: (options: RenderCallbackOptions) => void) => void
   setSize: (width: number, height: number) => void
   setSmoothing: (to: boolean) => void
@@ -113,7 +113,7 @@ export type Frame = {
 
 export type Sprite = {
   position: Point
-  rotation: number
+  angle: number
   size: Size
   frames: Frame[]
   frame: number
@@ -131,10 +131,10 @@ export type InputState = {
 export type KeyState = {
   code: string
   name: string
-  pressed: false
-  justPressed: false
-  released: false
-  justReleased: false
+  pressed: boolean
+  justPressed: boolean
+  released: boolean
+  justReleased: boolean
 }
 
 export type KeyboardState = {
@@ -255,10 +255,10 @@ export interface Graphics {
   shadow: (drawingOperations: () => void, options?: DropShadowOptions) => void
   dodge: (drawingOperations: () => void) => void
   overlay: (drawingOperations: () => void) => void
-  transparency: (drawingOperations: () => void, alpha: number) => void
-  rotation: (
+  opacity: (drawingOperations: () => void, alpha: number) => void
+  rotate: (
     drawingOperations: () => void,
-    rotation: number,
+    angle: number,
     around: Point
   ) => void
   transform: (drawingOperations: () => void, options: TransformOptions) => void
@@ -272,7 +272,7 @@ export interface Graphics {
   ) => void
   strokeGlow: (
     drawingOperations: () => void,
-    options?: { color?: string; blur?: number }
+    options?: { colour?: string; blur?: number }
   ) => void
 }
 
@@ -312,7 +312,7 @@ export type TextOptions = {
 }
 
 export type TransformOptions = {
-  rotation?: number
+  angle?: number
   scale?: number | Point
   around?: Point
 }

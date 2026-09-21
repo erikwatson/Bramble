@@ -9,6 +9,10 @@ export function create(_x: number, _y: number): Vec2 {
     y += v.y
   }
 
+  const clone = (): Vec2 => {
+    return create(x, y)
+  }
+
   const addScalar = (s: number): void => {
     x += s
     y += s

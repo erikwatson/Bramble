@@ -1,7 +1,7 @@
 import { Point, RectangleOptions, Rectangle, LineOptions, CircleOptions } from "../types"
 import { merge } from "../utils/object"
 import { defaultRect, defaultLine, defaultCircle } from "./defaults"
-import { transparency } from "./effects"
+import { opacity } from "./effects"
 import { shouldSinglePass, shouldDrawFill, shouldDrawOutline, shouldDrawLine } from "./shape_utils"
 
 export function square(
@@ -51,11 +51,11 @@ export function rect(
     rectCombined(ctx, rectangle, options)
   } else {
     if (shouldDrawFill(options)) {
-      transparency(ctx, () => rectFill(ctx, rectangle, options), options.fill.opacity)
+      opacity(ctx, () => rectFill(ctx, rectangle, options), options.fill.opacity)
     }
 
     if (shouldDrawOutline(options)) {
-      transparency(ctx, () => rectOutline(ctx, rectangle, options), options.line.opacity)
+      opacity(ctx, () => rectOutline(ctx, rectangle, options), options.line.opacity)
     }
   }
 }
@@ -68,7 +68,7 @@ export function line(
 ) {
   options = merge(defaultLine, options)
   if (shouldDrawLine(options)) {
-    transparency(ctx, () => {
+    opacity(ctx, () => {
       ctx.strokeStyle = options.colour
       ctx.lineWidth = options.width
       ctx.lineCap = options.cap
@@ -91,7 +91,7 @@ export function bezier(
 ) {
   options = merge(defaultLine, options)
   if (shouldDrawLine(options)) {
-    transparency(ctx, () => {
+    opacity(ctx, () => {
       ctx.strokeStyle = options.colour
       ctx.lineWidth = options.width
       ctx.beginPath()
@@ -112,7 +112,7 @@ export function quadratic(
 ) {
   options = merge(defaultLine, options)
   if(shouldDrawLine(options)) {
-    transparency(ctx, () => {
+    opacity(ctx, () => {
       ctx.strokeStyle = options.colour
       ctx.lineWidth = options.width
       ctx.beginPath()
@@ -190,11 +190,11 @@ export function circle(
     circleCombined(ctx, position, radius, options)
   } else {
     if (shouldDrawFill(options)) {
-      transparency(ctx, () => circleFill(ctx, position, radius, options), options.fill.opacity)
+      opacity(ctx, () => circleFill(ctx, position, radius, options), options.fill.opacity)
     }
 
     if (shouldDrawOutline(options)) {
-      transparency(ctx, () => circleOutline(ctx, position, radius, options), options.line.opacity)
+      opacity(ctx, () => circleOutline(ctx, position, radius, options), options.line.opacity)
     }
   }
 }
@@ -202,7 +202,7 @@ export function circle(
 export function path(ctx: CanvasRenderingContext2D, operations: () => void, options = defaultLine) {
   options = merge(defaultLine, options)
   if (shouldDrawLine(options)) {
-    transparency(ctx, () => {
+    opacity(ctx, () => {
       ctx.globalAlpha = options.opacity
       ctx.strokeStyle = options.colour
       ctx.lineWidth = options.width

@@ -3,7 +3,7 @@ import { Sprite, Frame, Point, Size } from './types'
 function create(
   position: Point,
   size: Size,
-  rotation: number = 0,
+  angle: number = 0,
   texture: HTMLImageElement,
   colour: string = '#ffffff'
 ): Sprite {
@@ -28,12 +28,12 @@ function create(
       return frames
     },
 
-    get rotation() {
-      return rotation
+    get angle() {
+      return angle
     },
 
-    set rotation(degrees) {
-      rotation = degrees >= 360 ? 360 - degrees : degrees
+    set angle(degrees) {
+      angle = degrees >= 360 ? 360 - degrees : degrees
     }
   }
 }

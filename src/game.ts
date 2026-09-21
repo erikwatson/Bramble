@@ -13,7 +13,7 @@ import {
 } from './types'
 
 const create = (): Game => {
-  let backgroundColor = null
+  let backgroundColour = null
 
   let update: (options: UpdateCallbackOptions) => void = null
   let render: (options: RenderCallbackOptions) => void = null
@@ -34,8 +34,8 @@ const create = (): Game => {
   let mouseInput: Mouse = mouse.create(canvas)
   let keyboardInput: Keyboard = keyboard.create(canvas)
 
-  const setBackgroundColor = (color: string) => {
-    backgroundColor = color
+  const setBackgroundColour = (colour: string) => {
+    backgroundColour = colour
   }
 
   const attachTo = (element: Element) => {
@@ -69,8 +69,8 @@ const create = (): Game => {
     }
 
     if (render) {
-      if (backgroundColor) {
-        gfx.clear(backgroundColor)
+      if (backgroundColour) {
+        gfx.clear(backgroundColour)
       }
 
       render({ gfx: ren, assets: assetManager.assets })
@@ -116,7 +116,7 @@ const create = (): Game => {
     setSize,
     setUpdate,
     setRender,
-    setBackgroundColor,
+    setBackgroundColour,
     canvas,
     disableContextMenu,
     setSmoothing,

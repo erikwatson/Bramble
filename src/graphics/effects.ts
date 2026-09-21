@@ -1,6 +1,5 @@
 import { ColourShiftOptions, DropShadowOptions, StrokeGlowOptions } from "../types"
 import { merge } from "../utils/object"
-import { freshContext } from "./common"
 import { defaultDropShadow } from "./defaults"
 
 export function shadow(
@@ -34,7 +33,7 @@ export function overlay(ctx: CanvasRenderingContext2D, drawingOperations: () => 
   // })
 }
 
-export function transparency(
+export function opacity(
   ctx: CanvasRenderingContext2D,
   drawingOperations: () => void,
   alpha = 0.25
@@ -76,7 +75,7 @@ export function blur(
   // })
 }
 
-export const defaultColourShift = {
+export const defaultColourShift: ColourShiftOptions = {
   hue: 0,
   saturate: 1
 }
@@ -93,8 +92,8 @@ export function colourShift(
   // })
 }
 
-export const defaultStrokeGlow = {
-  color: 'white',
+export const defaultStrokeGlow: StrokeGlowOptions = {
+  colour: 'white',
   blur: 8
 }
 
@@ -103,11 +102,11 @@ export function strokeGlow(
   drawingOperations: () => void,
   options: StrokeGlowOptions = defaultStrokeGlow
 ) {
-  freshContext(ctx, () => {
+  // freshContext(ctx, () => {
     ctx.shadowColor = options.colour ?? 'white'
     ctx.shadowBlur = options.blur ?? 8
     ctx.shadowOffsetX = 0
     ctx.shadowOffsetY = 0
     drawingOperations()
-  })
+  // })
 }
