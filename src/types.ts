@@ -39,7 +39,7 @@ export type AssetManager = {
 }
 
 export type Sound = {
-  play: (id: string, buffer: AudioBuffer) => void
+  play: (id: string) => void
   stop: (id: string) => void
   volume: (id: string, level: number) => void
   mute: (id: string) => void

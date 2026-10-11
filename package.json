@@ -6,8 +6,11 @@
   "module": "./dist/bramble.esm.js",
   "type": "module",
   "exports": {
-    "import": "./dist/bramble.esm.js",
-    "require": "./dist/bramble.cjs"
+    ".": {
+      "types": "./dist/bramble.d.ts",
+      "import": "./dist/bramble.esm.js",
+      "require": "./dist/bramble.cjs"
+    }
   },
   "types": "./dist/bramble.d.ts",
   "author": "Erik Watson <erik@erikwatson.me>",
