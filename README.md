@@ -335,29 +335,3 @@ Generated type documentation is available here:
 ## Authors
 
 [Erik Watson](http://erikwatson.me)
-
-# Package developers only
-
-## Publishing
-
-1. Change and commit the code.
-
-2. Run a production build:
-
-```bash
-npm run build
-```
-
-3. Update the package version:
-
-```bash
-npm version major
-npm version minor
-npm version patch
-```
-
-4. Publish the release:
-
-```bash
-npm run release
-```
